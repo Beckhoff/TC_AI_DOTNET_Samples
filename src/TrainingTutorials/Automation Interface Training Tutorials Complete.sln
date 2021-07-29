@@ -1,0 +1,184 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30626.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_01_NewVsInstance", "Tutorial_01_NewVsInstance\Tutorial_01_NewVsInstance.csproj", "{FE5AFE17-6F48-4BA0-90F4-967ACD888DDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_02_ExistingVsInstance", "Tutorial_02_ExistingVsInstance\Tutorial_02_ExistingVsInstance.csproj", "{18A517B5-07C8-454C-8D44-3C497F5CAA89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_03_NewTcConfiguration", "Tutorial_03_NewTcConfiguration\Tutorial_03_NewTcConfiguration.csproj", "{48EFC286-8813-43E5-AFF2-BD27A32991D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_04_ExistingTcConfiguration", "Tutorial_04_ExistingTcConfiguration\Tutorial_04_ExistingTcConfiguration.csproj", "{C0DFD2E7-D4A9-4D1B-B7F7-3CBBF39BDE46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_05_AddingIO", "Tutorial_05_AddingIO\Tutorial_05_AddingIO.csproj", "{FFFE62B8-3D97-41E3-BC72-7D1AFC9E346C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_06_AddingIOtemplates", "Tutorial_06_AddingIOtemplates\Tutorial_06_AddingIOtemplates.csproj", "{50B3C5AB-0256-4165-8447-0A350B0E10F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_07_AddNewPlcProject", "Tutorial_07_AddNewPlcProject\Tutorial_07_AddNewPlcProject.csproj", "{CE0E2BED-0BB7-4E0D-92D9-02E04BE2835D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_08_AddExistingPlcProject", "Tutorial_08_AddExistingPlcProject\Tutorial_08_AddExistingPlcProject.csproj", "{920EF589-5FFB-480E-BBCC-F38CFAEBA829}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_09_AddNewPou", "Tutorial_09_AddNewPou\Tutorial_09_AddNewPou.csproj", "{FC407B9F-315C-4EA5-BE42-5E9AB4E8B2D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_10_AddChangePouCode", "Tutorial_10_AddChangePouCode\Tutorial_10_AddChangePouCode.csproj", "{1C907F9F-351D-4CFC-844A-AF7C96C4D588}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_11_AddRemoveLibraryReferences", "Tutorial_11_AddRemoveLibraryReferences\Tutorial_11_AddRemoveLibraryReferences.csproj", "{7ED0643E-9E52-4DD2-8D3B-852906CC6884}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_12_AddRemoveLibraryRepositories", "Tutorial_12_AddRemoveLibraryRepositories\Tutorial_12_AddRemoveLibraryRepositories.csproj", "{3C244C04-ADE8-4C4C-9E55-1D5B1D066F93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_13_AddTcComObjects", "Tutorial_13_AddTcComObjects\Tutorial_13_AddTcComObjects.csproj", "{E5343DA0-7F45-49D2-A342-CBACCDB823ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_14_ChangeSettingsTcComObjects", "Tutorial_14_ChangeSettingsTcComObjects\Tutorial_14_ChangeSettingsTcComObjects.csproj", "{178FC61B-DCB3-4199-91FA-02DACD547682}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_15_AddTcMeasurementProject", "Tutorial_15_AddTcMeasurementProject\Tutorial_15_AddTcMeasurementProject.csproj", "{FB990DC0-3C93-4A82-93D5-088B65ECEF2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_16_AddChartsAxesChannels", "Tutorial_16_AddChartsAxesChannels\Tutorial_16_AddChartsAxesChannels.csproj", "{AB7EFDF3-FD51-4AB6-9B03-0758A369FFB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_17_StartingStoppingRecords", "Tutorial_17_StartingStoppingRecords\Tutorial_17_StartingStoppingRecords.csproj", "{C06EF345-3DBE-4662-9B01-EBC997BB0EA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tutorial_18_VariableMapping", "Tutorial_18_VariableMapping\Tutorial_18_VariableMapping.csproj", "{02B1E3B6-1203-465B-953E-F7A4235CEFC5}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 19
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://nt-teamfd02:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Tutorial_01_NewVsInstance\\Tutorial_01_NewVsInstance.csproj
+		SccProjectName1 = Tutorial_01_NewVsInstance
+		SccLocalPath1 = Tutorial_01_NewVsInstance
+		SccProjectUniqueName2 = Tutorial_02_ExistingVsInstance\\Tutorial_02_ExistingVsInstance.csproj
+		SccProjectName2 = Tutorial_02_ExistingVsInstance
+		SccLocalPath2 = Tutorial_02_ExistingVsInstance
+		SccProjectUniqueName3 = Tutorial_03_NewTcConfiguration\\Tutorial_03_NewTcConfiguration.csproj
+		SccProjectName3 = Tutorial_03_NewTcConfiguration
+		SccLocalPath3 = Tutorial_03_NewTcConfiguration
+		SccProjectUniqueName4 = Tutorial_04_ExistingTcConfiguration\\Tutorial_04_ExistingTcConfiguration.csproj
+		SccProjectName4 = Tutorial_04_ExistingTcConfiguration
+		SccLocalPath4 = Tutorial_04_ExistingTcConfiguration
+		SccProjectUniqueName5 = Tutorial_05_AddingIO\\Tutorial_05_AddingIO.csproj
+		SccProjectName5 = Tutorial_05_AddingIO
+		SccLocalPath5 = Tutorial_05_AddingIO
+		SccProjectUniqueName6 = Tutorial_06_AddingIOtemplates\\Tutorial_06_AddingIOtemplates.csproj
+		SccProjectName6 = Tutorial_06_AddingIOtemplates
+		SccLocalPath6 = Tutorial_06_AddingIOtemplates
+		SccProjectUniqueName7 = Tutorial_07_AddNewPlcProject\\Tutorial_07_AddNewPlcProject.csproj
+		SccProjectName7 = Tutorial_07_AddNewPlcProject
+		SccLocalPath7 = Tutorial_07_AddNewPlcProject
+		SccProjectUniqueName8 = Tutorial_08_AddExistingPlcProject\\Tutorial_08_AddExistingPlcProject.csproj
+		SccProjectName8 = Tutorial_08_AddExistingPlcProject
+		SccLocalPath8 = Tutorial_08_AddExistingPlcProject
+		SccProjectUniqueName9 = Tutorial_09_AddNewPou\\Tutorial_09_AddNewPou.csproj
+		SccProjectName9 = Tutorial_09_AddNewPou
+		SccLocalPath9 = Tutorial_09_AddNewPou
+		SccProjectUniqueName10 = Tutorial_10_AddChangePouCode\\Tutorial_10_AddChangePouCode.csproj
+		SccProjectName10 = Tutorial_10_AddChangePouCode
+		SccLocalPath10 = Tutorial_10_AddChangePouCode
+		SccProjectUniqueName11 = Tutorial_11_AddRemoveLibraryReferences\\Tutorial_11_AddRemoveLibraryReferences.csproj
+		SccProjectName11 = Tutorial_11_AddRemoveLibraryReferences
+		SccLocalPath11 = Tutorial_11_AddRemoveLibraryReferences
+		SccProjectUniqueName12 = Tutorial_12_AddRemoveLibraryRepositories\\Tutorial_12_AddRemoveLibraryRepositories.csproj
+		SccProjectName12 = Tutorial_12_AddRemoveLibraryRepositories
+		SccLocalPath12 = Tutorial_12_AddRemoveLibraryRepositories
+		SccProjectUniqueName13 = Tutorial_13_AddTcComObjects\\Tutorial_13_AddTcComObjects.csproj
+		SccProjectName13 = Tutorial_13_AddTcComObjects
+		SccLocalPath13 = Tutorial_13_AddTcComObjects
+		SccProjectUniqueName14 = Tutorial_14_ChangeSettingsTcComObjects\\Tutorial_14_ChangeSettingsTcComObjects.csproj
+		SccProjectName14 = Tutorial_14_ChangeSettingsTcComObjects
+		SccLocalPath14 = Tutorial_14_ChangeSettingsTcComObjects
+		SccProjectUniqueName15 = Tutorial_15_AddTcMeasurementProject\\Tutorial_15_AddTcMeasurementProject.csproj
+		SccProjectName15 = Tutorial_15_AddTcMeasurementProject
+		SccLocalPath15 = Tutorial_15_AddTcMeasurementProject
+		SccProjectUniqueName16 = Tutorial_16_AddChartsAxesChannels\\Tutorial_16_AddChartsAxesChannels.csproj
+		SccProjectName16 = Tutorial_16_AddChartsAxesChannels
+		SccLocalPath16 = Tutorial_16_AddChartsAxesChannels
+		SccProjectUniqueName17 = Tutorial_17_StartingStoppingRecords\\Tutorial_17_StartingStoppingRecords.csproj
+		SccProjectName17 = Tutorial_17_StartingStoppingRecords
+		SccLocalPath17 = Tutorial_17_StartingStoppingRecords
+		SccProjectUniqueName18 = Tutorial_18_VariableMapping\\Tutorial_18_VariableMapping.csproj
+		SccProjectName18 = Tutorial_18_VariableMapping
+		SccLocalPath18 = Tutorial_18_VariableMapping
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FE5AFE17-6F48-4BA0-90F4-967ACD888DDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5AFE17-6F48-4BA0-90F4-967ACD888DDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5AFE17-6F48-4BA0-90F4-967ACD888DDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5AFE17-6F48-4BA0-90F4-967ACD888DDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18A517B5-07C8-454C-8D44-3C497F5CAA89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18A517B5-07C8-454C-8D44-3C497F5CAA89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18A517B5-07C8-454C-8D44-3C497F5CAA89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18A517B5-07C8-454C-8D44-3C497F5CAA89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48EFC286-8813-43E5-AFF2-BD27A32991D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48EFC286-8813-43E5-AFF2-BD27A32991D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48EFC286-8813-43E5-AFF2-BD27A32991D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48EFC286-8813-43E5-AFF2-BD27A32991D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0DFD2E7-D4A9-4D1B-B7F7-3CBBF39BDE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0DFD2E7-D4A9-4D1B-B7F7-3CBBF39BDE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0DFD2E7-D4A9-4D1B-B7F7-3CBBF39BDE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0DFD2E7-D4A9-4D1B-B7F7-3CBBF39BDE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFFE62B8-3D97-41E3-BC72-7D1AFC9E346C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFFE62B8-3D97-41E3-BC72-7D1AFC9E346C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFFE62B8-3D97-41E3-BC72-7D1AFC9E346C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFFE62B8-3D97-41E3-BC72-7D1AFC9E346C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50B3C5AB-0256-4165-8447-0A350B0E10F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50B3C5AB-0256-4165-8447-0A350B0E10F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50B3C5AB-0256-4165-8447-0A350B0E10F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50B3C5AB-0256-4165-8447-0A350B0E10F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE0E2BED-0BB7-4E0D-92D9-02E04BE2835D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE0E2BED-0BB7-4E0D-92D9-02E04BE2835D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE0E2BED-0BB7-4E0D-92D9-02E04BE2835D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE0E2BED-0BB7-4E0D-92D9-02E04BE2835D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920EF589-5FFB-480E-BBCC-F38CFAEBA829}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920EF589-5FFB-480E-BBCC-F38CFAEBA829}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920EF589-5FFB-480E-BBCC-F38CFAEBA829}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920EF589-5FFB-480E-BBCC-F38CFAEBA829}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC407B9F-315C-4EA5-BE42-5E9AB4E8B2D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC407B9F-315C-4EA5-BE42-5E9AB4E8B2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC407B9F-315C-4EA5-BE42-5E9AB4E8B2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC407B9F-315C-4EA5-BE42-5E9AB4E8B2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C907F9F-351D-4CFC-844A-AF7C96C4D588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C907F9F-351D-4CFC-844A-AF7C96C4D588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C907F9F-351D-4CFC-844A-AF7C96C4D588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C907F9F-351D-4CFC-844A-AF7C96C4D588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ED0643E-9E52-4DD2-8D3B-852906CC6884}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ED0643E-9E52-4DD2-8D3B-852906CC6884}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ED0643E-9E52-4DD2-8D3B-852906CC6884}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ED0643E-9E52-4DD2-8D3B-852906CC6884}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C244C04-ADE8-4C4C-9E55-1D5B1D066F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C244C04-ADE8-4C4C-9E55-1D5B1D066F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C244C04-ADE8-4C4C-9E55-1D5B1D066F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C244C04-ADE8-4C4C-9E55-1D5B1D066F93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5343DA0-7F45-49D2-A342-CBACCDB823ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5343DA0-7F45-49D2-A342-CBACCDB823ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5343DA0-7F45-49D2-A342-CBACCDB823ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5343DA0-7F45-49D2-A342-CBACCDB823ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{178FC61B-DCB3-4199-91FA-02DACD547682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{178FC61B-DCB3-4199-91FA-02DACD547682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{178FC61B-DCB3-4199-91FA-02DACD547682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{178FC61B-DCB3-4199-91FA-02DACD547682}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB990DC0-3C93-4A82-93D5-088B65ECEF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB990DC0-3C93-4A82-93D5-088B65ECEF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB990DC0-3C93-4A82-93D5-088B65ECEF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB990DC0-3C93-4A82-93D5-088B65ECEF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB7EFDF3-FD51-4AB6-9B03-0758A369FFB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB7EFDF3-FD51-4AB6-9B03-0758A369FFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB7EFDF3-FD51-4AB6-9B03-0758A369FFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB7EFDF3-FD51-4AB6-9B03-0758A369FFB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06EF345-3DBE-4662-9B01-EBC997BB0EA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06EF345-3DBE-4662-9B01-EBC997BB0EA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06EF345-3DBE-4662-9B01-EBC997BB0EA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06EF345-3DBE-4662-9B01-EBC997BB0EA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02B1E3B6-1203-465B-953E-F7A4235CEFC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02B1E3B6-1203-465B-953E-F7A4235CEFC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02B1E3B6-1203-465B-953E-F7A4235CEFC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02B1E3B6-1203-465B-953E-F7A4235CEFC5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
