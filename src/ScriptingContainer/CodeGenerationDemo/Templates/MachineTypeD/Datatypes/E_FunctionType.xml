@@ -1,0 +1,16 @@
+﻿<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.20">
+  <DUT Name="E_FunctionType" Id="{49993c8e-6693-4c04-8d3a-ef1c64696c74}">
+    <Declaration><![CDATA[TYPE E_FunctionType :
+(
+	eSine,
+	eSquare,
+	ePulse,
+	eTriangular,
+	eSawtooth,	
+	eAM
+);
+END_TYPE
+]]></Declaration>
+    <ObjectProperties />
+  </DUT>
+</TcPlcObject>

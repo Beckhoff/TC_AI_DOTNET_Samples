@@ -1,0 +1,331 @@
+﻿<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.20">
+  <POU Name="FB_FunctionGenerator" Id="{988c779a-c9d5-45f1-bfb7-817992330896}">
+    <Declaration><![CDATA[// generates a signal build up by the specified function type. v1.2
+FUNCTION_BLOCK FB_FunctionGenerator
+VAR_INPUT
+	bEnable		: BOOL := TRUE;
+	fFrequency	: LREAL := 1000;	// in [Hz]
+	fAmplitude	: LREAL := 1;
+	fOffset		: LREAL;
+	nDutyCycle	: UINT := 50;		// % (for pulse function)
+	eFunction	: E_FunctionType := E_FunctionType.eSine;	
+END_VAR
+VAR_IN_OUT
+	aSignal		: ARRAY[1..cOverSamples] OF LREAL;
+END_VAR
+VAR_OUTPUT
+	bError		: BOOL;
+END_VAR
+
+VAR
+	bInit						: BOOL := TRUE;
+	fbGetTaskIdx				: GETCURTASKINDEX;
+	
+	fLastFrequency				: LREAL;		// in [Hz]
+	fLastAmplitude				: LREAL;
+	fLastOffset					: LREAL;
+	nLastDutyCycle				: UINT;
+	eLastFunction				: E_FunctionType;
+	
+	nSamples					: UDINT;
+	fCycleTime					: LREAL;		// in [s]
+	fDelta						: LREAL;		// amplitude delta per sample
+	fPhase						: LREAL;		// in [°]
+	nSign						: INT := 1;		// 1 or -1
+	fLastSignalValue			: LREAL;		// amplitude
+	fPeriod						: LREAL;		// in [s]
+	fAngularIncrement			: LREAL;		// in [°]
+	fAngularIncrementPerCycle	: LREAL;		// in [°]
+	fAngularIncrementPerSample	: LREAL;		// in [°]
+	(* for modulated signal *)
+	fCarrierFrequency			: LREAL := 500;	// in [Hz] (sine)
+	fCarrierAmplitude			: LREAL := 1;
+	fCarrierPeriod				: LREAL;		// in [s]
+	fCarrierAngularIncrement			: LREAL;		// in [°]
+	fCarrierAngularIncrementPerCycle	: LREAL;		// in [°]
+	fCarrierAngularIncrementPerSample	: LREAL;		// in [°]
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bEnable THEN
+	IF fLastFrequency <> fFrequency THEN
+		bInit := TRUE; // For automatic initializing
+		fLastFrequency := fFrequency;
+	END_IF
+	IF fLastAmplitude <> fAmplitude THEN
+		bInit := TRUE; // For automatic initializing
+		fLastAmplitude := fAmplitude;
+	END_IF
+	IF fLastOffset <> fOffset THEN
+		bInit := TRUE; // For automatic initializing
+		fLastOffset := fOffset;
+	END_IF
+	IF nLastDutyCycle <> nDutyCycle THEN
+		bInit := TRUE; // For automatic initializing
+		nLastDutyCycle := nDutyCycle;
+	END_IF
+	IF eLastFunction <> eFunction THEN
+		bInit := TRUE; // For automatic initializing
+		eLastFunction := eFunction;
+	END_IF
+	IF bInit THEN
+		// Get taks info	
+		fbGetTaskIdx();
+		fCycleTime := TwinCAT_SystemInfoVarList._TaskInfo[fbGetTaskIdx.index].CycleTime (*100ns*) / (10.0 * 1000.0 * 1000.0);	
+		fLastSignalValue := 0;
+		nSign := 1;
+		fAngularIncrement := 0;
+		// Flush out old data
+		MEMSET(ADR(aSignal), 0, SIZEOF(aSignal));
+		IF fFrequency <> 0 AND fCycleTime > 0 THEN		
+			// Calculate period, increments per plc cycle, increment per oversample
+			IF cOversamples <> 0 THEN			
+				IF eFunction = E_FunctionType.eSine THEN
+					fPeriod := 1/fFrequency;
+					fAngularIncrementPerCycle := 360*(fCycleTime/fPeriod);
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					// no phase adjustment
+					bInit := FALSE;	
+				ELSIF eFunction = E_FunctionType.eSquare	THEN
+					fPeriod := 1/fFrequency;
+					fAngularIncrementPerCycle  := 360*(fCycleTime/fPeriod);
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					fPhase := 0.5*360;
+					bInit := FALSE;
+				ELSIF eFunction = E_FunctionType.ePulse THEN
+					fPeriod := 1/fFrequency;
+					fAngularIncrementPerCycle  := 360*(fCycleTime/fPeriod);
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					IF nDutyCycle > 100 THEN
+						nDutyCycle := 100;
+					END_IF
+					fPhase := (UDINT_TO_LREAL(nDutyCycle)/100)*360;
+					bInit := FALSE;					
+				ELSIF eFunction = E_FunctionType.eTriangular THEN
+					fPeriod := 1/fFrequency;				
+					fAngularIncrementPerCycle  := 360*(fCycleTime/fPeriod);
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					fPhase := 0.5*360; 
+					fDelta := 4*(fAmplitude/(360/fAngularIncrementPerSample));				
+					bInit := FALSE;
+				ELSIF eFunction = E_FunctionType.eSawtooth THEN
+					fPeriod := 1/fFrequency;			
+					fAngularIncrementPerCycle  := 360*(fCycleTime/fPeriod);		
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					fDelta := fAmplitude/(360/fAngularIncrementPerSample);
+					bInit := FALSE;
+				ELSIF eFunction = E_FunctionType.eAM THEN
+					fPeriod := 1/fFrequency;
+					fAngularIncrementPerCycle := 360*(fCycleTime/fPeriod);
+					fAngularIncrementPerSample := fAngularIncrementPerCycle/cOversamples;
+					// no phase adjustment
+					fCarrierPeriod := 1/fCarrierFrequency;
+					fCarrierAngularIncrementPerCycle := 360*(fCycleTime/fCarrierPeriod);
+					fCarrierAngularIncrementPerSample := fCarrierAngularIncrementPerCycle/cOversamples;				
+					// no phase adjustment	
+					bInit := FALSE;			
+				ELSE
+					bError := TRUE;	
+				END_IF
+			ELSE
+				bError := TRUE;
+			END_IF
+		ELSE
+			bError := TRUE;
+		END_IF
+	END_IF
+	
+	// Enable function generator
+	IF NOT bError THEN		
+		CASE eFunction OF		
+			// sine: typical for vibrations originating from rotating machine
+			E_FunctionType.eSine: Sine();
+			
+			// square: mixed sine signals good for analyzing spectrum				
+			E_FunctionType.eSquare: Square();
+			
+			// pulse: mixed sine signals good for analyzing spectrum				
+			E_FunctionType.ePulse: Pulse();
+	
+			// sawtooth: ramp-type vibrations, continuously increasing			
+			E_FunctionType.eSawtooth: Sawtooth();
+		
+			// triangular: mixed sine signals good for analyzing spectrum
+			E_FunctionType.eTriangular: Triangular();
+		
+			// amplitude modulation: typical for vibrations originating from gear-tooth failure or bearing faults
+			// Carrier signal with own frequency and amplitude		
+			E_FunctionType.eAM: AM();			
+		END_CASE
+	END_IF
+ELSE
+	// Flush out old data
+	MEMSET(ADR(aSignal), 0, SIZEOF(aSignal));
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="Sine" Id="{1137db63-850b-4247-ae79-da966a553bc9}">
+      <Declaration><![CDATA[METHOD PRIVATE Sine
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	aSignal[nSamples] := fAmplitude*SIN(2*PI*(fAngularIncrement+(nSamples-1)*fAngularIncrementPerSample)/360);
+
+	aSignal[nSamples] := aSignal[nSamples] + fOffset;
+END_FOR
+
+// Increment angular position
+fAngularIncrement := fAngularIncrement + fAngularIncrementPerCycle;
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Sawtooth" Id="{479a15b1-a096-4c3b-aa4a-d07cce1d9746}">
+      <Declaration><![CDATA[METHOD PRIVATE Sawtooth
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	// For sawtooth wave (equal phase = period/2)
+	IF (fAngularIncrement >= 360) THEN
+		fAngularIncrement := fAngularIncrement - DINT_TO_LREAL(LREAL_TO_DINT(fAngularIncrement/360))*360;
+		// or with Tc2_Math library: fAngularIncrement := LMOD(fAngularIncrement,360);
+		fLastSignalValue := fLastSignalValue -fAmplitude;
+	END_IF
+	fAngularIncrement := fAngularIncrement + fAngularIncrementPerSample;
+
+	aSignal[nSamples] := fLastSignalValue + fDelta;
+
+	// Store last sample
+	fLastSignalValue := aSignal[nSamples];
+	
+	aSignal[nSamples] := aSignal[nSamples] + fOffset;					
+END_FOR	
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="AM" Id="{74a1a013-a8da-402f-9613-a15459ca2c29}">
+      <Declaration><![CDATA[METHOD PRIVATE AM
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	// base signal * carrier signal
+	aSignal[nSamples] := ( fAmplitude*SIN(2*PI*(fAngularIncrement+(nSamples-1)*fAngularIncrementPerSample)/360) + fOffset )
+							* ( fCarrierAmplitude*SIN(2*PI*(fCarrierAngularIncrement+(nSamples-1)*fCarrierAngularIncrementPerSample)/360) );
+END_FOR
+// Increment angular positions
+fAngularIncrement := fAngularIncrement + fAngularIncrementPerCycle;
+fCarrierAngularIncrement := fCarrierAngularIncrement + fCarrierAngularIncrementPerCycle;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Pulse" Id="{cc8d698e-9633-433b-9faf-f4f4738d2188}">
+      <Declaration><![CDATA[METHOD PRIVATE Pulse
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	// For pulse wave (unequal phases)
+	IF (fAngularIncrement >= 360) THEN
+		fAngularIncrement := fAngularIncrement - DINT_TO_LREAL(LREAL_TO_DINT(fAngularIncrement/360))*360;
+		// or with Tc2_Math library: fAngularIncrement := LMOD(fAngularIncrement,360);
+	END_IF
+	IF (fAngularIncrement < fPhase) THEN
+		nSign := 1;		
+	ELSIF (fAngularIncrement >= fPhase) THEN
+		nSign := 0;
+	END_IF
+	fAngularIncrement := fAngularIncrement + fAngularIncrementPerSample;
+	
+	aSignal[nSamples] := nSign*fAmplitude;
+	
+	aSignal[nSamples] := aSignal[nSamples] + fOffset;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Square" Id="{f3abdc25-01cf-41cd-b4d3-72fe0b4ac406}">
+      <Declaration><![CDATA[METHOD PRIVATE Square
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	// For square wave (equal phase = period/2)
+	IF (fAngularIncrement >= 360) THEN
+		fAngularIncrement := fAngularIncrement - DINT_TO_LREAL(LREAL_TO_DINT(fAngularIncrement/360))*360;
+		// or with Tc2_Math library: fAngularIncrement := LMOD(fAngularIncrement,360);
+	END_IF
+	IF (fAngularIncrement < fPhase) THEN
+		nSign := 1;
+	ELSIF (fAngularIncrement >= fPhase) THEN
+		nSign := -1;
+	END_IF
+	fAngularIncrement := fAngularIncrement + fAngularIncrementPerSample;
+	
+	aSignal[nSamples] := nSign*fAmplitude;
+	
+	aSignal[nSamples] := aSignal[nSamples] + fOffset;
+END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="Triangular" Id="{f4cadd30-9196-4fe9-94fb-845323484369}">
+      <Declaration><![CDATA[METHOD PRIVATE Triangular
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR nSamples := 1 TO cOversamples DO
+	IF (fAngularIncrement >= 360) THEN
+		fAngularIncrement := fAngularIncrement - DINT_TO_LREAL(LREAL_TO_DINT(fAngularIncrement/360))*360;
+		// or with Tc2_Math library: fAngularIncrement := LMOD(fAngularIncrement,360);
+	END_IF
+	// Negative delta -> Positive delta
+	IF fAngularIncrement < fPhase/2 THEN	
+		nSign := 1;		
+	ELSIF fAngularIncrement >= fPhase/2 AND fAngularIncrement < 3*fPhase/2 THEN
+		nSign := -1;
+	ELSIF fAngularIncrement >= 3*fPhase/2 THEN
+		nSign := 1;	
+	END_IF
+	fAngularIncrement := fAngularIncrement + fAngularIncrementPerSample;
+	
+	aSignal[nSamples] := fLastSignalValue + nSign*fDelta;
+	IF aSignal[nSamples] > fAmplitude THEN
+		aSignal[nSamples] := aSignal[nSamples] - 2*(aSignal[nSamples]-fAmplitude);
+	ELSIF aSignal[nSamples] < (-1)*fAmplitude THEN
+		aSignal[nSamples] := aSignal[nSamples] - 2*(aSignal[nSamples]+fAmplitude);
+	END_IF
+	
+	// Store last sample
+	fLastSignalValue := aSignal[nSamples];		
+	
+	aSignal[nSamples] := aSignal[nSamples] + fOffset;
+END_FOR
+
+
+	]]></ST>
+      </Implementation>
+    </Method>
+    <ObjectProperties>﻿<XmlArchive>
+  <Data>
+    <o xml:space="preserve" t="POUImageProperty">
+      <n n="ImageData" />
+      <v n="TransparencyColor">"White"</v>
+      <v n="MakeTransparent">false</v>
+    </o>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="POUImageProperty">{bb741845-1ec5-4be9-bb0d-2cf7058af574}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive></ObjectProperties>
+  </POU>
+</TcPlcObject>

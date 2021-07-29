@@ -1,0 +1,64 @@
+<VarLinks>
+  <OwnerA Name="TIPC^MachineTypeA^MachineTypeA Instance">
+    <OwnerB Name="TINC^Task 1 SAF^Axes^Axis 1">
+      <Link VarA="PlcTask Inputs^MAIN.fbAxis1.AxisRef.NcToPlc"
+      VarB="Outputs^ToPlc" />
+      <Link VarA="PlcTask Outputs^MAIN.fbAxis1.AxisRef.PlcToNc"
+      VarB="Inputs^FromPlc" />
+    </OwnerB>
+    <OwnerB Name="TIID^EtherCAT Master^Term 1^Term 3">
+      <Link VarA="PlcTask Outputs^MAIN.bError"
+      VarB="Channel 2^Output" />
+      <Link VarA="PlcTask Outputs^MAIN.bEnabled"
+      VarB="Channel 1^Output" />
+    </OwnerB>
+    <OwnerB Name="TINC^Task 1 SAF^Axes^Axis 2">
+      <Link VarA="PlcTask Inputs^MAIN.fbAxis2.AxisRef.NcToPlc"
+      VarB="Outputs^ToPlc" />
+      <Link VarA="PlcTask Outputs^MAIN.fbAxis2.AxisRef.PlcToNc"
+      VarB="Inputs^FromPlc" />
+    </OwnerB>
+  </OwnerA>
+  <!--<OwnerA Name="TINC^Task 1 SAF^Axes^Axis 2">
+    <OwnerB Name="TIID^EtherCAT Master^Drive 1">
+      <Link VarA="Enc^Inputs^In^nDcInputTime"
+      VarB="InfoData^DcInputShift" />
+      <Link VarA="Drive^Inputs^In^nDcOutputTime"
+      VarB="InfoData^DcOutputShift" />
+      <Link VarA="Drive^Outputs^Out^nCtrl1"
+      VarB="MDT 2^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Enc^Inputs^In^nDataIn1"
+      VarB="AT 2^Position feedback 1 value" />
+      <Link VarA="Drive^Outputs^Out^nDataOut2"
+      VarB="MDT 2^Velocity command value" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle"
+      Size="1" OffsA="1" />
+      <Link VarA="Drive^Inputs^In^nState2"
+      VarB="AT 2^Drive status word" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^WcState" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^InputToggle" Size="1" OffsA="1" />
+      <Link VarA="Drive^Inputs^In^nState1"
+      VarB="AT 2^Drive status word" Size="8" OffsB="8" />
+    </OwnerB>
+  </OwnerA>
+  <OwnerA Name="TINC^Task 1 SAF^Axes^Axis 1">
+    <OwnerB Name="TIID^EtherCAT Master^Drive 1">
+      <Link VarA="Enc^Inputs^In^nDataIn1"
+      VarB="AT 1^Position feedback 1 value" />
+      <Link VarA="Drive^Inputs^In^nState1"
+      VarB="AT 1^Drive status word" Size="8" OffsB="8" />
+      <Link VarA="Drive^Outputs^Out^nDataOut2"
+      VarB="MDT 1^Velocity command value" />
+      <Link VarA="Drive^Outputs^Out^nCtrl1"
+      VarB="MDT 1^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState" />
+      <Link VarA="Drive^Inputs^In^nState2"
+      VarB="AT 1^Drive status word" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^WcState" />
+    </OwnerB>
+  </OwnerA>-->
+</VarLinks>

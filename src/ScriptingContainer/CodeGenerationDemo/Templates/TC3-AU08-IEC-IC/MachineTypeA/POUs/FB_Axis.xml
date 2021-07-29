@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_Axis" Id="{027546b0-fa3e-4f39-8192-e1002dc357c8}"><Declaration><![CDATA[FUNCTION_BLOCK FB_Axis
+VAR_INPUT
+	bDriveReset	: BOOL;				// request reset
+	bHalt		: BOOL;				// request stop
+END_VAR
+VAR_OUTPUT
+	bStatus 	: BOOL;				// enable feedback
+	lrActPos	: LREAL;			// current position
+	bNCError	: BOOL;				// error in NC (motion controller)
+	bDriveError	: BOOL;				// error in drive (AX5000)
+	iErrorID	: DWORD;			// error ID
+END_VAR
+VAR
+	iState 		: INT;
+	AxisRef		: AXIS_REF;			// axis reference (process data plc/nc)
+	
+	fbMcPower 	: MC_Power;			// enable and override
+	bEnable 	: BOOL := TRUE;		// enable axis
+	lrOverride 	: LREAL := 100.0;	// override 100%
+
+	fbSoEReset	: FB_SoEReset;		// AX5000 reset
+	
+	fbMcReset 	: MC_Reset;			// reset axis
+	fbMcHalt 	: MC_Halt;			// stop motion
+
+	fbMcMove 	: MC_MoveAbsolute;	// move to target position
+	lrPosition1 : LREAL := 1000;	// target 1
+	lrPosition2 : LREAL := 2000;	// target 2
+	lrPosition 	: LREAL := 1000;	// current target position
+	lrVelocity 	: LREAL := 100;		// target velocity
+	
+	Timer		: TON := (PT := T#3S);
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[(* enable and override *)
+A_Enable();
+
+CASE iState OF
+0: (* idle *)
+	bNcError 	:= F_AxisInErrorState(AxisRef.NcToPlc.StateDWord) OR (AxisRef.NcToPlc.ErrorCode <> 0);
+	bDriveError := AxisRef.NcToPlc.StateDWord.28;
+	
+	Timer(IN := bStatus);
+	IF Timer.Q OR bNcError OR bDriveError THEN
+		Timer(IN := FALSE);
+		
+		IF bDriveError THEN
+			fbSoEReset(Execute:= FALSE, Axis:= AxisRef);
+			iState := 10;
+		ELSIF bNCError THEN
+			fbMcReset(Execute := FALSE,	Axis := AxisRef);
+			iState := 20;
+		ELSE
+			IF lrPosition <> lrPosition1 THEN
+				lrPosition := lrPosition1;
+			ELSE
+				lrPosition := lrPosition2;
+			END_IF
+			fbMCMove(
+				Execute:= FALSE, 
+				Axis := AxisRef  
+			);
+			iState := 30;
+		END_IF
+	END_IF
+	
+10: (* drive reset *)
+	A_DriveReset();
+	
+20: (* MC reset *)
+	A_MC2Reset();
+	
+30: (* MC move absolute *)
+	A_MC2Move();
+
+31: (* MC move absolute *)
+	A_MC2Move();
+	
+32: (* back to idle *)
+	iState := 0;
+	
+40: (* MC halt *)
+	A_MC2Halt();
+END_CASE
+
+lrActPos := AxisRef.NcToPlc.ActPos;]]></ST></Implementation><Action Name="A_DriveReset" Id="{3841dea5-f706-49b6-bf0e-af21098f1d42}"><Implementation><ST><![CDATA[fbSoEReset(Execute := TRUE, Axis := AxisRef);
+
+IF NOT fbSoEReset.Busy OR fbSoEReset.Error THEN
+	iErrorID := fbSoEReset.SercosErrId;
+	fbSoEReset(Execute := FALSE, Axis := AxisRef);
+	bDriveError := FALSE;
+	iState := 0;
+END_IF
+]]></ST></Implementation></Action><Action Name="A_Enable" Id="{8d986f23-676e-413c-800e-146c3a243a30}"><Implementation><ST><![CDATA[fbMCPower(
+	Enable			:= bEnable, 
+	Enable_Positive	:= bEnable, 
+	Enable_Negative	:= bEnable, 
+	Override		:= lrOverride,
+	Axis			:= AxisRef,
+	Status			=> bStatus,
+);
+]]></ST></Implementation></Action><Action Name="A_MC2Halt" Id="{04f05438-914d-4023-9215-0f0d81861423}"><Implementation><ST><![CDATA[fbMcHalt(Execute := TRUE, Axis := AxisRef);
+IF fbMcHalt.Done OR fbMcHalt.Error THEN
+	iErrorID := fbMcHalt.ErrorID;
+	fbMcHalt(Execute := FALSE,	Axis := AxisRef);
+	fbMCMove(Execute := FALSE, Axis := AxisRef);
+	iState := 0;
+END_IF
+]]></ST></Implementation></Action><Action Name="A_MC2Move" Id="{95b9ec3f-d855-4253-9b2a-d9e5053d6246}"><Implementation><ST><![CDATA[fbMCMove(
+	Execute:= TRUE, 
+	Position:= lrPosition, 
+	Velocity:= lrVelocity,
+	Axis := AxisRef  
+);
+IF fbMCMove.Done OR fbMCMove.Error OR fbMCMove.CommandAborted THEN
+	iErrorID := fbMCMove.ErrorID;
+	IF lrPosition <> lrPosition1 THEN
+		lrPosition := lrPosition1;
+	ELSE
+		lrPosition := lrPosition2;
+	END_IF
+	
+	fbMCMove(Execute := FALSE, Axis := AxisRef);
+	iState := iState + 1;
+END_IF
+
+IF bHalt THEN
+	fbMCMove(Execute := FALSE, Axis := AxisRef);
+	iState := 40;	
+END_IF]]></ST></Implementation></Action><Action Name="A_MC2Reset" Id="{bbb24060-0303-4e5c-86d3-df6d363639d3}"><Implementation><ST><![CDATA[fbMcReset(Execute := TRUE, Axis := AxisRef);
+IF fbMcReset.Done OR fbMcReset.Error THEN
+	iErrorID := fbMcReset.ErrorID;
+	fbMcReset(Execute := FALSE,	Axis := AxisRef);
+	fbMCMove(Execute := FALSE, Axis := AxisRef);
+	bNcError := FALSE;
+	iState := 30;
+END_IF
+]]></ST></Implementation></Action><ObjectProperties /></POU></TcPlcObject>

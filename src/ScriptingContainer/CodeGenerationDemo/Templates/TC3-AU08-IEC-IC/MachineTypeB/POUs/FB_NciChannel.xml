@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_NciChannel" Id="{1c1551bb-c81d-4954-b8de-ff343f7b3cad}"><Declaration><![CDATA[FUNCTION_BLOCK FB_NciChannel
+VAR_INPUT
+	bExecute		: BOOL	:= FALSE;
+END_VAR
+VAR_IN_OUT
+	stNcToPlcX		: NCTOPLC_AXIS_REF;
+	stNcToPlcY		: NCTOPLC_AXIS_REF;
+	stNcToPlcZ		: NCTOPLC_AXIS_REF;
+	stNcToPlcC		: NCTOPLC_AXIS_REF;
+	stPlcToNci		: PLCTONC_NCICHANNEL_REF;
+	stNciToPlc		: NCTOPLC_NCICHANNEL_REF;
+END_VAR
+VAR_OUTPUT
+	bBusy			: BOOL	:= FALSE;
+	bErr			: BOOL	:= FALSE;
+	nErrId			: UDINT	:= 0;
+END_VAR
+VAR
+	nState			: UDINT	:= 0;
+	nErrState		: UDINT	:= 0;
+	fbBuildGroup	: CfgBuildExt3DGroup;
+	fbLoadProg		: ItpLoadProgEx;
+	fbTimeOut		: TON;
+	fbStartProg		: ItpStartStopEx;
+	bConfirmHsk		: BOOL	:= FALSE;
+	fbConfirmHsk	: ItpConfirmHsk;
+	fbResetEx		: ItpResetEx2;
+	fbClearGroup	: CfgReconfigGroup;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[CASE nState OF
+0:
+	IF bExecute THEN
+		nState		:= 10;
+		nErrState	:= 0;
+		bBusy		:= TRUE;
+		bErr		:= FALSE;
+		nErrId		:= 0;
+	END_IF
+
+10:
+	fbBuildGroup(
+		bExecute	:= TRUE,
+		nGroupId	:= ItpGetGroupId(sNciToPlc:=stNciToPlc),
+		nXAxisId	:= stNcToPlcX.AxisId,
+		nYAxisId	:= stNcToPlcY.AxisId,
+		nZAxisId	:= stNcToPlcZ.AxisId,
+		nQ1AxisId	:= stNcToPlcC.AxisId,
+		nQ2AxisId	:= ,
+		nQ3AxisId	:= ,
+		nQ4AxisId	:= ,
+		nQ5AxisId	:= ,
+		tTimeOut	:= t#1s
+	);
+
+	IF NOT fbBuildGroup.bBusy THEN
+		fbBuildGroup( bExecute:=FALSE );
+
+		IF NOT fbBuildGroup.bErr THEN
+			nState	:= 20;
+		ELSE
+			nErrState	:= nState;
+			bErr		:= TRUE;
+			nErrId		:= fbBuildGroup.nErrId;
+			nState		:= 10000;
+		END_IF
+	END_IF
+
+20:
+	fbLoadProg(
+		bExecute	:=TRUE,
+		sPrg		:= strNcFile,
+		nLength		:= INT_TO_UDINT(LEN(strNcFile)),
+		tTimeOut	:= T#2s,
+		sNciToPlc	:= stNciToPlc
+	);
+
+	IF NOT fbLoadProg.bBusy THEN
+		fbLoadProg( bExecute:=FALSE, sNciToPlc:= stNciToPlc );
+
+		IF NOT fbLoadProg.bErr THEN
+			nState	:= 30;
+		ELSE
+			nErrState	:= nState;
+			bErr		:= TRUE;
+			nErrId		:= fbLoadProg.nErrId;
+			nState		:= 10000;
+		END_IF
+	END_IF
+
+30:
+	fbTimeOut(IN:=TRUE, PT:=t#2s );
+	IF fbTimeOut.Q THEN
+		(* timeout *)
+		nErrState	:= nState;
+		bErr		:= TRUE;
+		nErrId		:= dwErrLoadingTimeout;
+		nState		:= 10000;
+		fbTimeOut(IN:=FALSE);
+	END_IF
+
+	IF ItpGetStateInterpreter(sNciToPlc:=stNciToPlc) = NCI_INTERPRETER_READY THEN
+		fbTimeOut(IN:=FALSE, PT:=t#2s );
+		nState	:= 40;
+	END_IF
+
+40:
+	fbStartProg(
+		bStart		:= TRUE,
+		bStop		:= FALSE ,
+		tTimeOut	:= T#1s,
+		sNciToPlc	:= stNciToPlc
+	);
+	IF NOT fbStartProg.bBusy THEN
+		fbStartProg( bStart:= FALSE, bStop:=FALSE , sNciToPlc:=stNciToPlc );
+
+		IF NOT fbStartProg.bErr THEN
+			nState	:= 50;
+		ELSE
+			nErrState	:= nState;
+			bErr	:= TRUE;
+			nErrId	:= fbStartProg.nErrId;
+			nState	:= 10000;
+		END_IF
+	END_IF
+
+50:
+	IF ItpIsHskMFunc(sNciToPlc:=stNciToPlc) AND NOT fbConfirmHsk.bBusy THEN
+		bConfirmHsk	:= TRUE;
+	ELSE
+		bConfirmHsk	:= FALSE;
+	END_IF
+
+	IF ItpGetStateInterpreter(sNciToPlc:=stNciToPlc) = NCI_INTERPRETER_READY THEN
+		(* program finished successfully *)
+		(* goto clear group *)
+		nState	:= 10010;
+	ELSIF ItpGetStateInterpreter(sNciToPlc:=stNciToPlc) = NCI_INTERPRETER_ABORTED OR ItpHasError(sNciToPlc:=stNciToPlc)THEN
+		nState	:= 10000;
+	END_IF
+
+10000:
+	(* an error occured *)
+	(* - stop axes with resetEx *)
+	(* - clear interpolation group *)
+	fbResetEx(
+		bExecute	:= TRUE,
+		tTimeOut	:= t#1s,
+		sNciToPlc	:= stNciToPlc
+	);
+
+	IF NOT fbResetEx.bBusy THEN
+		fbResetEx( bExecute:=FALSE, sNciToPlc:=stNciToPlc );
+		nState	:= 10010;
+	END_IF
+
+10010:
+	fbClearGroup(
+		bExecute	:= TRUE,
+		nGroupId	:= ItpGetGroupId(sNciToPlc:=stNciToPlc),
+		tTimeOut	:= t#1s
+	);
+
+	IF NOT fbClearGroup.bBusy THEN
+		fbClearGroup( bExecute:=FALSE );
+		nState	:= 10020;
+	END_IF
+
+10020:
+	bBusy	:= FALSE;
+	IF NOT bExecute THEN
+		nState	:= 0;
+	END_IF
+
+END_CASE
+
+fbConfirmHsk(
+	bExecute	:= bConfirmHsk,
+	sNciToPlc	:= stNciToPlc,
+	sPlcToNci	:= stPlcToNci
+);
+]]></ST></Implementation><ObjectProperties /></POU></TcPlcObject>

@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_AX5000Axis" Id="{1a39931f-db85-4223-a885-d56f6bf14924}"><Declaration><![CDATA[FUNCTION_BLOCK FB_AX5000Axis EXTENDS FB_NcAxis
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	fbSoEReadDiagNumber : FB_SoEReadDiagNumber;
+	iDiagNumber			: UDINT;
+	fbSoEReset			: FB_SoEReset;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[]]></ST></Implementation><Method Name="M_HardwareDiag" Id="{7e905c3b-3dd6-4abc-88b1-d54f7dc2beb7}"><Declaration><![CDATA[METHOD M_HardwareDiag : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//get hardware diag
+CASE eCurState OF
+eAxisState_Idle:
+	IF bExecute AND NOT bExecHWDiag_  THEN
+		fbSoEReadDiagNumber(
+			NetId:= '', 
+			Execute:= TRUE, 
+			Axis:= sAxis, 
+		);
+		eCurState := eAxisState_Diag;
+	END_IF
+
+eAxisState_Diag:
+	fbSoEReadDiagNumber(
+		NetId:= '', 
+		Execute:= TRUE, 
+		Axis:= sAxis, 
+	);
+	IF NOT fbSoEReadDiagNumber.Busy  THEN
+		fbSoEReadDiagNumber(
+			Execute:= FALSE, 
+			Axis:= sAxis, 
+			DiagNumber=> iDiagNumber
+		);
+		eCurState := eAxisState_Idle;
+	END_IF
+	
+END_CASE
+
+M_HardwareDiag 	:= eCurState <> eAxisState_Idle;	
+bExecHWDiag_	:= bExecute;
+]]></ST></Implementation></Method><Method Name="M_HardwareReset" Id="{de2c3352-4f7f-434b-8188-d7a11daa7e07}"><Declaration><![CDATA[METHOD M_HardwareReset : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//reset axis
+CASE eCurState OF
+eAxisState_Idle:
+	IF bExecute AND NOT bExecHWRes_ THEN
+		fbSoEReset(
+			NetId:= '', 
+			Execute:= TRUE, 
+			Axis:= sAxis, 
+		);
+		eCurState := eAxisState_Reset;
+	END_IF
+
+eAxisState_Reset:
+	fbSoEReset(
+		NetId:= '', 
+		Execute:= TRUE, 
+		Axis:= sAxis, 
+	);
+	IF NOT fbSoEReset.Busy THEN
+		fbSoEReset(
+			Execute:= FALSE, 
+			Axis:= sAxis, 
+		);
+		eCurState := eAxisState_Idle;
+	END_IF
+
+END_CASE
+
+M_HardwareReset := eCurState <> eAxisState_Idle;	
+bExecHWRes_		:= bExecute;]]></ST></Implementation></Method><ObjectProperties /></POU></TcPlcObject>

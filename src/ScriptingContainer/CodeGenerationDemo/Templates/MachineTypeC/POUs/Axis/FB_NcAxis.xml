@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_NcAxis" Id="{b006274c-7613-421f-ae07-33261c18024b}"><Declaration><![CDATA[FUNCTION_BLOCK FB_NcAxis IMPLEMENTS IAxis
+VAR_IN_OUT
+	sAxis		: AXIS_REF;
+END_VAR
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	bActive		: BOOL;
+	bBusy		: BOOL;
+	bDone		: BOOL;
+	bError		: BOOL;
+	iErrorId	: UDINT;
+	eCurState	: E_AxisState;
+END_VAR
+VAR
+	//PLCopen FBs for axes
+	fbMcPower	: MC_Power;
+	fbMcReset	: MC_Reset;
+	fbMcMoveAbs	: MC_MoveAbsolute;
+	fbMcMoveMod	: MC_MoveModulo;
+	fbMcMoveRel	: MC_MoveRelative;
+	fbMcMoveVel	: MC_MoveVelocity;
+
+	//rising edge detection
+	bExecMove_	: BOOL;
+	bExecHWDiag_: BOOL;
+	bExecHWRes_	: BOOL;
+	bExecReset_	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[;]]></ST></Implementation><Method Name="M_Diag" Id="{7a0d8cf6-a20a-4063-8c51-00499d7f6328}"><Declaration><![CDATA[METHOD M_Diag : BOOL
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	bNcError 	: BOOL;
+	bDrvError 	: BOOL;
+	iNcErrorId	: UDINT;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//get axis diag
+sAxis.ReadStatus();
+bNcError	:= sAxis.NcToPlc.StateDWord.31;
+bDrvError	:= sAxis.NcToPlc.StateDWord.28;
+iNcErrorId	:= sAxis.NcToPlc.ErrorCode;
+M_Diag 		:= bNcError OR bDrvError OR (iNcErrorId <> 0);
+]]></ST></Implementation></Method><Method Name="M_HardwareDiag" Id="{81f5ac5e-836f-486f-b7df-de18da3d3b9c}"><Declaration><![CDATA[METHOD M_HardwareDiag : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//get hardware diag --> overwrite method if necessary
+CASE eCurState OF
+eAxisState_Idle:
+	IF bExecute AND NOT bExecHWDiag_ THEN
+		eCurState := eAxisState_Diag;
+	END_IF
+
+eAxisState_Diag:
+		eCurState := eAxisState_Idle;
+
+END_CASE
+
+M_HardwareDiag 	:= eCurState <> eAxisState_Idle;	
+bExecHWDiag_	:= bExecute;
+
+]]></ST></Implementation></Method><Method Name="M_Enable" Id="{de7ac02a-e17e-488d-bf3f-58d07f1760e7}"><Declaration><![CDATA[METHOD M_Enable : BOOL
+VAR_INPUT
+	bEnable		: BOOL;
+	fOverride	: LREAL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//enable axis
+fbMcPower(
+	Enable		:= bEnable, 	Enable_Positive	:= bEnable,	Enable_Negative	:= bEnable, 
+	Override	:= fOverride, 	Axis			:= sAxis
+);
+M_Enable := fbMcPower.Status;]]></ST></Implementation></Method><Method Name="M_Move" Id="{913db892-b0de-4293-b746-768647243910}"><Declaration><![CDATA[METHOD M_Move : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+	eMoveCmd	: E_MoveCmd;
+	fVelocity	: LREAL;
+	fPosition	: LREAL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//move axis
+CASE eCurState OF
+eAxisState_Idle:	
+	IF bExecute AND NOT bExecMove_ THEN
+		CASE eMoveCmd OF
+		eCmd_MoveAbsolute:
+			fbMcMoveAbs(
+				Execute	:= bExecute, 	Position:= fPosition,	Velocity:= fVelocity, 
+				Axis	:= sAxis, 		Done	=> bDone,		Busy	=> bBusy, 
+				Active	=> bActive, 	Error	=> bError,		ErrorID	=> iErrorId
+			);
+			eCurState := eAxisState_Move;
+		
+		eCmd_MoveModulo:
+			fbMcMoveMod(
+				Execute	:= bExecute, 	Position:= fPosition,	Velocity:= fVelocity, 
+				Axis	:= sAxis, 		Done	=> bDone, 		Busy	=> bBusy, 
+				Active	=> bActive, 	Error	=> bError,		ErrorID	=> iErrorId
+			);
+			eCurState := eAxisState_Move;
+		
+		eCmd_MoveRelative:
+			fbMcMoveRel(
+				Execute	:= bExecute, 	Distance:= fPosition,	Velocity:= fVelocity, 
+				Axis	:= sAxis, 		Done	=> bDone,		Busy	=> bBusy, 
+				Active	=> bActive, 	Error	=> bError,		ErrorID	=> iErrorId
+			);
+			eCurState := eAxisState_Move;
+		
+		eCmd_MoveVelocity:
+			fbMcMoveVel(
+				Execute	:= bExecute, 	Velocity:= fVelocity,	Axis	:= sAxis, 
+				InVelocity=> bDone,		Busy	=> bBusy,		Active	=> bActive, 
+				Error	=> bError, 		ErrorID	=> iErrorId,	Busy	=> bBusy,
+				Active	=> bActive,		Error	=> bError,		ErrorID	=> iErrorId
+			);		
+			eCurState := eAxisState_Move;
+		END_CASE
+	END_IF
+		
+eAxisState_Move:
+	CASE eMoveCmd OF
+	eCmd_MoveAbsolute:
+		fbMcMoveAbs(
+			Execute	:= TRUE, 		Position:= fPosition,	Velocity:= fVelocity, 
+			Axis	:= sAxis, 		Done	=> bDone,		Busy	=> bBusy, 
+			Active	=> bActive, 	Error	=> bError, 		ErrorID	=> iErrorId
+		);
+		IF bDone OR bError THEN
+			fbMcMoveAbs(Execute	:= FALSE,Axis := sAxis); 
+			eCurState := eAxisState_Idle;
+		END_IF
+	
+	eCmd_MoveModulo:
+		fbMcMoveMod(
+			Execute	:= TRUE, 		Position:= fPosition,	Velocity:= fVelocity, 
+			Axis	:= sAxis, 		Done	=> bDone,		Busy	=> bBusy, 
+			Active	=> bActive, 	Error	=> bError,		ErrorID	=> iErrorId
+		);
+		IF bDone OR bError THEN
+			fbMcMoveMod(Execute	:= FALSE,Axis := sAxis); 
+			eCurState := eAxisState_Idle;
+		END_IF
+	
+	eCmd_MoveRelative:
+		fbMcMoveRel(
+			Execute	:= TRUE, 		Distance:= fPosition,	Velocity:= fVelocity, 
+			Axis	:= sAxis, 		Done	=> bDone,		Busy	=> bBusy, 
+			Active	=> bActive, 	Error	=> bError,		ErrorID	=> iErrorId
+		);
+		IF bDone OR bError THEN
+			fbMcMoveRel(Execute	:= FALSE,Axis := sAxis); 
+			eCurState := eAxisState_Idle;
+		END_IF
+	
+	eCmd_MoveVelocity:
+		fbMcMoveVel(
+			Execute	:= TRUE, 		Velocity:= fVelocity,	Axis	:= sAxis, 
+			InVelocity=> bDone,		Busy	=> bBusy,		Active	=> bActive, 
+			Error	=> bError, 		ErrorID	=> iErrorId,	Busy	=> bBusy, 		
+			Active	=> bActive,		Error	=> bError,		ErrorID	=> iErrorId
+		);		
+		IF bDone OR bError THEN
+			fbMcMoveVel(Execute	:= FALSE,Axis := sAxis); 
+			eCurState := eAxisState_Idle;
+		END_IF
+	END_CASE
+END_CASE
+
+M_Move 		:= (eCurState <> eAxisState_Idle);
+bExecMove_	:= bExecute;]]></ST></Implementation></Method><Method Name="M_Reset" Id="{74c8ee37-80dc-4b20-8957-32de0593c319}"><Declaration><![CDATA[METHOD M_Reset : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//reset nc axis
+CASE eCurState OF
+eAxisState_Idle:
+	IF bExecute AND NOT bExecReset_ THEN
+		fbMcReset(
+			Execute	:= bExecute, 	Axis	:= sAxis,	Done	=> bDone, 
+			Busy	=> bBusy, 		Error	=> bError,	ErrorID	=> iErrorId 
+		);
+		eCurState := eAxisState_Reset;
+	END_IF
+
+eAxisState_Reset:
+	fbMcReset(
+		Execute	:= FALSE, 	Axis	:= sAxis,	Done	=> bDone, 
+		Busy	=> bBusy, 	Error	=> bError,	ErrorID	=> iErrorId 
+	);
+	IF fbMcReset.Done OR fbMcReset.Error THEN
+		eCurState := eAxisState_Idle;
+	END_IF
+END_CASE
+
+M_Reset 	:= eCurState <> eAxisState_Idle;	
+bExecReset_	:= bExecute;]]></ST></Implementation></Method><Method Name="M_HardwareReset" Id="{50ea3a2c-acff-40bf-9b1d-088a458879d1}"><Declaration><![CDATA[METHOD M_HardwareReset : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//hardware reset axis --> overwrite method if necessary
+CASE eCurState OF
+eAxisState_Idle:
+	IF bExecute AND NOT bExecHWRes_ THEN
+		eCurState := eAxisState_Reset;
+	END_IF
+
+eAxisState_Reset:
+		eCurState := eAxisState_Idle;
+
+END_CASE
+
+M_HardwareReset := eCurState <> eAxisState_Idle;	
+bExecHWRes_		:= bExecute;]]></ST></Implementation></Method><ObjectProperties /></POU></TcPlcObject>

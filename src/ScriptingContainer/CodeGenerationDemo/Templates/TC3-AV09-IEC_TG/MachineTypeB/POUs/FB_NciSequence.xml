@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_NciSequence" Id="{dc2c180d-7290-45fc-b611-583820c74bb8}"><Declaration><![CDATA[FUNCTION_BLOCK FB_NciSequence
+VAR_INPUT
+	bExecute		: BOOL;
+	iMaxUsedAxes	: INT;	(* amount of used axes, 1..iMAX_AXES *)
+	iMaxUsedChannels: INT; 	(* amount of used channels, 1..iMAX_CHANNELS *)
+END_VAR
+VAR_OUTPUT
+	bBusy			: BOOL;
+	bDone			: BOOL;
+	bError			: BOOL;
+	dwErrorId		: DWORD;
+END_VAR
+VAR_IN_OUT
+	AxisRef			: ARRAY [1..iMAX_AXES] OF AXIS_REF;			// axis reference (process data plc/nc)
+	stNciToPlc		: NCTOPLC_NCICHANNEL_REF;
+	stPlcToNci		: PLCTONC_NCICHANNEL_REF;
+END_VAR
+VAR
+	fbNciChaA		: FB_NciChannel;
+	stNcToPlcDummy	: NCTOPLC_AXIS_REF;
+	nState			: UDINT	:= 0;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[(*
+	- alle Achsen (1..MAX) sind Fehlerfrei, entkoppelt und Enabled und iMaxUsedAxes können/sollten benutzt werden
+	- mit bExecute die Sequenz starten
+	- sofort bBusy auf TRUE setzen
+	- wenn fertig bDone auf TRUE und bBusy auf FALSE setzen
+	- bei Fehler bDone auf FALSE, bError auf TRUE, dwErrorId setzen und bBusy auf FALSE setzen
+	- in jedem Fall vor bDone oder bError Achsen entkoppeln!
+*)
+
+(* kein Command oder State mehr *)
+IF iMaxUsedAxes >= 2 AND iMaxUsedChannels >= 1 THEN
+	CASE nState OF
+	0:
+		IF bExecute THEN
+			bBusy		:= TRUE;
+			bDone		:= FALSE;
+			bError		:= FALSE;
+			dwErrorId	:= 0;
+			nState		:= 10;
+		END_IF
+
+	10:
+		fbNciChaA(
+			bExecute	:= bExecute,
+			stNcToPlcX	:= AxisRef[1].NcToPlc,
+			stNcToPlcY	:= AxisRef[2].NcToPlc,
+			stNcToPlcZ	:= stNcToPlcDummy,
+			stNcToPlcC	:= stNcToPlcDummy,
+			stPlcToNci	:= stPlcToNci,
+			stNciToPlc	:= stNciToPlc
+		);
+
+		IF NOT fbNciChaA.bBusy THEN
+			fbNciChaA( bExecute:= FALSE, stNcToPlcX:= AxisRef[1].NcToPlc, stNcToPlcY:= AxisRef[2].NcToPlc, stNcToPlcZ:= stNcToPlcDummy,
+						stNcToPlcC:= stNcToPlcDummy, stPlcToNci:= stPlcToNci, stNciToPlc:= stNciToPlc );
+
+			bBusy	:= FALSE;
+
+			IF NOT fbNciChaA.bErr THEN
+				bDone	:= TRUE;
+			ELSE
+				bError		:= fbNciChaA.bErr;
+				dwErrorId	:= fbNciChaA.nErrId;
+			END_IF
+			IF NOT bExecute THEN
+				nState	:= 0;
+			ELSE
+				nState	:= 20;
+			END_IF
+		END_IF
+
+	20:
+		bBusy	:= FALSE;
+		IF NOT bExecute THEN
+			IF fbNciChaA.bErr THEN
+				bError		:= fbNciChaA.bErr;
+				dwErrorId	:= fbNciChaA.nErrId;
+			END_IF
+			nState	:= 0;
+		END_IF
+	END_CASE
+
+END_IF
+]]></ST></Implementation><ObjectProperties /></POU></TcPlcObject>

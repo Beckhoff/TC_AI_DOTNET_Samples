@@ -1,0 +1,100 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptingTestContainerBase", "ScriptingTestContainerBase\ScriptingTestContainerBase.csproj", "{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripting.CSharp.Scripts", "Scripting.CSharp.Scripts\Scripting.CSharp.Scripts.csproj", "{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptingTestContainer", "ScriptingTestContainer\ScriptingTestContainer.csproj", "{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF} = {318A962D-926B-4CD3-B3D4-5BDCA5303FBF}
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84} = {B3B6A2A7-E552-426D-AA5E-5443AD72AD84}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scripting.CSharp.ScriptsLateBound", "Scripting.CSharp.ScriptsLateBound\Scripting.CSharp.ScriptsLateBound.csproj", "{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{77273946-EB8C-4736-AAD0-84273DB42DDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|x64.ActiveCfg = Debug|x64
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|x64.Build.0 = Debug|x64
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|x86.ActiveCfg = Debug|x86
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Debug|x86.Build.0 = Debug|x86
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|x64.ActiveCfg = Release|x64
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|x64.Build.0 = Release|x64
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|x86.ActiveCfg = Release|x86
+		{84BF2917-6A6E-45B9-B1BB-3FB86C57756D}.Release|x86.Build.0 = Release|x86
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|x64.ActiveCfg = Debug|x64
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|x64.Build.0 = Debug|x64
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|x86.ActiveCfg = Debug|x86
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Debug|x86.Build.0 = Debug|x86
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|x64.ActiveCfg = Release|x64
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|x64.Build.0 = Release|x64
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|x86.ActiveCfg = Release|x86
+		{318A962D-926B-4CD3-B3D4-5BDCA5303FBF}.Release|x86.Build.0 = Release|x86
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|x64.ActiveCfg = Debug|x64
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|x64.Build.0 = Debug|x64
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|x86.ActiveCfg = Debug|x86
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Debug|x86.Build.0 = Debug|x86
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|x64.ActiveCfg = Release|x64
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|x64.Build.0 = Release|x64
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|x86.ActiveCfg = Release|x86
+		{CDF2DB7D-0171-4159-858A-8F1B19AEAA6A}.Release|x86.Build.0 = Release|x86
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|x64.ActiveCfg = Debug|x64
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|x64.Build.0 = Debug|x64
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|x86.ActiveCfg = Debug|x86
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Debug|x86.Build.0 = Debug|x86
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|x64.ActiveCfg = Release|x64
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|x64.Build.0 = Release|x64
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|x86.ActiveCfg = Release|x86
+		{B3B6A2A7-E552-426D-AA5E-5443AD72AD84}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://nt-teamfd02:8080/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ScriptingTestContainerBase\\ScriptingTestContainerBase.csproj
+		SccProjectName1 = ScriptingTestContainerBase
+		SccLocalPath1 = ScriptingTestContainerBase
+		SccProjectUniqueName2 = Scripting.CSharp.Scripts\\Scripting.CSharp.Scripts.csproj
+		SccProjectName2 = Scripting.CSharp.Scripts
+		SccLocalPath2 = Scripting.CSharp.Scripts
+		SccProjectUniqueName3 = ScriptingTestContainer\\ScriptingTestContainer.csproj
+		SccProjectName3 = ScriptingTestContainer
+		SccLocalPath3 = ScriptingTestContainer
+		SccProjectUniqueName4 = Scripting.CSharp.ScriptsLateBound\\Scripting.CSharp.ScriptsLateBound.csproj
+		SccProjectName4 = Scripting.CSharp.ScriptsLateBound
+		SccLocalPath4 = Scripting.CSharp.ScriptsLateBound
+	EndGlobalSection
+EndGlobal

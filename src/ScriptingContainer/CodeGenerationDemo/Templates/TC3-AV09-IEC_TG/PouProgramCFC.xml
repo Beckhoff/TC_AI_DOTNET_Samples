@@ -1,0 +1,1930 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.0.0.0">
+  <POU Name="MAIN_CFC" Id="{3d9c31b8-f43b-49d0-8553-76be3a3c41db}">
+    <Declaration>
+      <![CDATA[PROGRAM MAIN_CFC
+VAR
+        Timer                   : TON;
+        fbCFC_SamplePOU : FB_CFC_SamplePOU;
+
+        eOperation              : E_Operation := eOp_Add;
+        eOperationPrev  : E_Operation := eOp_Add;
+        iResultC                : DINT;
+        bZero                   : BOOL;
+        bPos                    : BOOL;
+        bNeg                    : BOOL;
+        bTest                   : BOOL;
+        tTimerValue             : TIME := T#3S;
+END_VAR
+]]>
+</Declaration>
+    <Implementation>
+      <CFC>
+        <inVariable localId="5">
+          <position x="14" y="73" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperation</expression>
+        </inVariable>
+        <connector localId="4" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="5"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <block localId="3" executionOrderId="40"
+        typeName="FB_CFC_SamplePOU" instanceName="fbCFC_SamplePOU">
+          <position x="28" y="71" />
+          <inputVariables>
+            <variable formalParameter="eOperation">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="4" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="iResultC">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>functionblock</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="2" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="3"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="7">
+          <position x="76" y="82" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>0</expression>
+        </inVariable>
+        <connector localId="6" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="7" formalParameter="0" />
+          </connectionPointIn>
+        </connector>
+        <block localId="1" executionOrderId="46" typeName="LT">
+          <position x="82" y="79" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="2" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="6" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="0" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="1" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="10" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="3"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="12">
+          <position x="76" y="78" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>0</expression>
+        </inVariable>
+        <connector localId="11" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="12" formalParameter="0" />
+          </connectionPointIn>
+        </connector>
+        <block localId="9" executionOrderId="44" typeName="GT">
+          <position x="82" y="75" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="10" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="11" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="8" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="9" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="15" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="3"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="17">
+          <position x="76" y="74" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>0</expression>
+        </inVariable>
+        <connector localId="16" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="17" formalParameter="0" />
+          </connectionPointIn>
+        </connector>
+        <block localId="14" executionOrderId="42" typeName="EQ">
+          <position x="82" y="71" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="15" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="16" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="13" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="14" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="18" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="3"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="19" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="5"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="31">
+          <position x="6" y="56" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Mul</expression>
+        </inVariable>
+        <connector localId="30" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="31"
+            formalParameter="eOp_Mul" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="33">
+          <position x="2" y="60" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperation</expression>
+        </inVariable>
+        <connector localId="32" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="33"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <block localId="29" executionOrderId="30" typeName="EQ">
+          <position x="16" y="54" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="30" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="32" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="28" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="29" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="35">
+          <position x="18" y="59" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <connector localId="34" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="35"
+            formalParameter="Timer.Q" />
+          </connectionPointIn>
+        </connector>
+        <block localId="27" executionOrderId="31" typeName="AND">
+          <position x="30" y="56" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="28" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="34" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="26" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="27" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="36" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="33"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="38">
+          <position x="32" y="64" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Sub</expression>
+        </inVariable>
+        <connector localId="37" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="38"
+            formalParameter="eOp_Sub" />
+          </connectionPointIn>
+        </connector>
+        <block localId="25" executionOrderId="32" typeName="SEL">
+          <position x="42" y="57" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="26" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="36" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <relPosition x="0" y="2" />
+                <connection refLocalId="37" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="24" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="25" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="40">
+          <position x="60" y="60" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <connector localId="39" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="40"
+            formalParameter="eOperationPrev" />
+          </connectionPointIn>
+        </connector>
+        <block localId="23" executionOrderId="34" typeName="NE">
+          <position x="78" y="57" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="24" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="39" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="22" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="23" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="43" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="25" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="44" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="38"
+            formalParameter="eOp_Sub" />
+          </connectionPointIn>
+        </connector>
+        <block localId="42" executionOrderId="35" typeName="EQ">
+          <position x="60" y="61" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="43" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="44" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="41" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="42" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="21" executionOrderId="36" typeName="AND">
+          <position x="90" y="60" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="22" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="41" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="20" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="21" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="45" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="25" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="57">
+          <position x="6" y="44" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Sub</expression>
+        </inVariable>
+        <connector localId="56" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="57"
+            formalParameter="eOp_Sub" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="59">
+          <position x="2" y="48" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperation</expression>
+        </inVariable>
+        <connector localId="58" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="59"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <block localId="55" executionOrderId="22" typeName="EQ">
+          <position x="16" y="42" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="56" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="58" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="54" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="55" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="61">
+          <position x="18" y="47" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <connector localId="60" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="61"
+            formalParameter="Timer.Q" />
+          </connectionPointIn>
+        </connector>
+        <block localId="53" executionOrderId="23" typeName="AND">
+          <position x="30" y="44" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="54" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="60" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="52" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="53" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="62" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="59"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="64">
+          <position x="32" y="52" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Add</expression>
+        </inVariable>
+        <connector localId="63" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="64"
+            formalParameter="eOp_Add" />
+          </connectionPointIn>
+        </connector>
+        <block localId="51" executionOrderId="24" typeName="SEL">
+          <position x="42" y="45" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="52" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="62" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <relPosition x="0" y="2" />
+                <connection refLocalId="63" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="50" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="51" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="66">
+          <position x="60" y="48" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <connector localId="65" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="66"
+            formalParameter="eOperationPrev" />
+          </connectionPointIn>
+        </connector>
+        <block localId="49" executionOrderId="26" typeName="NE">
+          <position x="78" y="45" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="50" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="65" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="48" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="49" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="69" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="51" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="70" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="64"
+            formalParameter="eOp_Add" />
+          </connectionPointIn>
+        </connector>
+        <block localId="68" executionOrderId="27" typeName="EQ">
+          <position x="60" y="49" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="69" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="70" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="67" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="68" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="47" executionOrderId="28" typeName="AND">
+          <position x="90" y="48" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="48" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="67" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="46" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="47" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="71" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="51" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="83">
+          <position x="6" y="31" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Add</expression>
+        </inVariable>
+        <connector localId="82" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="83"
+            formalParameter="eOp_Add" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="85">
+          <position x="2" y="35" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperation</expression>
+        </inVariable>
+        <connector localId="84" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="85"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <block localId="81" executionOrderId="14" typeName="EQ">
+          <position x="16" y="29" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="82" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="84" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="80" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="81" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="87">
+          <position x="18" y="34" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <connector localId="86" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="87"
+            formalParameter="Timer.Q" />
+          </connectionPointIn>
+        </connector>
+        <block localId="79" executionOrderId="15" typeName="AND">
+          <position x="30" y="31" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="80" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="86" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="78" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="79" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="88" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="85"
+            formalParameter="eOperation" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="90">
+          <position x="32" y="39" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOp_Mul</expression>
+        </inVariable>
+        <connector localId="89" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="90"
+            formalParameter="eOp_Mul" />
+          </connectionPointIn>
+        </connector>
+        <block localId="77" executionOrderId="16" typeName="SEL">
+          <position x="42" y="32" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="78" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="88" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <relPosition x="0" y="2" />
+                <connection refLocalId="89" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="76" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="77" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="92">
+          <position x="60" y="35" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <connector localId="91" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="92"
+            formalParameter="eOperationPrev" />
+          </connectionPointIn>
+        </connector>
+        <block localId="75" executionOrderId="18" typeName="NE">
+          <position x="78" y="32" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="76" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="91" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="74" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="75" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="95" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="77" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="96" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="90"
+            formalParameter="eOp_Mul" />
+          </connectionPointIn>
+        </connector>
+        <block localId="94" executionOrderId="19" typeName="EQ">
+          <position x="60" y="36" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="95" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="96" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="93" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="94" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="73" executionOrderId="20" typeName="AND">
+          <position x="90" y="35" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="74" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="93" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="72" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="73" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="97" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="77" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="105">
+          <position x="2" y="25" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <connector localId="104" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="105"
+            formalParameter="Timer.Q" />
+          </connectionPointIn>
+        </connector>
+        <block localId="103" executionOrderId="10" typeName="NOT">
+          <position x="12" y="23" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="104" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="102" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="103" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="107">
+          <position x="14" y="26" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>tTimerValue</expression>
+        </inVariable>
+        <connector localId="106" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="107"
+            formalParameter="tTimerValue" />
+          </connectionPointIn>
+        </connector>
+        <block localId="101" executionOrderId="11" typeName="TON"
+        instanceName="Timer">
+          <position x="28" y="23" />
+          <inputVariables>
+            <variable formalParameter="IN">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="102" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="PT">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="106" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Q">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+            <variable formalParameter="ET">
+              <connectionPointOut>
+                <relPosition x="0" y="1" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>functionblock</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="100" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="101" formalParameter="Q" />
+          </connectionPointIn>
+        </connector>
+        <block localId="99" executionOrderId="12" typeName="NOT">
+          <position x="48" y="23" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="100" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="98" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="99" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="117">
+          <position x="2" y="2" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>bZero</expression>
+        </inVariable>
+        <connector localId="116" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="117" formalParameter="bZero" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="119">
+          <position x="2" y="5" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>bPos</expression>
+        </inVariable>
+        <connector localId="118" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="119" formalParameter="bPos" />
+          </connectionPointIn>
+        </connector>
+        <block localId="115" executionOrderId="1" typeName="AND">
+          <position x="12" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="116" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="118" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="114" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="115" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="122" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="119" formalParameter="bPos" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="124">
+          <position x="2" y="8" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>bNeg</expression>
+        </inVariable>
+        <connector localId="123" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="124" formalParameter="bNeg" />
+          </connectionPointIn>
+        </connector>
+        <block localId="121" executionOrderId="2" typeName="XOR">
+          <position x="12" y="5" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="122" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="123" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="120" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="121" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="113" executionOrderId="3" typeName="OR">
+          <position x="28" y="2" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="114" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="120" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="112" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="113" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="128">
+          <position x="14" y="10" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>iResultC</expression>
+        </inVariable>
+        <connector localId="127" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="128"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="130">
+          <position x="20" y="11" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>0</expression>
+        </inVariable>
+        <connector localId="129" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="130" formalParameter="0" />
+          </connectionPointIn>
+        </connector>
+        <block localId="126" executionOrderId="4" typeName="LE">
+          <position x="28" y="8" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="127" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="129" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="125" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="126" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="134">
+          <position x="14" y="14" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>Timer.ET</expression>
+        </inVariable>
+        <connector localId="133" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="134"
+            formalParameter="Timer.ET" />
+          </connectionPointIn>
+        </connector>
+        <inVariable localId="136">
+          <position x="16" y="15" />
+          <connectionPointOut>
+            <expression />
+          </connectionPointOut>
+          <expression>T#500ms</expression>
+        </inVariable>
+        <connector localId="135" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="136"
+            formalParameter="T#500ms" />
+          </connectionPointIn>
+        </connector>
+        <block localId="132" executionOrderId="5" typeName="GT">
+          <position x="28" y="12" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="133" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="135" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="131" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="132" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="111" executionOrderId="6" typeName="AND">
+          <position x="42" y="5" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="112" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="125" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <relPosition x="0" y="2" />
+                <connection refLocalId="131" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="110" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="111" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="139" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="134"
+            formalParameter="Timer.ET" />
+          </connectionPointIn>
+        </connector>
+        <connector localId="140" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="136"
+            formalParameter="T#500ms" />
+          </connectionPointIn>
+        </connector>
+        <block localId="138" executionOrderId="7" typeName="LE">
+          <position x="28" y="16" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="139" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="140" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="137" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="138" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <block localId="109" executionOrderId="8" typeName="OR">
+          <position x="54" y="8" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <relPosition x="0" y="0" />
+                <connection refLocalId="110" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <relPosition x="0" y="1" />
+                <connection refLocalId="137" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut>
+                <relPosition x="0" y="0" />
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/cfccalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <connector localId="108" name="">
+          <position x="-2" y="-2" />
+          <connectionPointIn>
+            <connection refLocalId="109" formalParameter="" />
+          </connectionPointIn>
+        </connector>
+        <outVariable localId="141" executionOrderId="9">
+          <position x="66" y="10" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="108" />
+          </connectionPointIn>
+          <expression>bTest</expression>
+        </outVariable>
+        <comment localId="142" height="0" width="0">
+          <position x="0" y="22" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+            Timer</xhtml>
+          </content>
+        </comment>
+        <jump localId="143" executionOrderId="13" label="CALLFB">
+          <position x="60" y="25" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="98" />
+          </connectionPointIn>
+        </jump>
+        <comment localId="144" height="0" width="0">
+          <position x="0" y="29" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">State
+            machine</xhtml>
+          </content>
+        </comment>
+        <outVariable localId="145" executionOrderId="17">
+          <position x="60" y="31" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="97" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <jump localId="146" executionOrderId="21" label="CallFB">
+          <position x="100" y="37" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="72" />
+          </connectionPointIn>
+        </jump>
+        <outVariable localId="147" executionOrderId="25">
+          <position x="60" y="44" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="71" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <jump localId="148" executionOrderId="29" label="CallFB">
+          <position x="100" y="50" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="46" />
+          </connectionPointIn>
+        </jump>
+        <outVariable localId="149" executionOrderId="33">
+          <position x="60" y="56" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="45" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <jump localId="150" executionOrderId="37" label="CallFB">
+          <position x="100" y="62" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="20" />
+          </connectionPointIn>
+        </jump>
+        <comment localId="151" height="0" width="0">
+          <position x="0" y="68" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">FB
+            Call</xhtml>
+          </content>
+        </comment>
+        <label localId="152" executionOrderId="38" label="CallFB">
+          <position x="2" y="70" />
+        </label>
+        <outVariable localId="153" executionOrderId="39">
+          <position x="28" y="76" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="19" />
+          </connectionPointIn>
+          <expression>eOperationPrev</expression>
+        </outVariable>
+        <outVariable localId="154" executionOrderId="41">
+          <position x="64" y="70" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="18" />
+          </connectionPointIn>
+          <expression>iResultC</expression>
+        </outVariable>
+        <outVariable localId="155" executionOrderId="43">
+          <position x="94" y="73" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="13" />
+          </connectionPointIn>
+          <expression>bZero</expression>
+        </outVariable>
+        <outVariable localId="156" executionOrderId="45">
+          <position x="94" y="77" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="8" />
+          </connectionPointIn>
+          <expression>bPos</expression>
+        </outVariable>
+        <outVariable localId="157" executionOrderId="47">
+          <position x="94" y="81" />
+          <connectionPointIn>
+            <relPosition x="0" y="0" />
+            <connection refLocalId="0" />
+          </connectionPointIn>
+          <expression>bNeg</expression>
+        </outVariable>
+      </CFC>
+    </Implementation>
+  </POU>
+</TcPlcObject>

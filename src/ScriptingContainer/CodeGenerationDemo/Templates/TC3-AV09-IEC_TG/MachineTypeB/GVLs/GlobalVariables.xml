@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><GVL Name="GlobalVariables" Id="{dd6eca53-3759-46c3-9185-38c0fd5b6b0f}"><Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	(* General *)
+	iMAX_AXES 				: INT := 24;
+	iMAX_NCICHANNELS 		: INT := 3;
+
+	(* NC Camming *)
+	nCamTableId				: INT	:=  1;
+
+	(* NCI *)
+	iIpolChaId				: INT	:=  2;		(* channel id of the interpolation channel *)
+	iIpolGrpId				: INT	:=  7;		(* group id of the interpolation group *)
+	iITPSTATEIDLE			: UINT  :=  1;
+	iITPSTATEREADY			: UINT  :=  2;
+	iITPSTATERUNNING		: UINT  :=  5;
+	iIPTSTATEABORTED		: UINT  := 12;
+
+	(* path to NC File *)
+	(* WinXP/XPE *)
+	//strNcFile				: STRING:= 'C:\\TwinCAT\\3.0\\Components\\Mc\\Nci\\mdemo2.nc';
+	//strNcFile				: STRING:= 'C:\\TwinCAT\\3.0\\CustomTarget\\CNC\\mdemo2.nc';
+	strNcFile				: STRING:= 'mdemo2.nc';
+	(* WinCE*)
+	(*strNcFile				: STRING:= '\hard disk\twincat\cnc\Mdemo.nc';*)
+
+	(* application error codes *)
+	dwAppErrOffset			: UDINT	:= 16#7800;
+	dwErrDriveTimeOut		: UDINT	:= 16#7801;
+	dwErrNcLoadReadyTimeOut	: UDINT	:= 16#7802;
+	dwErrNciMFuncConfirm	: UDINT	:= 16#7810;  (* if everything is well programmed, this error will never occur *)
+	dwErrNciMFuncUnhandled	: UDINT	:= 16#7811;	 (* m-function is not handled by plc *)
+	dwErrLoadingTimeout		: UDINT	:= 16#7812;	(* time out while loading an nc-program *)
+END_VAR
+VAR_GLOBAL
+	bLogDriveDiagMsgs 	: BOOL := FALSE;
+	bForceStateChgAfterDrvReset : BOOL := FALSE;
+END_VAR]]></Declaration><ObjectProperties /></GVL></TcPlcObject>

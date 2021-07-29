@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><DUT Name="E_States" Id="{e4252308-d547-40c7-8191-96813a2f6c1c}"><Declaration><![CDATA[TYPE E_States :
+(
+		eStateIdle := 0,
+		eStateRunning,
+		eStateStopping,
+		eStateStopped
+);
+END_TYPE
+]]></Declaration><ObjectProperties /></DUT></TcPlcObject>

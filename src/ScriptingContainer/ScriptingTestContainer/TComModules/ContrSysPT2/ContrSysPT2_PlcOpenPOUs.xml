@@ -1,0 +1,347 @@
+﻿<!-- Beckhoff Automation GmbH -->
+<!-- TwinCAT Target for MATLAB/Simulink 1.1.1105.0-->
+<project xmlns="http://www.plcopen.org/xml/tc6_0200">
+  <fileHeader companyName="Beckhoff Automation GmbH" companyURL="www.beckhoff.com" productName="TwinCAT 3 Function - TE1400" productVersion="1.1.1105" creationDateTime="2013-09-30T14:08:28" />
+  <contentHeader name="TC3_TE1400_GeneratedModule_ContrSysPT2_FB">
+    <coordinateInfo>
+      <fbd>
+        <scaling x="1" y="1" />
+      </fbd>
+      <ld>
+        <scaling x="1" y="1" />
+      </ld>
+      <sfc>
+        <scaling x="1" y="1" />
+      </sfc>
+    </coordinateInfo>
+    <addData>
+      <data name="http://www.beckhoff.com/plcopenxml/projectinformation" handleUnknown="implementation">
+        <ProjectInformation />
+      </data>
+    </addData>
+  </contentHeader>
+  <types>
+    <dataTypes />
+    <pous>
+      <pou name="FB_ContrSysPT2" pouType="functionBlock">
+        <interface>
+          <inputVars>
+            <variable name="ObjectID">
+              <type>
+                <derived name="OTCID" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> object ID of the simulink module instance to be called</xhtml>
+              </documentation>
+            </variable>
+            <variable name="stInputs">
+              <type>
+                <derived name="ExtU_ContrSysPT2_T" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> input structure (also accessible via property 'Inputs')</xhtml>
+              </documentation>
+            </variable>
+          </inputVars>
+          <outputVars>
+            <variable name="hResult">
+              <type>
+                <derived name="HRESULT" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> hResult of interface calls (0 if no error)</xhtml>
+              </documentation>
+            </variable>
+            <variable name="iidFailedInterface">
+              <type>
+                <derived name="IID" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> interface ID of the failing interface if hResult &lt;&gt; 0</xhtml>
+              </documentation>
+            </variable>
+            <variable name="bReady">
+              <type>
+                <BOOL />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> TRUE, if initialized successfully</xhtml>
+              </documentation>
+            </variable>
+            <variable name="stOutputs">
+              <type>
+                <derived name="ExtY_ContrSysPT2_T" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> output structure (also accessible via property 'Outputs')	</xhtml>
+              </documentation>
+            </variable>
+          </outputVars>
+          <localVars>
+            <variable name="ipObjSrv">
+              <type>
+                <derived name="ITComObjectServer" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Interface pointer to the Object Server</xhtml>
+              </documentation>
+            </variable>
+            <variable name="ipTcCyclic">
+              <type>
+                <derived name="ITcCyclic" />
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml">Interface pointers to the used interfaces</xhtml>
+              </documentation>
+            </variable>
+            <variable name="ipTcPostCyclic">
+              <type>
+                <derived name="ITcPostCyclic" />
+              </type>
+            </variable>
+            <variable name="ipTcAdi">
+              <type>
+                <derived name="ITcADI" />
+              </type>
+            </variable>
+            <variable name="pInputs">
+              <type>
+                <pointer>
+                  <baseType>
+                    <derived name="ExtU_ContrSysPT2_T" />
+                  </baseType>
+                </pointer>
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> pointer to the input process image of the simulink module</xhtml>
+              </documentation>
+            </variable>
+            <variable name="pOutputs">
+              <type>
+                <pointer>
+                  <baseType>
+                    <derived name="ExtY_ContrSysPT2_T" />
+                  </baseType>
+                </pointer>
+              </type>
+              <documentation>
+                <xhtml xmlns="http://www.w3.org/1999/xhtml"> pointer to the output process image of the simulink module</xhtml>
+              </documentation>
+            </variable>
+          </localVars>
+        </interface>
+        <body>
+          <ST>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml"></xhtml>
+          </ST>
+        </body>
+        <addData>
+          <data name="http://www.beckhoff.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_EXIT">
+              <interface>
+                <returnType>
+                  <BOOL />
+                </returnType>
+                <inputVars>
+                  <variable name="bInCopyCode">
+                    <type>
+                      <BOOL />
+                    </type>
+                    <documentation>
+                      <xhtml xmlns="http://www.w3.org/1999/xhtml"> bei TRUE wird die exit-Methode aufgerufen, um die Instanz zu verlassen, die hinterher kopiert wird (Online Change). </xhtml>
+                    </documentation>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+// release ADI interface pointer
+IF (ipTcAdi&lt;&gt;0) THEN
+  ipTcAdi.TcRelease();
+  ipTcAdi := 0;
+END_IF
+
+// release other interface pointers
+IF (ipTcCyclic&lt;&gt;0) THEN
+  ipTcCyclic.TcRelease();
+  ipTcCyclic := 0;
+END_IF
+IF (ipTcPostCyclic&lt;&gt;0) THEN
+  ipTcPostCyclic.TcRelease();
+  ipTcPostCyclic := 0;
+END_IF
+IF (ipObjSrv&lt;&gt;0) THEN
+ipObjSrv.TcRelease();
+  ipObjSrv := 0;
+END_IF
+                  </xhtml>
+                </ST>
+              </body>
+            </Method>
+          </data>
+          <data name="http://www.beckhoff.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_INIT">
+              <interface>
+                <returnType>
+                  <BOOL />
+                </returnType>
+                <inputVars>
+                  <variable name="bInitRetains">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="bInCopyCode">
+                    <type>
+                      <BOOL />
+                    </type>
+                  </variable>
+                  <variable name="oid">
+                      <type>
+                        <derived name="OTCID" />
+                      </type>
+                  </variable>
+                </inputVars>
+              </interface>
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+hResult := S_OK;
+
+// set object ID, if defined in the argument list
+if(oid&gt;0) THEN
+ ObjectID := oid;
+END_IF
+
+// get object server
+hResult := FW_ObjMgr_GetObjectServer(_AppInfo.ObjId,ADR(ipObjSrv));
+IF (hResult&lt;&gt;S_OK) THEN
+ iidFailedInterface := IID_ITComObjectServer;
+END_IF
+
+
+//get interface pointer to the cyclic interface of the simulink module
+IF (hResult=S_OK) THEN
+ hResult := ipObjSrv.TcQueryObjectInterface(oid:= ObjectID, iid:= IID_ITCCYCLIC, pipItf:=ADR(ipTcCyclic));
+ IF (hResult&lt;&gt;S_OK) THEN
+  iidFailedInterface := IID_ITCCYCLIC;
+ END_IF
+END_IF
+
+//get interface pointer to the cyclic interface of the simulink module
+IF (hResult=S_OK) THEN
+ hResult := ipObjSrv.TcQueryObjectInterface(oid:= ObjectID, iid:= IID_ITCPOSTCYCLIC, pipItf:=ADR(ipTcPostCyclic));
+ IF (hResult&lt;&gt;S_OK) THEN
+  iidFailedInterface := IID_ITCPOSTCYCLIC;
+ END_IF
+END_IF
+
+//get interface pointer to the adi interface of the simulink module
+IF (hResult=S_OK) THEN
+ hResult := ipObjSrv.TcQueryObjectInterface(oid:= ObjectID, iid:= IID_ITcADI, pipItf:=ADR(ipTcAdi));
+ IF (hResult&lt;&gt;S_OK) THEN
+  iidFailedInterface := IID_ITcADI;
+ END_IF
+END_IF
+
+// check state
+bReady := (hResult=S_OK);
+
+// free pointer if not ready
+IF NOT bReady THEN
+  FB_EXIT(false);
+END_IF
+
+// return value
+FB_INIT := (hResult=S_OK);    
+                  </xhtml>
+                </ST>
+              </body>
+            </Method>
+          </data>
+          <data name="http://www.beckhoff.com/plcopenxml/method" handleUnknown="implementation">
+            <Method name="FB_EXECUTE">
+              <interface />
+              <body>
+                <ST>
+                  <xhtml xmlns="http://www.w3.org/1999/xhtml">
+IF NOT bReady THEN
+RETURN;
+END_IF
+
+// get pointer to the input process image
+IF (hResult=S_OK) THEN
+  hResult := ipTcAdi.GetImagePtr(size:= SIZEOF(ExtU_ContrSysPT2_T) , offs:=0 , adi_x:=0 , ppData:=ADR(pInputs));
+  IF (hResult&lt;&gt;S_OK) THEN
+    iidFailedInterface := IID_ITcADI;
+  END_IF
+END_IF
+
+// get pointer to the output process image
+IF (hResult=S_OK) THEN
+  hResult := ipTcAdi.GetImagePtr(size:= SIZEOF(ExtY_ContrSysPT2_T) , offs:=0 , adi_x:=1 , ppData:=ADR(pOutputs));
+  IF (hResult&lt;&gt;S_OK) THEN
+    iidFailedInterface := IID_ITcADI;
+  END_IF
+END_IF
+
+
+// copy inputs
+IF (pInputs&lt;&gt;0) THEN
+  pInputs^ := stInputs;
+END_IF
+
+// call output update
+IF (ipTcCyclic&lt;&gt;0) THEN
+  hResult := ipTcCyclic.CycleUpdate(ipTask:= 0, ipCaller:= 0, context:= 0);
+ELSE
+  hResult := 1;
+END_IF
+
+// copy outputs
+IF (pOutputs&lt;&gt;0) THEN
+  stOutputs := pOutputs^;
+END_IF
+
+// call state update
+IF (ipTcPostCyclic&lt;&gt;0) THEN
+  hResult := ipTcPostCyclic.PostCyclicUpdate(ipTask:= 0, ipCaller:= 0, context:= 0);
+ELSE
+  hResult := 1;
+END_IF
+
+// release process image pointers
+  IF (pInputs&lt;&gt;0) THEN
+    ipTcAdi.ReleaseImagePtr(pData:=pInputs);
+    pInputs := 0;
+  END_IF
+  IF (pOutputs&lt;&gt;0) THEN
+    ipTcAdi.ReleaseImagePtr(pData:=pOutputs);
+    pOutputs := 0;
+  END_IF
+                  </xhtml>
+                </ST>
+              </body>
+            </Method>
+          </data>
+         
+        </addData>
+      </pou>
+    </pous>
+  </types>
+  <instances>
+    <configurations />
+  </instances>
+  <addData>
+    <data name="http://www.beckhoff.com/plcopenxml/projectstructure" handleUnknown="discard">
+      <ProjectStructure>
+        <Object Name="FB_ContrSysPT2">
+          <Object Name="FB_EXIT" />
+          <Object Name="FB_INIT" />
+          <Object Name="FB_EXECUTE" />
+        </Object>
+      </ProjectStructure>
+    </data>
+  </addData>
+</project>

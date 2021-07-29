@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="FB_Table" Id="{ffc0da12-63b0-4155-ac9b-8aa6d1955b3d}"><Declaration><![CDATA[FUNCTION_BLOCK FB_Table
+VAR_IN_OUT
+	fbServoAxisX	: IAxis; //Pass the reference to ANY block that uses FB_NcAxis as a base class
+	fbServoAxisY	: IAxis; //Pass the reference to ANY block that uses FB_NcAxis as a base class
+	fbServoAxisZ	: IAxis; //Pass the reference to ANY block that uses FB_NcAxis as a base class
+END_VAR
+VAR_INPUT
+	bEnable			: BOOL	:= TRUE;
+	fOverride		: LREAL	:= 100;
+	bExecute		: BOOL;
+END_VAR
+VAR_OUTPUT
+	bEnabled		: BOOL;
+	bError			: BOOL;
+END_VAR
+VAR
+	iState			: INT;
+	bExecute_		: BOOL;
+
+	eCurStateAxisX	: E_AxisState;
+	bEnabledAxisX	: BOOL;
+	bBusyAxisX		: BOOL;
+	bErrorAxisX		: BOOL;
+
+	eCurStateAxisY	: E_AxisState;
+	bEnabledAxisY	: BOOL;
+	bBusyAxisY		: BOOL;
+	bErrorAxisY		: BOOL;
+
+	eCurStateAxisZ	: E_AxisState;
+	bEnabledAxisZ	: BOOL;
+	bBusyAxisZ		: BOOL;
+	bErrorAxisZ		: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//NC axes can be used independent of axes type (AX5000, stepper, analog axis, ...) incl. hardware reset and diagnostic  
+
+//enable axes
+bEnabledAxisX 	:= fbServoAxisX.M_Enable(bEnable:= bEnable, fOverride:= fOverride);
+bEnabledAxisY 	:= fbServoAxisY.M_Enable(bEnable:= bEnable, fOverride:= fOverride);
+bEnabledAxisZ 	:= fbServoAxisZ.M_Enable(bEnable:= bEnable, fOverride:= fOverride);
+bEnabled		:= bEnabledAxisX AND bEnabledAxisY AND bEnabledAxisZ;
+
+//check for cyclic diagnostics
+bErrorAxisX		:= fbServoAxisX.M_Diag();
+bErrorAxisY		:= fbServoAxisY.M_Diag();
+bErrorAxisZ		:= fbServoAxisZ.M_Diag();
+bError			:= bError OR bErrorAxisX OR bErrorAxisY OR bErrorAxisZ;
+
+//state machine
+CASE iState OF
+	0:	//idle state
+		IF (bExecute AND NOT bExecute_) THEN
+			IF bError THEN
+				iState := 10;
+			ELSIF bEnabled THEN
+				iState := iState + 1;
+			END_IF
+		END_IF	
+		
+	1:	//move x 200, y 200, z 200
+		bBusyAxisX := fbServoAxisX.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+		bBusyAxisY := fbServoAxisY.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+		bBusyAxisZ := fbServoAxisZ.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY AND NOT bBusyAxisZ THEN
+			bBusyAxisX := fbServoAxisX.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+			bBusyAxisY := fbServoAxisY.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+			bBusyAxisZ := fbServoAxisZ.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 100.0, fPosition:= 200.0);
+			iState := iState + 1;
+		END_IF
+		
+	2:	//move x 100, y 300
+		bBusyAxisX := fbServoAxisX.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 100.0);
+		bBusyAxisY := fbServoAxisY.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 300.0);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY THEN
+			bBusyAxisX := fbServoAxisX.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 100.0);
+			bBusyAxisY := fbServoAxisY.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 300.0);
+			iState := iState + 1;
+		END_IF
+		
+	3:	//move x 0, y 0, z 0
+		bBusyAxisX := fbServoAxisX.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 50.0, fPosition:= 0.0);
+		bBusyAxisY := fbServoAxisY.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 0.0);
+		bBusyAxisZ := fbServoAxisZ.M_Move(bExecute:= TRUE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 0.0);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY AND NOT bBusyAxisZ THEN
+			bBusyAxisX := fbServoAxisX.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 50.0, fPosition:= 0.0);
+			bBusyAxisY := fbServoAxisY.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 0.0);
+			bBusyAxisZ := fbServoAxisZ.M_Move(bExecute:= FALSE, eMoveCmd:= eCmd_MoveAbsolute, fVelocity:= 150.0, fPosition:= 0.0);
+			iState := 0;
+		END_IF
+		
+	10:	//hardware diag
+		bBusyAxisX := fbServoAxisX.M_HardwareDiag(bExecute:= TRUE);
+		bBusyAxisY := fbServoAxisY.M_HardwareDiag(bExecute:= TRUE);
+		bBusyAxisZ := fbServoAxisZ.M_HardwareDiag(bExecute:= TRUE);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY AND NOT bBusyAxisZ THEN
+			bBusyAxisX := fbServoAxisX.M_HardwareDiag(bExecute:= FALSE);
+			bBusyAxisY := fbServoAxisY.M_HardwareDiag(bExecute:= FALSE);
+			bBusyAxisZ := fbServoAxisZ.M_HardwareDiag(bExecute:= FALSE);
+			iState := iState + 1;
+		END_IF
+
+	11:	//hardware reset
+		bBusyAxisX := fbServoAxisX.M_HardwareReset(bExecute:= TRUE);
+		bBusyAxisY := fbServoAxisY.M_HardwareReset(bExecute:= TRUE);
+		bBusyAxisZ := fbServoAxisZ.M_HardwareReset(bExecute:= TRUE);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY AND NOT bBusyAxisZ THEN
+			bBusyAxisX := fbServoAxisX.M_HardwareReset(bExecute:= FALSE);
+			bBusyAxisY := fbServoAxisY.M_HardwareReset(bExecute:= FALSE);
+			bBusyAxisZ := fbServoAxisZ.M_HardwareReset(bExecute:= FALSE);
+			iState := iState + 1;
+		END_IF
+		
+	12:	//nc reset
+		bBusyAxisX := fbServoAxisX.M_Reset(bExecute:= TRUE);
+		bBusyAxisY := fbServoAxisY.M_Reset(bExecute:= TRUE);
+		bBusyAxisZ := fbServoAxisZ.M_Reset(bExecute:= TRUE);
+		IF NOT bBusyAxisX AND NOT bBusyAxisY AND NOT bBusyAxisZ THEN
+			bBusyAxisX := fbServoAxisX.M_Reset(bExecute:= FALSE);
+			bBusyAxisY := fbServoAxisY.M_Reset(bExecute:= FALSE);
+			bBusyAxisZ := fbServoAxisZ.M_Reset(bExecute:= FALSE);
+			bError := FALSE;
+			iState := 0;
+		END_IF
+
+END_CASE
+
+bExecute_ := bExecute;]]></ST></Implementation><ObjectProperties /></POU></TcPlcObject>

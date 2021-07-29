@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><Itf Name="IAxis" Id="{4ac5d0ff-eed6-49fd-a5f4-cc0973d18585}"><Declaration><![CDATA[INTERFACE IAxis
+]]></Declaration><Method Name="M_Diag" Id="{b55bf81d-53e5-4ac0-9442-0f939aa427e9}"><Declaration><![CDATA[METHOD M_Diag : BOOL
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+	bNcError 	: BOOL;
+	bDrvError 	: BOOL;
+	iNcErrorId	: UDINT;
+END_VAR
+]]></Declaration></Method><Method Name="M_Enable" Id="{bf426408-8663-4981-b695-9bfc32c68878}"><Declaration><![CDATA[METHOD M_Enable : BOOL
+VAR_INPUT
+	bEnable 	: BOOL;
+	fOverride	: LREAL;
+END_VAR
+]]></Declaration></Method><Method Name="M_HardwareDiag" Id="{acdb6ef8-a7f9-4476-b26d-07077f63510d}"><Declaration><![CDATA[METHOD M_HardwareDiag : BOOL
+VAR_INPUT
+	bExecute : BOOL;
+END_VAR
+]]></Declaration></Method><Method Name="M_HardwareReset" Id="{e5048b5f-09c6-4675-9725-39d76ac6f99c}"><Declaration><![CDATA[METHOD M_HardwareReset : BOOL
+VAR_INPUT
+	bExecute : BOOL;
+END_VAR
+]]></Declaration></Method><Method Name="M_Move" Id="{502f336d-bbeb-4dd2-9d79-1a370aa42cac}"><Declaration><![CDATA[{attribute 'InstanceVar'}
+METHOD M_Move : BOOL
+VAR_INPUT
+	bExecute	: BOOL;
+	eMoveCmd	: E_MoveCmd;
+	fVelocity	: LREAL;
+	fPosition	: LREAL;
+END_VAR
+]]></Declaration></Method><Method Name="M_Reset" Id="{c3f5d636-208a-4c4c-b675-259e47598583}"><Declaration><![CDATA[METHOD M_Reset : BOOL
+VAR_INPUT
+	bExecute 	: BOOL;
+END_VAR
+]]></Declaration></Method><ObjectProperties /></Itf></TcPlcObject>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<VarLinks>
+  <!--<OwnerA Name="TINC^Task 1 SAF^Axes^Axis 1">
+    <OwnerB Name="TIID^EtherCAT Master^Drive">
+
+      <Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nDataIn1"
+      VarB="AT 1^Position feedback 1 value" />
+      <Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nDataIn1"
+      VarB="AT 1^Following distance" />
+      <Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState1"
+      VarB="AT 1^Drive status word" Size="8" OffsB="8" />
+      <Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nDataOut1"
+      VarB="MDT 1^Position command value" />
+      <Link VarA="Axis 1_Drive^Outputs^Axis 1_Drive_Out^nCtrl1"
+      VarB="MDT 1^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState2"
+      VarB="AT 1^Drive status word" />
+      <Link VarA="Axis 1_Enc^Inputs^Axis 1_Enc_In^nState4"
+      VarB="WcState^WcState" />
+      <Link VarA="Axis 1_Drive^Inputs^Axis 1_Drive_In^nState4"
+      VarB="WcState^WcState" />
+    </OwnerB>
+  </OwnerA>-->
+  <!--<OwnerA Name="TINC^Task 1 SAF^Axes^Axis 2">
+    <OwnerB Name="TIID^EtherCAT Master^Drive">
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nDcOutputTime"
+      VarB="InfoData^DcOutputShift" />
+      <Link VarA="Axis 2_Drive^Outputs^Axis 2_Drive_Out^nDataOut1"
+      VarB="MDT 2^Position command value" />
+      <Link VarA="Axis 2_Drive^Outputs^Axis 2_Drive_Out^nCtrl1"
+      VarB="MDT 2^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Axis 2_Enc^Inputs^Axis 2_Enc_In^nState4"
+      VarB="WcState^InputToggle" Size="1" OffsA="1" />
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nState4"
+      VarB="WcState^InputToggle" Size="1" OffsA="1" />
+      <Link VarA="Axis 2_Enc^Inputs^Axis 2_Enc_In^nState4"
+      VarB="WcState^WcState" />
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nState2"
+      VarB="AT 2^Drive status word" />
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nState4"
+      VarB="WcState^WcState" />
+      <Link VarA="Axis 2_Enc^Inputs^Axis 2_Enc_In^nDataIn1"
+      VarB="AT 2^Position feedback 1 value" />
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nDataIn1"
+      VarB="AT 2^Following distance" />
+      <Link VarA="Axis 2_Enc^Inputs^Axis 2_Enc_In^nDcInputTime"
+      VarB="InfoData^DcInputShift" />
+      <Link VarA="Axis 2_Drive^Inputs^Axis 2_Drive_In^nState1"
+      VarB="AT 2^Drive status word" Size="8" OffsB="8" />
+    </OwnerB>
+  </OwnerA>-->
+  <OwnerA Name="TIPC^MachineTypeA^MachineTypeA Instance">
+    <OwnerB Name="TIID^EtherCAT Master^Term 1^Term 3">
+      <Link VarA="PlcTask Outputs^MAIN.bEnabled"
+      VarB="Channel 1^Output" />
+      <Link VarA="PlcTask Outputs^MAIN.bError"
+      VarB="Channel 2^Output" />
+    </OwnerB>
+    <OwnerB Name="TIID^EtherCAT Master^Term 1^Term 2">
+
+      <Link VarA="PlcTask Inputs^MAIN.bHalt"
+      VarB="Channel 2^Input" />
+      <Link VarA="PlcTask Inputs^MAIN.bDriveReset"
+      VarB="Channel 1^Input" />
+    </OwnerB>
+    <OwnerB Name="TINC^Task 1 SAF^Axes^Axis 2">
+      <Link VarA="PlcTask Outputs^MAIN.fbAxis2.AxisRef.PlcToNc"
+      VarB="Inputs^FromPlc" />
+      <Link VarA="PlcTask Inputs^MAIN.fbAxis2.AxisRef.NcToPlc"
+      VarB="Outputs^ToPlc" />
+    </OwnerB>
+    <OwnerB Name="TINC^Task 1 SAF^Axes^Axis 1">
+      <Link VarA="PlcTask Outputs^MAIN.fbAxis1.AxisRef.PlcToNc"
+      VarB="Inputs^FromPlc" />
+      <Link VarA="PlcTask Inputs^MAIN.fbAxis1.AxisRef.NcToPlc"
+      VarB="Outputs^ToPlc" />
+    </OwnerB>
+    <OwnerB Name="TIID^EtherCAT Master^Term 1^Term 7">
+
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 8^Output" Size="1" OffsA="7" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 6^Output" Size="1" OffsA="5" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 4^Output" Size="1" OffsA="3" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 2^Output" Size="1" OffsA="1" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 1^Output" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 3^Output" Size="1" OffsA="2" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 5^Output" Size="1" OffsA="4" />
+      <Link VarA="PlcTask Outputs^MAIN.iCounter"
+      VarB="Channel 7^Output" Size="1" OffsA="6" />
+    </OwnerB>
+  </OwnerA>
+</VarLinks>

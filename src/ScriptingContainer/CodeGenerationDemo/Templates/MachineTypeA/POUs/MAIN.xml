@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="MAIN" Id="{a21909d3-cd98-494e-bde8-33d36ae6ece0}"><Declaration><![CDATA[PROGRAM MAIN
+VAR
+	iCounter AT %Q*		: DINT;	
+
+	(* instance of axes *)
+	fbAxis1				: FB_Axis;	// 1st axis instance
+	lrActPos1			: LREAL; 	// 1st axis position
+	fbAxis2				: FB_Axis;	// 2nd axis instance
+	lrActPos2			: LREAL; 	// 2nd axis position
+	
+	(* common *)
+	bEnabled AT %Q*		: BOOL;		// all axes enabled
+	bError AT %Q*		: BOOL;		// at leas one axis in error condition
+	bDriveReset AT %I*	: BOOL;		// request reset
+	bHalt AT %I*		: BOOL;		// request halt
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[iCounter := iCounter + 1;
+
+fbAxis1(
+	bDriveReset := bDriveReset,
+	bHalt 		:= bHalt,
+	lrActPos	=> lrActPos1
+);
+
+fbAxis2(
+	bDriveReset := bDriveReset,
+	bHalt 		:= bHalt,
+	lrActPos	=> lrActPos2
+);
+
+bEnabled	:= fbAxis1.bStatus AND fbAxis2.bStatus;
+bError		:= fbAxis1.bDriveError OR fbAxis1.bNcError OR fbAxis2.bNcError OR fbAxis2.bDriveError;
+]]></ST></Implementation><ObjectProperties /></POU></TcPlcObject>
