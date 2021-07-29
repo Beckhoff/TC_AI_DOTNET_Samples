@@ -1,0 +1,3831 @@
+﻿<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.18">
+  <POU Name="MAIN_CFC" Id="{925e8a0b-5b06-4a96-a5da-d76c675eeda2}">
+    <Declaration><![CDATA[PROGRAM MAIN_CFC
+VAR
+	Timer			: TON;
+	fbCFC_SamplePOU : FB_CFC_SamplePOU;
+
+	eOperation		: E_Operation := eOp_Add;
+	eOperationPrev	: E_Operation := eOp_Add;
+	iResultC		: DINT;
+	bZero			: BOOL;
+	bPos			: BOOL;
+	bNeg			: BOOL;
+	bTest			: BOOL;
+	tTimerValue		: TIME := T#3S;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <CFC>﻿<XmlArchive>
+  <Data>
+    <o xml:space="preserve" t="CFCImplementationObject">
+      <o n="Items" t="CFCItemList">
+        <l2 n="InnerList">
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483146L</v>
+            <v n="DestPinId">2147483151L</v>
+            <v n="Id">2147483135L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483138L</v>
+            <v n="DestPinId">2147483147L</v>
+            <v n="Id">2147483136L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483138L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"0"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483137L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"76, 82, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483139L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483195L</v>
+            <v n="DestPinId">2147483148L</v>
+            <v n="Id">2147483140L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483164L</v>
+            <v n="DestPinId">2147483169L</v>
+            <v n="Id">2147483153L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483156L</v>
+            <v n="DestPinId">2147483165L</v>
+            <v n="Id">2147483154L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483156L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"0"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483155L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"76, 78, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483157L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483195L</v>
+            <v n="DestPinId">2147483166L</v>
+            <v n="Id">2147483158L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483182L</v>
+            <v n="DestPinId">2147483187L</v>
+            <v n="Id">2147483171L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483174L</v>
+            <v n="DestPinId">2147483183L</v>
+            <v n="Id">2147483172L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483174L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"0"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483173L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"76, 74, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483175L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483195L</v>
+            <v n="DestPinId">2147483184L</v>
+            <v n="Id">2147483176L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483195L</v>
+            <v n="DestPinId">2147483199L</v>
+            <v n="Id">2147483189L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483203L</v>
+            <v n="DestPinId">2147483196L</v>
+            <v n="Id">2147483190L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483203L</v>
+            <v n="DestPinId">2147483206L</v>
+            <v n="Id">2147483201L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483203L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483202L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"14, 73, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483204L</v>
+          </o>
+          <o t="CFCCommentElement">
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"FB Call"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483210L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"0, 68, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483211L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483245L</v>
+            <v n="DestPinId">2147483250L</v>
+            <v n="Id">2147483212L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483221L</v>
+            <v n="DestPinId">2147483246L</v>
+            <v n="Id">2147483213L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483255L</v>
+            <v n="DestPinId">2147483222L</v>
+            <v n="Id">2147483214L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483296L</v>
+            <v n="DestPinId">2147483223L</v>
+            <v n="Id">2147483215L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483236L</v>
+            <v n="DestPinId">2147483247L</v>
+            <v n="Id">2147483225L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483228L</v>
+            <v n="DestPinId">2147483237L</v>
+            <v n="Id">2147483226L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483228L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperationPrev"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483227L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 60, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483229L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483296L</v>
+            <v n="DestPinId">2147483238L</v>
+            <v n="Id">2147483230L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483296L</v>
+            <v n="DestPinId">2147483302L</v>
+            <v n="Id">2147483252L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483255L</v>
+            <v n="DestPinId">2147483297L</v>
+            <v n="Id">2147483253L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483255L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Sub"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483254L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"32, 64, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483256L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483266L</v>
+            <v n="DestPinId">2147483298L</v>
+            <v n="Id">2147483257L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483286L</v>
+            <v n="DestPinId">2147483299L</v>
+            <v n="Id">2147483258L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483261L</v>
+            <v n="DestPinId">2147483287L</v>
+            <v n="Id">2147483259L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483261L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer.Q"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483260L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"18, 59, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483262L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483277L</v>
+            <v n="DestPinId">2147483288L</v>
+            <v n="Id">2147483263L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483266L</v>
+            <v n="DestPinId">2147483278L</v>
+            <v n="Id">2147483264L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483266L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483265L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 60, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483267L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483270L</v>
+            <v n="DestPinId">2147483279L</v>
+            <v n="Id">2147483268L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483270L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Mul"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483269L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"6, 56, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483271L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483337L</v>
+            <v n="DestPinId">2147483342L</v>
+            <v n="Id">2147483304L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483313L</v>
+            <v n="DestPinId">2147483338L</v>
+            <v n="Id">2147483305L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483347L</v>
+            <v n="DestPinId">2147483314L</v>
+            <v n="Id">2147483306L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483388L</v>
+            <v n="DestPinId">2147483315L</v>
+            <v n="Id">2147483307L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483328L</v>
+            <v n="DestPinId">2147483339L</v>
+            <v n="Id">2147483317L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483320L</v>
+            <v n="DestPinId">2147483329L</v>
+            <v n="Id">2147483318L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483320L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperationPrev"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483319L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 48, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483321L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483388L</v>
+            <v n="DestPinId">2147483330L</v>
+            <v n="Id">2147483322L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483388L</v>
+            <v n="DestPinId">2147483394L</v>
+            <v n="Id">2147483344L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483347L</v>
+            <v n="DestPinId">2147483389L</v>
+            <v n="Id">2147483345L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483347L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Add"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483346L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"32, 52, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483348L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483358L</v>
+            <v n="DestPinId">2147483390L</v>
+            <v n="Id">2147483349L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483378L</v>
+            <v n="DestPinId">2147483391L</v>
+            <v n="Id">2147483350L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483353L</v>
+            <v n="DestPinId">2147483379L</v>
+            <v n="Id">2147483351L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483353L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer.Q"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483352L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"18, 47, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483354L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483369L</v>
+            <v n="DestPinId">2147483380L</v>
+            <v n="Id">2147483355L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483358L</v>
+            <v n="DestPinId">2147483370L</v>
+            <v n="Id">2147483356L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483358L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483357L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 48, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483359L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483362L</v>
+            <v n="DestPinId">2147483371L</v>
+            <v n="Id">2147483360L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483362L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Sub"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483361L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"6, 44, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483363L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483429L</v>
+            <v n="DestPinId">2147483434L</v>
+            <v n="Id">2147483396L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483405L</v>
+            <v n="DestPinId">2147483430L</v>
+            <v n="Id">2147483397L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483439L</v>
+            <v n="DestPinId">2147483406L</v>
+            <v n="Id">2147483398L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483480L</v>
+            <v n="DestPinId">2147483407L</v>
+            <v n="Id">2147483399L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483420L</v>
+            <v n="DestPinId">2147483431L</v>
+            <v n="Id">2147483409L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483412L</v>
+            <v n="DestPinId">2147483421L</v>
+            <v n="Id">2147483410L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483412L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperationPrev"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483411L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 35, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483413L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483480L</v>
+            <v n="DestPinId">2147483422L</v>
+            <v n="Id">2147483414L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483480L</v>
+            <v n="DestPinId">2147483486L</v>
+            <v n="Id">2147483436L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483439L</v>
+            <v n="DestPinId">2147483481L</v>
+            <v n="Id">2147483437L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483439L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Mul"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483438L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"32, 39, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483440L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483450L</v>
+            <v n="DestPinId">2147483482L</v>
+            <v n="Id">2147483441L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483470L</v>
+            <v n="DestPinId">2147483483L</v>
+            <v n="Id">2147483442L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483445L</v>
+            <v n="DestPinId">2147483471L</v>
+            <v n="Id">2147483443L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483445L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer.Q"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483444L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"18, 34, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483446L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483461L</v>
+            <v n="DestPinId">2147483472L</v>
+            <v n="Id">2147483447L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483450L</v>
+            <v n="DestPinId">2147483462L</v>
+            <v n="Id">2147483448L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483450L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483449L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 35, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483451L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483454L</v>
+            <v n="DestPinId">2147483463L</v>
+            <v n="Id">2147483452L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483454L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOp_Add"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483453L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"6, 31, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483455L</v>
+          </o>
+          <o t="CFCCommentElement">
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"State machine  "</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483488L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"0, 29, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483489L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483523L</v>
+            <v n="DestPinId">2147483527L</v>
+            <v n="Id">2147483490L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483515L</v>
+            <v n="DestPinId">2147483524L</v>
+            <v n="Id">2147483491L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483494L</v>
+            <v n="DestPinId">2147483516L</v>
+            <v n="Id">2147483492L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483494L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"tTimerValue"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483493L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"14, 26, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483495L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483505L</v>
+            <v n="DestPinId">2147483517L</v>
+            <v n="Id">2147483496L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483499L</v>
+            <v n="DestPinId">2147483506L</v>
+            <v n="Id">2147483497L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483499L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer.Q"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483498L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 25, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483500L</v>
+          </o>
+          <o t="CFCCommentElement">
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483529L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"0, 22, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483530L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483640L</v>
+            <v n="DestPinId">2147483645L</v>
+            <v n="Id">2147483531L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483540L</v>
+            <v n="DestPinId">2147483641L</v>
+            <v n="Id">2147483532L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483548L</v>
+            <v n="DestPinId">2147483541L</v>
+            <v n="Id">2147483533L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483552L</v>
+            <v n="DestPinId">2147483542L</v>
+            <v n="Id">2147483534L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483630L</v>
+            <v n="DestPinId">2147483642L</v>
+            <v n="Id">2147483544L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483559L</v>
+            <v n="DestPinId">2147483631L</v>
+            <v n="Id">2147483545L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483548L</v>
+            <v n="DestPinId">2147483560L</v>
+            <v n="Id">2147483546L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483548L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"T#500ms"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483547L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"16, 15, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483549L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483552L</v>
+            <v n="DestPinId">2147483561L</v>
+            <v n="Id">2147483550L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483552L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"Timer.ET"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483551L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"14, 14, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483553L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483577L</v>
+            <v n="DestPinId">2147483632L</v>
+            <v n="Id">2147483563L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483566L</v>
+            <v n="DestPinId">2147483578L</v>
+            <v n="Id">2147483564L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483566L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"0"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483565L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"20, 11, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483567L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483570L</v>
+            <v n="DestPinId">2147483579L</v>
+            <v n="Id">2147483568L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483570L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"iResultC"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483569L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"14, 10, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483571L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483620L</v>
+            <v n="DestPinId">2147483633L</v>
+            <v n="Id">2147483581L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483593L</v>
+            <v n="DestPinId">2147483621L</v>
+            <v n="Id">2147483582L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483585L</v>
+            <v n="DestPinId">2147483594L</v>
+            <v n="Id">2147483583L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483585L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bNeg"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483584L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 8, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483586L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483600L</v>
+            <v n="DestPinId">2147483595L</v>
+            <v n="Id">2147483587L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483611L</v>
+            <v n="DestPinId">2147483622L</v>
+            <v n="Id">2147483597L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483600L</v>
+            <v n="DestPinId">2147483612L</v>
+            <v n="Id">2147483598L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483600L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bPos"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483599L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 5, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483601L</v>
+          </o>
+          <o t="CFCConnection">
+            <v n="Bounds">"-2, -2, 0, 0"</v>
+            <v n="SourcePinId">2147483604L</v>
+            <v n="DestPinId">2147483613L</v>
+            <v n="Id">2147483602L</v>
+          </o>
+          <o t="CFCInputElement">
+            <o n="Output" t="CFCOutputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483604L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bZero"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483603L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 2, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483605L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483613L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483612L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483611L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483610L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483609L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483608L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483607L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483606L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"12, 0, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483614L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483595L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483594L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483593L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483592L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483591L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483590L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"XOR"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483589L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483588L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"12, 5, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483596L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483622L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483621L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483620L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483619L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483618L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483617L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"OR"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483616L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483615L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 2, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483623L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483579L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483578L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483577L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483576L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483575L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483574L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"LE"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483573L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483572L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 8, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483580L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483561L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483560L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483559L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483558L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483557L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483556L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"GT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483555L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483554L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 12, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483562L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483633L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483632L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483631L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483630L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483629L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483628L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483627L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483626L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483625L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483624L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"42, 5, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483634L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483542L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483541L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483540L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483539L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483538L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483537L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"LE"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483536L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483535L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 16, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483543L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483642L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483641L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483640L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483639L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483638L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483637L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"OR"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483636L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483635L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"54, 8, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483643L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483645L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bTest"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483644L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"66, 10, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483646L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483506L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483505L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483504L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483503L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"NOT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483502L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483501L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"12, 23, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483507L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483517L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483516L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483515L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483514L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"IN"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483513L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"PT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483512L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"Q"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483511L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"ET"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483510L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"TON"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483509L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"Timer"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483508L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 23, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">FunctionBlock</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483518L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483524L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483523L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483522L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483521L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"NOT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483520L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483519L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"48, 23, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483525L</v>
+          </o>
+          <o t="CFCJumpElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483527L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"CALLFB"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483526L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 25, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483528L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483463L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483462L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483461L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483460L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483459L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483458L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483457L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483456L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"16, 29, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483464L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483472L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483471L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483470L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483469L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483468L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483467L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483466L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483465L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"30, 31, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483473L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483483L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483482L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483481L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483480L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483479L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483478L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483477L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483476L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"SEL"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483475L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483474L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"42, 32, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483484L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483486L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483485L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 31, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483487L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483422L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483421L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483420L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483419L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483418L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483417L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"NE"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483416L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483415L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"78, 32, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483423L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483407L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483406L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483405L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483404L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483403L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483402L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483401L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483400L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 36, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483408L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483431L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483430L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483429L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483428L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483427L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483426L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483425L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483424L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"90, 35, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483432L</v>
+          </o>
+          <o t="CFCJumpElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483434L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"CallFB"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483433L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"100, 37, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483435L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483371L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483370L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483369L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483368L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483367L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483366L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483365L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483364L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"16, 42, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483372L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483380L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483379L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483378L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483377L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483376L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483375L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483374L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483373L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"30, 44, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483381L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483391L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483390L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483389L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483388L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483387L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483386L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483385L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483384L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"SEL"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483383L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483382L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"42, 45, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483392L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483394L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483393L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 44, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483395L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483330L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483329L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483328L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483327L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483326L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483325L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"NE"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483324L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483323L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"78, 45, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483331L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483315L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483314L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483313L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483312L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483311L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483310L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483309L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483308L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 49, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483316L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483339L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483338L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483337L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483336L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483335L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483334L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483333L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483332L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"90, 48, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483340L</v>
+          </o>
+          <o t="CFCJumpElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483342L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"CallFB"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483341L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"100, 50, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483343L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483279L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483278L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483277L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483276L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483275L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483274L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483273L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483272L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"16, 54, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483280L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483288L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483287L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483286L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483285L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483284L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483283L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483282L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483281L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"30, 56, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483289L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483299L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483298L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483297L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483296L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483295L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483294L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483293L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483292L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"SEL"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483291L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483290L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"42, 57, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483300L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483302L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperation"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483301L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 56, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483303L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483238L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483237L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483236L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483235L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483234L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483233L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"NE"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483232L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483231L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"78, 57, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483239L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483223L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483222L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483221L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483220L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483219L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483218L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483217L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483216L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"60, 61, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483224L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483247L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483246L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483245L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483244L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483243L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483242L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"AND"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483241L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483240L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"90, 60, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483248L</v>
+          </o>
+          <o t="CFCJumpElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483250L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"CallFB"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483249L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"100, 62, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483251L</v>
+          </o>
+          <o t="CFCLabelElement">
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"CallFB"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483208L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"2, 70, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483209L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483206L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"eOperationPrev"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483205L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 76, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483207L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483196L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483195L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"eOperation"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483194L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"iResultC"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483193L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"FB_CFC_SamplePOU"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483192L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"fbCFC_SamplePOU"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483191L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"28, 71, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">FunctionBlock</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483197L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483199L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"iResultC"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483198L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"64, 70, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483200L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483184L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483183L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483182L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483181L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483180L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483179L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"EQ"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483178L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483177L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"82, 71, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483185L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483187L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bZero"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483186L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"94, 73, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483188L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483166L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483165L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483164L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483163L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483162L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483161L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"GT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483160L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483159L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"82, 75, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483167L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483169L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bPos"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483168L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"94, 77, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483170L</v>
+          </o>
+          <o t="CFCBoxElement">
+            <o n="Inputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCInputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483148L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483147L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Outputs" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCOutputPin">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Negated">false</v>
+                  <v n="SetReset" t="SetReset">None</v>
+                  <v n="SetResetRef" t="SetResetRef">None</v>
+                  <v n="Id">2147483146L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Texts" t="CFCItemList">
+              <l2 n="InnerList" cet="CFCText">
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483145L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483144L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483143L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">"LT"</v>
+                  <v n="Modifiable">true</v>
+                  <v n="Id">2147483142L</v>
+                </o>
+                <o>
+                  <v n="Bounds">"0, 0, 0, 0"</v>
+                  <v n="Text">""</v>
+                  <v n="Modifiable">false</v>
+                  <v n="Id">2147483141L</v>
+                </o>
+              </l2>
+            </o>
+            <o n="Parameters" t="CFCItemList">
+              <l2 n="InnerList" />
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"82, 79, 0, 0"</v>
+            <v n="EnEno">false</v>
+            <v n="KindOfCall" t="KindOfCall">Operator</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483149L</v>
+          </o>
+          <o t="CFCOutputElement">
+            <o n="Input" t="CFCInputPin">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Negated">false</v>
+              <v n="SetReset" t="SetReset">None</v>
+              <v n="SetResetRef" t="SetResetRef">None</v>
+              <v n="Id">2147483151L</v>
+            </o>
+            <o n="Text" t="CFCText">
+              <v n="Bounds">"0, 0, 0, 0"</v>
+              <v n="Text">"bNeg"</v>
+              <v n="Modifiable">true</v>
+              <v n="Id">2147483150L</v>
+            </o>
+            <v n="PageArea">0</v>
+            <v n="Bounds">"94, 81, 0, 0"</v>
+            <v n="OwningPageId">-1L</v>
+            <v n="Id">2147483152L</v>
+          </o>
+        </l2>
+      </o>
+      <v n="AutoSizeCanvas">true</v>
+      <v n="CanvasWidth">0</v>
+      <v n="CanvasHeight">0</v>
+    </o>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="CFCBoxElement">{f5becf35-b1f3-4274-b411-81d4b63a1516}</Type>
+    <Type n="CFCCommentElement">{3487d131-7fd4-48ac-9e99-9e275c3b8ff8}</Type>
+    <Type n="CFCConnection">{5ae2e111-ecff-4a21-b647-2d4da63f8db7}</Type>
+    <Type n="CFCImplementationObject">{32d3375e-c010-41e2-9e43-b2fbf4f2b374}</Type>
+    <Type n="CFCInputElement">{d51129f5-df27-4886-99d1-c564d2e2c1f6}</Type>
+    <Type n="CFCInputPin">{c994f6e0-311a-4a1c-bc38-75fe34892406}</Type>
+    <Type n="CFCItemList">{cd57ba20-558b-4b98-96c1-73c6000c3087}</Type>
+    <Type n="CFCJumpElement">{404fa8fc-32e0-49d9-b784-1152d85ce7b3}</Type>
+    <Type n="CFCLabelElement">{0ed44292-0b2c-49ee-b8bf-907ddca2abd0}</Type>
+    <Type n="CFCOutputElement">{8d9e2b78-3efe-4fe4-8160-f3a7381ddd8f}</Type>
+    <Type n="CFCOutputPin">{65582d84-cf18-4ca0-be59-bf5a3d00b8f8}</Type>
+    <Type n="CFCText">{72f2b13f-5349-4a8a-bbe6-2bccf3f42179}</Type>
+    <Type n="Int32">System.Int32</Type>
+    <Type n="Int64">System.Int64</Type>
+    <Type n="KindOfCall">{77f43dfe-ca6a-4869-828f-7609d8ed6ea6}</Type>
+    <Type n="SetReset">{24449d48-c96a-49c4-b9d1-a4ea34aedce3}</Type>
+    <Type n="SetResetRef">{233bc97c-69fe-4d29-b40e-a9a9b854044e}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive></CFC>
+    </Implementation>
+    <ObjectProperties />
+  </POU>
+</TcPlcObject>

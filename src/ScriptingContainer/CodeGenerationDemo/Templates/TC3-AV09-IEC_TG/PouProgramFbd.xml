@@ -1,0 +1,1280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.0.0.0">
+  <POU Name="MAIN_FBD" Id="{ec1c35b8-cc24-4c7a-a4bd-09ed639242a6}">
+    <Declaration>
+      <![CDATA[PROGRAM MAIN_FBD
+VAR
+        Timer                   : TON;
+        fbFBD_SamplePOU : FB_FBD_SamplePOU;
+
+        eOperation              : E_Operation := eOp_Add;
+        eOperationPrev  : E_Operation := eOp_Add;
+        iResultC                : DINT;
+        bZero                   : BOOL;
+        bPos                    : BOOL;
+        bNeg                    : BOOL;
+        bTest                   : BOOL;
+        tTimerValue             : TIME := T#3S;
+END_VAR
+]]>
+</Declaration>
+    <Implementation>
+      <FBD>
+        <inVariable localId="0">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>bZero</expression>
+        </inVariable>
+        <inVariable localId="1">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>bPos</expression>
+        </inVariable>
+        <block localId="2" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="0" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="3">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>bPos</expression>
+        </inVariable>
+        <inVariable localId="4">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>bNeg</expression>
+        </inVariable>
+        <block localId="5" typeName="XOR">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="3" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="4" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="6" typeName="OR">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="2"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="5"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="7">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.ET</expression>
+        </inVariable>
+        <inVariable localId="8">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>TIME#500ms</expression>
+        </inVariable>
+        <block localId="9" typeName="GT">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="7" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="8" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="10">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>iResultC</expression>
+        </inVariable>
+        <inVariable localId="11">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>0</expression>
+        </inVariable>
+        <block localId="12" typeName="LE">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="10" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="11" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="13" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="6"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="9"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <connection refLocalId="12"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="14">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.ET</expression>
+        </inVariable>
+        <inVariable localId="15">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>TIME#500ms</expression>
+        </inVariable>
+        <block localId="16" typeName="LE">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="14" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="15" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="17" typeName="OR">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="13"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="16"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="18">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="17" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>bTest</expression>
+        </outVariable>
+        <comment localId="19" height="0" width="0">
+          <position x="0" y="0" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">
+            Timer</xhtml>
+          </content>
+        </comment>
+        <inVariable localId="20">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <block localId="21" typeName="NOT">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="20" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="22">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>tTimerValue</expression>
+        </inVariable>
+        <block localId="23" typeName="TON" instanceName="Timer">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="IN">
+              <connectionPointIn>
+                <connection refLocalId="21"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="PT">
+              <connectionPointIn>
+                <connection refLocalId="22" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Q">
+              <connectionPointOut />
+            </variable>
+            <variable formalParameter="ET">
+              <connectionPointOut>
+                <expression />
+              </connectionPointOut>
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>functionblock</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="24" typeName="NOT">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="23" formalParameter="Q" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <jump localId="25" label="CALLFB">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="24" formalParameter="Out1" />
+          </connectionPointIn>
+        </jump>
+        <comment localId="26" height="0" width="0">
+          <position x="0" y="0" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">State
+            machine</xhtml>
+          </content>
+        </comment>
+        <inVariable localId="27">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="28">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Add</expression>
+        </inVariable>
+        <block localId="29" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="27" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="28" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="30">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <block localId="31" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="29"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="30" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="32">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="33">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Mul</expression>
+        </inVariable>
+        <block localId="34" typeName="SEL">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="31"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="32" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <connection refLocalId="33" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="35">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="34" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <inVariable localId="36">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Mul</expression>
+        </inVariable>
+        <block localId="37" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="34"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="36" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="38">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="39">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <block localId="40" typeName="NE">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="38" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="39" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="41" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="37"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="40"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <jump localId="42" label="CallFB">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="41" formalParameter="Out1" />
+          </connectionPointIn>
+        </jump>
+        <inVariable localId="43">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="44">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Sub</expression>
+        </inVariable>
+        <block localId="45" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="43" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="44" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="46">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <block localId="47" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="45"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="46" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="48">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="49">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Add</expression>
+        </inVariable>
+        <block localId="50" typeName="SEL">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="47"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="48" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <connection refLocalId="49" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="51">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="50" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <inVariable localId="52">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Add</expression>
+        </inVariable>
+        <block localId="53" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="50"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="52" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="54">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="55">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <block localId="56" typeName="NE">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="54" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="55" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="57" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="53"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="56"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <jump localId="58" label="CallFB">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="57" formalParameter="Out1" />
+          </connectionPointIn>
+        </jump>
+        <inVariable localId="59">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="60">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Mul</expression>
+        </inVariable>
+        <block localId="61" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="59" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="60" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="62">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>Timer.Q</expression>
+        </inVariable>
+        <block localId="63" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="61"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="62" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="64">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="65">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Sub</expression>
+        </inVariable>
+        <block localId="66" typeName="SEL">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="63"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="64" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In3">
+              <connectionPointIn>
+                <connection refLocalId="65" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="67">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="66" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>eOperation</expression>
+        </outVariable>
+        <inVariable localId="68">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOp_Sub</expression>
+        </inVariable>
+        <block localId="69" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="66"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="68" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <inVariable localId="70">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <inVariable localId="71">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperationPrev</expression>
+        </inVariable>
+        <block localId="72" typeName="NE">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="70" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="71" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <block localId="73" typeName="AND">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="69"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="72"
+                formalParameter="Out1" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <jump localId="74" label="CallFB">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="73" formalParameter="Out1" />
+          </connectionPointIn>
+        </jump>
+        <comment localId="75" height="0" width="0">
+          <position x="0" y="0" />
+          <content>
+            <xhtml xmlns="http://www.w3.org/1999/xhtml">FB
+            Call</xhtml>
+          </content>
+        </comment>
+        <label localId="76" label="CallFB:">
+          <position x="0" y="0" />
+        </label>
+        <inVariable localId="77">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <block localId="78" typeName="FB_FBD_SamplePOU"
+        instanceName="fbFBD_SamplePOU">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="eOperation">
+              <connectionPointIn>
+                <connection refLocalId="77" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="iResultC">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>functionblock</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="79">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="78"
+            formalParameter="iResultC" />
+          </connectionPointIn>
+          <expression>iResultC</expression>
+        </outVariable>
+        <inVariable localId="80">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>0</expression>
+        </inVariable>
+        <block localId="81" typeName="EQ">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="78"
+                formalParameter="iResultC" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="80" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="82">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="81" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>bZero</expression>
+        </outVariable>
+        <inVariable localId="83">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>iResultC</expression>
+        </inVariable>
+        <inVariable localId="84">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>0</expression>
+        </inVariable>
+        <block localId="85" typeName="GT">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="83" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="84" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="86">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="85" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>bPos</expression>
+        </outVariable>
+        <inVariable localId="87">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>iResultC</expression>
+        </inVariable>
+        <inVariable localId="88">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>0</expression>
+        </inVariable>
+        <block localId="89" typeName="LT">
+          <position x="0" y="0" />
+          <inputVariables>
+            <variable formalParameter="In1">
+              <connectionPointIn>
+                <connection refLocalId="87" />
+              </connectionPointIn>
+            </variable>
+            <variable formalParameter="In2">
+              <connectionPointIn>
+                <connection refLocalId="88" />
+              </connectionPointIn>
+            </variable>
+          </inputVariables>
+          <inOutVariables />
+          <outputVariables>
+            <variable formalParameter="Out1">
+              <connectionPointOut />
+            </variable>
+          </outputVariables>
+          <addData>
+            <data name="http://www.3s-software.com/plcopenxml/fbdcalltype"
+            handleUnknown="implementation">
+              <CallType>operator</CallType>
+            </data>
+          </addData>
+        </block>
+        <outVariable localId="90">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="89" formalParameter="Out1" />
+          </connectionPointIn>
+          <expression>bNeg</expression>
+        </outVariable>
+        <inVariable localId="91">
+          <position x="0" y="0" />
+          <connectionPointOut />
+          <expression>eOperation</expression>
+        </inVariable>
+        <outVariable localId="92">
+          <position x="0" y="0" />
+          <connectionPointIn>
+            <connection refLocalId="91" />
+          </connectionPointIn>
+          <expression>eOperationPrev</expression>
+        </outVariable>
+      </FBD>
+    </Implementation>
+    <ObjectProperties />
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<VarLinks>
+  <!--<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis X">
+    <OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 1 (AX5203-0000-0011)">
+
+      <Link VarA="Enc^Inputs^In^nDataIn1"
+      VarB="AT 1^Position feedback 1 value" />
+      <Link VarA="Drive^Inputs^In^nState1"
+      VarB="AT 1^Drive status word" Size="8" OffsB="8" />
+      <Link VarA="Drive^Outputs^Out^nDataOut2"
+      VarB="MDT 1^Velocity command value" />
+      <Link VarA="Drive^Outputs^Out^nCtrl1"
+      VarB="MDT 1^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState" />
+      <Link VarA="Drive^Inputs^In^nState2"
+      VarB="AT 1^Drive status word" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^WcState" />
+    </OwnerB>
+  </OwnerA>-->
+  <OwnerA Name="TIPC^MachineTypeC^MachineTypeC Instance">
+
+    <OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis Z">
+      <Link VarA="PlcTask Outputs^MAIN.stAxisZ.PlcToNc"
+      VarB="Inputs^FromPlc" />
+      <Link VarA="PlcTask Inputs^MAIN.stAxisZ.NcToPlc"
+      VarB="Outputs^ToPlc" />
+    </OwnerB>
+    <OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis X">
+      <Link VarA="PlcTask Outputs^MAIN.stAxisX.PlcToNc"
+      VarB="Inputs^FromPlc" />
+      <Link VarA="PlcTask Inputs^MAIN.stAxisX.NcToPlc"
+      VarB="Outputs^ToPlc" />
+    </OwnerB>
+    <OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis Y">
+      <Link VarA="PlcTask Inputs^MAIN.stAxisY.NcToPlc"
+      VarB="Outputs^ToPlc" />
+      <Link VarA="PlcTask Outputs^MAIN.stAxisY.PlcToNc"
+      VarB="Inputs^FromPlc" />
+    </OwnerB>
+  </OwnerA>
+  <!--<OwnerA Name="TINC^NC-Task 1 SAF^Axes^Axis Y">
+    <OwnerB Name="TIID^Device 2 (EtherCAT)^Drive 1 (AX5203-0000-0011)">
+
+      <Link VarA="Drive^Inputs^In^nDcOutputTime"
+      VarB="InfoData^DcOutputShift" />
+      <Link VarA="Enc^Inputs^In^nDcInputTime"
+      VarB="InfoData^DcInputShift" />
+      <Link VarA="Drive^Outputs^Out^nDataOut2"
+      VarB="MDT 2^Velocity command value" />
+      <Link VarA="Drive^Outputs^Out^nCtrl1"
+      VarB="MDT 2^Master control word" Size="8" OffsB="8" />
+      <Link VarA="Enc^Inputs^In^nDataIn1"
+      VarB="AT 2^Position feedback 1 value" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^WcState" />
+      <Link VarA="Enc^Inputs^In^nState4" VarB="WcState^InputToggle"
+      Size="1" OffsA="1" />
+      <Link VarA="Drive^Inputs^In^nState2"
+      VarB="AT 2^Drive status word" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^InputToggle" Size="1" OffsA="1" />
+      <Link VarA="Drive^Inputs^In^nState4"
+      VarB="WcState^WcState" />
+      <Link VarA="Drive^Inputs^In^nState1"
+      VarB="AT 2^Drive status word" Size="8" OffsB="8" />
+    </OwnerB>
+  </OwnerA>-->
+</VarLinks>

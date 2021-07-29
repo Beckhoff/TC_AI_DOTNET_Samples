@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.0.0.0">
+  <POU Name="30eb6397-f139-4eef-804a-eee4b4773e97"
+  Id="{7126a8f7-866d-4629-8b26-4644f47b28cb}">
+    <Declaration>
+      <![CDATA[PROGRAM MAIN_ST
+VAR
+        Timer                   : TON;
+        fbST_SamplePOU  : FB_ST_SamplePOU;
+
+        eOperation              : E_Operation := eOp_Add;
+        iResultC                : DINT;
+        bZero AT %Q*    : BOOL;
+        bPos  AT %Q*    : BOOL;
+        bNeg  AT %Q*    : BOOL;
+        bTest AT %Q*    : BOOL;
+        tTimerValue             : TIME := T#3S;
+END_VAR
+]]>
+</Declaration>
+    <Implementation>
+      <ST>
+        <![CDATA[bTest := (((bZero AND bPos) OR (bPos XOR bNeg)) AND (Timer.ET > TIME#500MS) AND (iResultC <= 0)) OR (Timer.ET <= TIME#500MS);
+
+
+(* Timer *)
+Timer(IN := TRUE, PT := tTimerValue);
+IF Timer.Q THEN
+        Timer(IN := FALSE);
+
+        (* State machine *)
+        CASE eOperation OF
+        eOp_Add:
+                eOperation := eOp_MUL;
+        eOp_Sub:
+                eOperation := eOp_ADD;
+        eOp_Mul:
+                eOperation := eOp_SUB;
+        END_CASE
+END_IF
+
+(* FB Call *)
+fbST_SamplePOU(
+        eOperation      := eOperation,
+        iResultC        => iResultC
+);
+
+(* Evaluation *)
+IF fbST_SamplePOU.iResultC = 0 THEN
+        bZero := TRUE;
+        bPos := FALSE;
+        bNeg := FALSE;
+ELSIF fbST_SamplePOU.iResultC > 0 THEN
+        bZero := FALSE;
+        bPos := TRUE;
+        bNeg := FALSE;
+ELSIF fbST_SamplePOU.iResultC < 0 THEN
+        bZero := FALSE;
+        bPos := FALSE;
+        bNeg := TRUE;
+END_IF]]>
+</ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

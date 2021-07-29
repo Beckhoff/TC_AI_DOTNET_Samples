@@ -1,0 +1,171 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:y="clr-namespace:CodeGenerationDemo"
+        mc:Ignorable="d"
+        xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CodeGenerationDemo.MainWindow"
+        Title="TwinCAT Configuration and Code Generation Demo"         
+        Width="1280" Height="768" MinWidth="640" MinHeight="480" SizeToContent="Manual" Topmost="True" WindowStyle="ToolWindow">
+    <Window.Resources>
+        <Style TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="Selector.IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="checkBoxStyle" TargetType="{x:Type CheckBox}">
+            <Setter Property="Foreground" Value="#333333" />
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <DataTemplate x:Key="OrderSimpleTemplate">
+            <Border Background="Transparent"
+                            BorderBrush="White"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="2,4,2,4"
+                            Padding="4"
+                            >
+                <Grid Height="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold">Order ID:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path='Id'}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold">Customer:</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path='Customer'}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold">Configuration:</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path='ConfigurationInfo.Name'}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold">Delivery:</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Delivery, StringFormat=\{0:D\}}"></TextBlock>
+                </Grid>
+            </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="OrderDetailedTemplate">
+            <Border Background="Transparent"
+                            BorderBrush="White"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            Margin="2,4,2,4"
+                            Padding="4"
+                            >
+                <Grid Height="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.3*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" FontWeight="Bold">Order Details:</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Description}"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="0" FontWeight="Bold">Machine Configuration:</TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=ConfigurationInfo.Name}"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="0" FontWeight="Bold">Configuration Details:</TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Path=ConfigurationInfo.Description}"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="0" FontWeight="Bold">Customer:</TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=Customer}"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="0" FontWeight="Bold">Delivery:</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Path=Delivery}"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="0" FontWeight="Bold">Serial Number:</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=Serial}"></TextBlock>
+                </Grid>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <Viewbox
+        Stretch="Fill">
+        <Grid x:Name="LayoutRoot" Width="1366" Height="768">
+            <Grid.Resources>
+                <y:DataModel x:Key="modelDataSource"/>
+            </Grid.Resources>
+            <Grid.DataContext>
+                <Binding Source="{StaticResource modelDataSource}"/>
+            </Grid.DataContext>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.514*"/>
+                <RowDefinition Height="0.486*" />
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1A232A"/>
+                    <GradientStop Color="#FF00457C" Offset="1"/>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid Name="grid1" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="97*" />
+                    <RowDefinition Height="291*" />
+                    <RowDefinition Height="281" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ListBox Name="listBox1" ItemsSource="{Binding Path=Orders}" ItemTemplate="{StaticResource OrderSimpleTemplate}" Margin="20,30.333,20.333,39.667" Foreground="White" SelectionChanged="listBox1_SelectionChanged" Grid.Row="1" BorderBrush="{x:Null}" BorderThickness="0">
+                    <ListBox.Background>
+                        <SolidColorBrush />
+                    </ListBox.Background>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
+                <ContentControl Name="contentControl1" Content="{Binding ElementName=listBox1, Path=SelectedItem}" Grid.Row="2" ContentTemplate="{StaticResource OrderDetailedTemplate}" Foreground="White" Margin="20,0,20,65">
+                    <ContentControl.Background>
+                        <SolidColorBrush />
+                    </ContentControl.Background>
+                </ContentControl>
+                <Label Content="Label" Height="28" Name="label2" Foreground="White" Margin="538,19,62,236" />
+                <Button Content="Create ..." Height="23" Name="button1" Width="75" Margin="495,67,68,193" />
+                <TextBlock FontFamily="Portable User Interface" FontSize="32" FontWeight="Bold" Foreground="#FFFFFFFF" Text="TwinCAT Automation Interface Demo" TextWrapping="NoWrap" x:Name="txtTitle_Copy4" Width="581" TextAlignment="Left" RenderTransformOrigin="0.504,0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,8,0,0" />
+                <ListView Grid.Column="1" Grid.Row ="1" Grid.RowSpan="2"  Name="lvMessages" Background="Transparent" Margin="21.667,30.333,21,49" Foreground="White" BorderThickness="1" BorderBrush="White">
+                    <ListView.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </ListView.Resources>
+                </ListView>
+                <Button Content="Generate" Grid.Column="1" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="20,0,0,20" Name="btnGenerate" VerticalAlignment="Bottom" Width="75" Click="btnGenerate_Click" />
+                <Button Content="Cancel" Height="23" HorizontalAlignment="Left" Margin="109,0,0,20" Name="btnCancel" VerticalAlignment="Bottom" Width="75" Grid.Column="1" Grid.Row="2" Click="btnCancel_Click" />
+                <ProgressBar Grid.Row="2" Height="24"  Name="progressBar1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="195,0,0,20" Grid.Column="1" Width="418" />
+
+                <Border BorderBrush="Silver" Background="Silver" BorderThickness="1" Grid.Column="1" Grid.Row="2" Height="24" HorizontalAlignment="Right" Margin="0,0,20,20" Name="statusBox" VerticalAlignment="Bottom" Width="39" />
+                <Grid Grid.Row ="0" Grid.Column="1">
+                    <GroupBox Header="VisualStudio/TcXaeShell installations" Height="97" HorizontalAlignment="Right" Margin="0,0,9.667,-0.333" x:Name="gbProgID" Foreground ="White" VerticalAlignment="Top" Width="673">
+                        <Grid>
+                            <ComboBox Height="23" Margin="382,10,10.333,0" x:Name="cBProgID" VerticalAlignment="Top" />
+                        </Grid>
+                    </GroupBox>
+                    <CheckBox Content="IDE Visible" Height="16" HorizontalAlignment="Left" Margin="20,29,0,0" x:Name="cbProgVisible" VerticalAlignment="Top" Foreground="White"/>
+                    <CheckBox Content="IDE UserControl" Height="16" HorizontalAlignment="Left" Margin="20,50,0,0" x:Name="cbUserControl" VerticalAlignment="Top" Foreground="White"/>
+                    <CheckBox Content="Suppress UI" Height="16" HorizontalAlignment="Left" Margin="20,71,0,0" x:Name="cbSuppressUI" VerticalAlignment="Top" Foreground="White"/>
+                    <CheckBox Content="Use COM Registration" Height="16" HorizontalAlignment="Left" Margin="386,71,0,0" x:Name="cbComRegistration" VerticalAlignment="Top" Foreground="White" Checked="cbComRegistration_Checked" Unchecked="cbComRegistration_Unchecked"/>
+                    <Label Content="Output messages:" FontWeight="Bold" Foreground="White" Height="28" HorizontalAlignment="Left" Margin="20,0,0,-25.333" x:Name="label4" VerticalAlignment="Bottom" />
+                </Grid>
+                <Label Content="Detailed information:" Grid.Row="1" Height="28" HorizontalAlignment="Left" Name="label1" VerticalAlignment="Bottom" Foreground="White" FontWeight="Bold" Margin="20,0,0,0" />
+                <Label Content="Please select configuration:" Foreground="White" Height="28" HorizontalAlignment="Left" Name="label3" VerticalAlignment="Bottom" FontWeight="Bold" Margin="20,0,0,261.667" Grid.Row="1" />
+            </Grid>
+            <Grid Grid.Row="2" Background="#FFEA0000">
+                <Border BorderBrush="White" BorderThickness="0,2,0,0"></Border>
+                <Path x:Name="BECKHOFF_"  Fill="White" Stretch="Uniform" Data="M8.4989996,21.580002 L8.4989996,30.489992 C12.749001,30.394001 14.536999,30.682995 14.537001,25.817995 14.536999,21.626997 12.123001,21.723997 8.4989996,21.580002 z M9.0538473,7.3682188 C8.8712931,7.3684276 8.6861877,7.3690017 8.4989996,7.3689998 L8.4989996,15.074005 C12.218002,14.835997 13.956001,15.074004 13.955998,10.788998 13.956001,7.4449362 11.792132,7.3651341 9.0538473,7.3682188 z M140.89699,6.5019993 C138.19199,6.5020012 137.85399,9.1500009 137.85399,11.367002 L137.85399,26.203001 C137.85399,28.275 138.19199,31.357001 140.94499,31.357003 143.698,31.357001 143.88998,28.275 143.88998,26.203001 L143.88998,11.367002 C143.88998,9.1500009 143.698,6.5020012 140.89699,6.5019993 z M0,0.86500347 L11.011002,0.86500347 C17.434002,0.86500061 22.456001,2.9350003 22.456001,10.208997 22.456001,13.387999 21.297001,16.232001 18.351,17.821997 L18.351,17.917996 C22.214001,20.135001 23.035999,22.060004 23.035999,26.538994 23.035999,33.860999 18.882999,36.992003 11.977002,36.992003 L0,36.992003 z M180.007,0.86500049 L200,0.86500049 200,8.091998 188.506,8.091998 188.506,14.495999 199.082,14.495999 199.082,21.724001 188.506,21.724001 188.506,36.991999 180.007,36.991999 z M156.23299,0.86500049 L176.22501,0.86500049 176.22501,8.091998 164.73299,8.091998 164.73299,14.495999 175.308,14.495999 175.308,21.724001 164.73299,21.724001 164.73299,36.991999 156.23299,36.991999 z M102.96,0.86500049 L111.45899,0.86500049 111.45899,14.737999 117.35099,14.737999 117.35099,0.86500049 125.84999,0.86500049 125.84999,36.991999 117.35099,36.991999 117.35099,21.965001 111.45899,21.965001 111.45899,36.991999 102.96,36.991999 z M76.661995,0.86500049 L85.160995,0.86500049 85.160995,15.316003 85.257996,15.316003 91.535995,0.86500049 100.228,0.86500049 92.501999,16.810003 100.711,36.991999 91.728996,36.991999 87.044998,24.421999 85.160995,28.081995 85.160995,36.991999 76.661995,36.991999 z M26.541,0.86500049 L46.001999,0.86500049 46.001999,8.091998 35.041,8.091998 35.041,14.737999 45.663998,14.737999 45.663998,21.965001 35.041,21.965001 35.041,29.766997 46.582001,29.766997 46.582001,36.991999 26.541,36.991999 z M140.94499,0 C148.38199,9.5367432E-07 152.39,3.8510009 152.39,10.789001 L152.39,25.480006 C152.39,33.621001 149.53999,37.861002 140.94499,37.861002 132.34898,37.861002 129.35399,33.621001 129.35399,25.480006 L129.35399,10.789001 C129.35399,3.8510009 133.50699,9.5367432E-07 140.94499,0 z M61.373001,0 C68.616997,-4.1723251E-07 72.963997,3.0819999 72.963997,10.451001 L72.963997,13.484004 64.463997,13.484004 64.463997,11.173001 C64.463997,8.0910004 63.354,6.5020002 61.759998,6.5019993 59.105,6.4530004 58.476002,7.8980006 58.476002,10.259002 L58.428001,28.129 C58.428001,30.154004 59.249001,31.357003 61.470001,31.357003 64.366997,31.357003 64.609001,28.371003 64.609001,26.154002 L64.609001,22.879002 73.109001,22.879002 73.109001,27.312003 C73.109001,33.525004 69.533997,37.861002 60.841999,37.861002 53.02,37.861002 49.977001,33.716002 49.977001,26.347002 L49.977001,11.509001 C49.977001,3.66 53.599003,-4.1723251E-07 61.373001,0 z" Margin="25,0,0,0"  HorizontalAlignment="Left" VerticalAlignment="Center" Width="247" UseLayoutRounding="False" MaxHeight="Infinity" />
+            </Grid>
+        </Grid>
+    </Viewbox>
+</Window>

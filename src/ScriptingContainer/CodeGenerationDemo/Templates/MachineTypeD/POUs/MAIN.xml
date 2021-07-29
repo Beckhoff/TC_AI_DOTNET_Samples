@@ -1,0 +1,86 @@
+﻿<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.20">
+  <POU Name="MAIN" Id="{f1a4545d-525d-4a2e-9c12-086888c0c2e2}">
+    <Declaration><![CDATA[PROGRAM MAIN
+
+VAR
+	
+	aSineBuffer				: ARRAY [1..cOversamples] OF LREAL;
+	aSquareBuffer			: ARRAY [1..cOversamples] OF LREAL;
+	aPulseBuffer			: ARRAY [1..cOversamples] OF LREAL;
+	aSawtoothBuffer			: ARRAY [1..cOversamples] OF LREAL;
+	aTriangularBuffer		: ARRAY [1..cOversamples] OF LREAL;
+	aModulationBuffer		: ARRAY [1..cOversamples] OF LREAL;	
+	
+	// Function generator	
+	bEnableFunction			: BOOL := TRUE;
+	fSetFrequency			: LREAL := 50;				// Hz
+	fSetAmplitude			: LREAL := 5;				// peak amplitude of sin signal
+	fSetOffset				: LREAL := 0;
+	
+	fbSineGenerator			: FB_FunctionGenerator;		// signal generator		
+	fbSquareGenerator		: FB_FunctionGenerator;		// signal generator
+	fbPulseGenerator		: FB_FunctionGenerator;		// signal generator		
+	fbTriangularGenerator	: FB_FunctionGenerator;		// signal generator	
+	fbSawtoothGenerator		: FB_FunctionGenerator;		// signal generator		
+	fbModulationGenerator	: FB_FunctionGenerator;		// signal generator	
+	
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Sine wave
+fbSineGenerator( bEnable	:= bEnableFunction,
+				 fFrequency := fSetFrequency,
+				 fAmplitude := fSetAmplitude,
+				 fOffset 	:= 0,
+				 nDutyCycle	:= ,
+				 eFunction 	:= E_FunctionType.eSine,
+				 aSignal	:= aSineBuffer);
+
+// Square wave					
+fbSquareGenerator(	bEnable		:= bEnableFunction,
+					fFrequency 	:= fSetFrequency,
+					fAmplitude 	:= fSetAmplitude,
+					fOffset 	:= 0,
+					nDutyCycle	:= ,
+					eFunction 	:= E_FunctionType.eSquare,
+					aSignal		:= aSquareBuffer);
+						
+// Pulse signal					
+fbPulseGenerator(	bEnable		:= bEnableFunction,
+					fFrequency 	:= fSetFrequency,
+					fAmplitude 	:= fSetAmplitude,
+					fOffset 	:= 0,
+					nDutyCycle	:= 10,
+					eFunction 	:= E_FunctionType.ePulse,
+					aSignal		:= aPulseBuffer);						
+
+// Sawtooth wave						
+fbSawtoothGenerator( bEnable	:= bEnableFunction,
+					 fFrequency := fSetFrequency,
+					 fAmplitude := fSetAmplitude,
+					 fOffset 	:= 0,
+					 nDutyCycle	:= ,
+					 eFunction 	:= E_FunctionType.eSawtooth,
+					 aSignal	:= aSawtoothBuffer);
+					 
+// Triangular wave					 
+fbTriangularGenerator( 	bEnable		:= bEnableFunction,
+					   	fFrequency 	:= fSetFrequency,
+						fAmplitude 	:= fSetAmplitude,
+						fOffset 	:= 0,
+						nDutyCycle	:= ,
+						eFunction 	:= E_FunctionType.eTriangular,
+						aSignal		:= aTriangularBuffer);
+
+// Modulated sine wave				
+fbModulationGenerator(	bEnable		:= bEnableFunction,
+						fFrequency 	:= fSetFrequency,
+						fAmplitude 	:= fSetAmplitude,
+						fOffset 	:= 0,
+						nDutyCycle	:= ,
+						eFunction 	:= E_FunctionType.eAM,
+						aSignal		:= aModulationBuffer);]]></ST>
+    </Implementation>
+    <ObjectProperties />
+  </POU>
+</TcPlcObject>

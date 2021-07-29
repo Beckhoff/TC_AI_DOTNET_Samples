@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="MAIN" Id="{60c055e3-5672-4fc4-8bfa-c168bb9fb95a}"><Declaration><![CDATA[PROGRAM MAIN
+VAR
+	(* FB_MotionMain instance (multiple instances possible) *)
+	iMaxUsedAxes				: INT  := 4 (*24*);
+	iMaxUsedChannels			: INT  := 1;
+
+	aiNcOverrideRaw AT %I*		: UINT 	:= 32767;	(* Poti 1, link to 1st channel of EL3xxx *)
+	iNcOverrideRaw				: UINT;
+	aiNciOverrideRaw AT %I*		: UINT 	:= 32767;	(* Poti 2, link to 2nd channel of EL3xxx *)
+	iNciOverrideRaw				: UINT;
+	lrOverrideMaxScale			: LREAL := 32500;	(* as 100% *)
+	iOut10V AT %Q*				: UINT	:= 16#7FFF; (* create 10V for poti, link to 1st channel of EL4xxx *)
+
+	(* Simulated I/O *)
+	bSimulateIO					: BOOL;				(* override switches *)
+	bEnableSim					: BOOL 	:= TRUE;	(* general motion enable *)
+	bNciSim						: BOOL 	:= FALSE;	(* NC Interpolation via TcNci library *)
+	fNcOverrideSim				: LREAL := 100;		(* simulate Poti 1 *)
+	fNciOverrideSim				: LREAL := 100;		(* simulate Poti 2 *)
+
+	(* general variables *)
+	bInit						: BOOL 	:= TRUE;
+	iSeed						: INT;
+	i	 						: INT;
+	k	 						: INT;
+	NciOverrideFilter			: MC_OverrideFilter;
+
+	(* Motion Sequences *)
+	fbNciSequence 		: FB_NciSequence;
+	bNciReq				: BOOL := TRUE;	(* NC Interpolation via TcNci library *)
+
+	(* NC - PLC communication *)
+	AxisRef				: ARRAY [1..iMAX_AXES] OF AXIS_REF;			// axis reference (process data plc/nc)
+	lrOverrideNc		: LREAL;
+
+	(* NCI - PLC communication *)
+	stiNciToPlc AT %I*	: NCTOPLC_NCICHANNEL_REF;
+	stoPlcToNci AT %Q*	: PLCTONC_NCICHANNEL_REF;
+	lrOverrideNci		: LREAL;
+
+	(* enable axes *)
+	fbMC_Power 			: ARRAY [1..iMAX_AXES] OF MC_Power;
+	bAxisEnabled		: ARRAY [1..iMAX_AXES] OF BOOL;
+	bEnableReq			: BOOL := TRUE;
+
+	NotBusyTimer		: TON := (PT := T#1S);
+	
+	bBusy				: BOOL;
+	bDone				: BOOL;
+	bEnabled			: BOOL;
+	bEnableError		: BOOL;
+	bError				: BOOL;
+	dwErrorId			: DWORD;
+	bCallSequence		: BOOL;
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[IF bInit THEN
+	A_Init();
+END_IF
+
+(* override filter *)
+iNciOverrideRaw := aiNciOverrideRaw;
+IF iNciOverrideRaw > 32767 THEN
+	iNciOverrideRaw := 0;
+END_IF
+NciOverrideFilter(
+	OverrideValueRaw		:= iNciOverrideRaw,
+	LowerOverrideThreshold	:= 0,
+	UpperOverrideThreshold	:= 32767,
+	OverrideSteps			:= 200,
+	OverrideRecoveryTime	:= T#150ms,
+);
+
+(* enable *)
+A_Enable();
+IF bEnabled THEN
+	bCallSequence := TRUE;
+	A_TriggerExec();
+END_IF
+
+IF bCallSequence THEN
+	(* call motion sequence *)
+	IF bNciReq OR fbNciSequence.bBusy THEN
+		fbNciSequence(
+			bExecute		:= TRUE,
+			iMaxUsedAxes	:= iMaxUsedAxes,
+			iMaxUsedChannels:= iMaxUsedChannels,
+			AxisRef			:= AxisRef,
+			stNciToPlc		:= stiNciToPlc,
+			stPlcToNci		:= stoPlcToNci,
+			bBusy			=> bBusy,
+			bDone			=> bDone,
+			bError			=> bError,
+			dwErrorId		=> dwErrorId
+		);
+	ELSE
+		fbNciSequence(
+			bExecute		:= FALSE,
+			AxisRef			:= AxisRef,
+			stNciToPlc		:= stiNciToPlc,
+			stPlcToNci		:= stoPlcToNci,
+		);
+	END_IF	
+END_IF	
+]]></ST></Implementation><Action Name="A_Enable" Id="{8ae5fbc0-ed14-42b2-8b88-c56a32b707ca}"><Implementation><ST><![CDATA[(* limit max used axes (includes real axes and simulation axes and virtual master axes) *)
+iMaxUsedAxes := LIMIT(1, iMaxUsedAxes, iMAX_AXES);
+iNcOverrideRaw := aiNcOverrideRaw;
+
+(* NC override and enable *)
+lrOverrideNc := LIMIT(0, UINT_TO_LREAL(iNcOverrideRaw) * 100.0 / lrOverrideMaxScale, 100);
+bEnabled := TRUE;
+bEnableError := FALSE;
+FOR I := 1 TO iMaxUsedAxes DO
+	fbMC_Power[I](
+		Enable			:= bEnableReq,
+		Enable_Positive	:= bEnableReq,
+		Enable_Negative	:= bEnableReq,
+		Override		:= lrOverrideNc,
+		Axis			:= AxisRef[I],
+		Status			=> bAxisEnabled[I]
+	);
+	bEnabled := bEnabled AND bAxisEnabled[I];
+	bEnableError := bEnableError OR fbMC_Power[I].Error;
+(*	bResetReq := bResetReq OR AxisInErrorState(stiNcToPlc[I].nStateDWord);*)
+END_FOR
+
+(* NCI override *)
+lrOverrideNci := LIMIT(0, UINT_TO_LREAL(iNciOverrideRaw) * 100.0 / lrOverrideMaxScale, 100);
+ItpSetOverridePercent(lrOverrideNci, stoPlcToNci);
+]]></ST></Implementation></Action><Action Name="A_Init" Id="{de14ded4-92d0-4a54-b0ad-d25c4bb97789}"><Implementation><ST><![CDATA[(* startup initialization *)
+bInit 		:= FALSE;
+iSeed 		:= 123;
+aiNcOverrideRaw 	:= 20000;	(* Poti 1, link to 1st channel of EL3xxx *)
+aiNciOverrideRaw 	:= 20000;	(* Poti 2, link to 2nd channel of EL3xxx *)
+]]></ST></Implementation></Action><Action Name="A_TriggerExec" Id="{7fd43466-d8b6-4812-a06b-97215ee2c9dc}"><Implementation><ST><![CDATA[IF fbNciSequence.bBusy THEN
+	bNciReq		:= FALSE;
+	NotBusyTimer(IN := FALSE);
+ELSE
+	IF fbNciSequence.bDone THEN
+		NotBusyTimer(IN := TRUE);
+		IF NotBusyTimer.Q THEN
+			NotBusyTimer(IN := FALSE);
+			bNciReq		:= TRUE;
+		END_IF
+	ELSE
+		NotBusyTimer(IN := TRUE);
+		IF NotBusyTimer.Q THEN
+			NotBusyTimer(IN := FALSE);
+			bNciReq		:= TRUE;
+		END_IF
+	END_IF
+END_IF
+]]></ST></Implementation></Action><ObjectProperties /></POU></TcPlcObject>

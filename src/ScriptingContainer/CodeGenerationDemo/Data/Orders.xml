@@ -1,0 +1,167 @@
+<Root>
+	<MachineOrders>
+		<Order id="1">
+			<Configuration>ConfigA</Configuration>
+			<Customer>Beckhoff Automation GmbH</Customer>
+			<Delivery>2012-11-30</Delivery>
+			<SerialNo>10001</SerialNo>
+			<ProjectName>Test01</ProjectName>
+			<Description>Please run extended Hardware Test!</Description>
+		</Order>
+		<Order id="2">
+			<Configuration>ConfigB</Configuration>
+			<Customer>Beckhoff Automation GmbH</Customer>
+			<Delivery>2013-02-28</Delivery>
+			<SerialNo>10051</SerialNo>
+			<ProjectName>Test02</ProjectName>
+			<Description>Deliver together with Serial number 10039</Description>
+		</Order>
+		<Order id="3">
+			<Configuration>ConfigD</Configuration>
+			<Customer>Beckhoff Automation GmbH</Customer>
+			<Delivery>2013-11-12</Delivery>
+			<SerialNo>10042</SerialNo>
+			<ProjectName>Test03</ProjectName>
+			<Description>Include Hardware Simulation</Description>
+		</Order>
+	</MachineOrders>
+	<AvailableConfigurations>
+		<Configuration id="ConfigA" name="2-Axis PTP Configuration">
+			<!--<ProjectTemplate>Templates\MachineTypeA.tszip</ProjectTemplate>-->
+			<Script>ConfigurationScriptA</Script>
+			<Options>
+				<!--<Option>ScanHardware</Option>-->
+				<Option>SimulateHardware</Option>
+			</Options>
+			<Description>2-Axes, PTP Motion, Servo Terminal not included</Description>
+			<Plc>
+				<PlcProjectName>MachineTypeA</PlcProjectName>
+				<PlcObjects>
+					<!--<PlcObject type="Library">Tc2_Standard, 3.2.0.0 (Beckhoff Automation GmbH)</PlcObject>-->
+					<PlcObject type="Placeholder">Tc2_Standard</PlcObject>
+					<PlcObject type="Placeholder">Tc2_System</PlcObject>
+					<PlcObject type="Placeholder">Tc3_Interfaces</PlcObject>
+					<PlcObject type="Placeholder">Tc3_Module</PlcObject>
+					<PlcObject type="Library">Tc2_MC2,* (Beckhoff Automation GmbH)</PlcObject>
+					<PlcObject type="Library">Tc2_MC2_Drive,* (Beckhoff Automation GmbH)</PlcObject>
+					<PlcObject path="POUs" type="POU">Templates/MachineTypeA/POUs/FB_Axis.xml</PlcObject>
+					<PlcObject path="POUs" type="POU">Templates/MachineTypeA/POUs/MAIN.xml</PlcObject>
+				</PlcObjects>>
+		  </Plc>
+			<Motion>
+				<Task name="Task 1">
+					<Axes>
+						<Axis name="Axis 1">Templates/MachineTypeA/Axis1.xml</Axis>
+						<Axis name="Axis 2">Templates/MachineTypeA/Axis2.xml</Axis>
+					</Axes>
+				</Task>
+			</Motion>
+			<Hardware>
+				<Box name="Term 1" type="EK1100-0000-0001">
+					<Box name="Term 2" type="EL1004-0000-0016"/>
+					<Box name="Term 3" type="EL2004-0000-0000"/>
+					<Box name="Term 4" type="EL2004-0000-0000"/>
+					<Box name="Term 5" type="EL3102-0000-0000"/>
+					<Box name="Term 6" type="EL4132-0000-0000"/>
+					<Box name="Term 7" type="EL1252-0000-0017"/>
+					<Box name="Term 8" type="EL1004-0000-0016"/>
+					<Box name="Term 9" type="EL2809-0000-0016"/>
+					<Box name="Term 10" type="EL3152-0000-0000"/>
+					<Box name="Term 11" type="EL3154-0000-0016"/>
+					<Box name="Term 12" type="EL3154-0000-0016"/>
+					<Box name="Term 13" type="EL9011"/>
+				</Box>
+				<Box name="Drive" type="AX5203-0000-0200"/>
+			</Hardware>
+			<Mappings>Templates/MachineTypeA/Links.xml</Mappings>
+		</Configuration>
+		<Configuration id="ConfigB" name="4-Axis NCI Configuration">
+			<!--<ProjectTemplate>Templates\MachineTypeB.tszip</ProjectTemplate>-->
+			<Script>ConfigurationScriptB</Script>
+			<Options>
+				<!--<Option>ScanHardware</Option>-->
+				<Option>SimulateHardware</Option>
+			</Options>
+			<Description>4-Axes, NCI</Description>
+			<Plc>
+				<PlcProjectName>MachineTypeB</PlcProjectName>
+				<PlcObjects>
+					<!--<PlcObject type="Library">Tc2_Standard, 3.2.0.0 (Beckhoff Automation GmbH)</PlcObject>-->
+					<PlcObject type="Placeholder">Tc2_Standard</PlcObject>
+					<PlcObject type="Placeholder">Tc2_System</PlcObject>
+					<PlcObject type="Placeholder">Tc3_Interfaces</PlcObject>
+					<PlcObject type="Placeholder">Tc3_Module</PlcObject>
+					<PlcObject type="Library">Tc2_MC2,* (Beckhoff Automation GmbH)</PlcObject>
+					<PlcObject type="Library">Tc2_Nci,* (Beckhoff Automation GmbH)</PlcObject>
+					<PlcObject path="Datatypes" type="DataType">Templates/MachineTypeB/Datatypes/E_Commands.xml</PlcObject>
+					<PlcObject path="Datatypes" type="DataType">Templates/MachineTypeB/Datatypes/E_NCI_CTRL_STATE.xml</PlcObject>
+					<PlcObject path="Datatypes" type="DataType">Templates/MachineTypeB/Datatypes/E_States.xml</PlcObject>
+					<PlcObject path="GVLs" type="Gvl">Templates/MachineTypeB/GVLs/GlobalVariables.xml</PlcObject>
+					<PlcObject path="POUs" type="POU">Templates/MachineTypeB/POUs/FB_NciChannel.xml</PlcObject>
+					<PlcObject path="POUs" type="POU">Templates/MachineTypeB/POUs/FB_NciSequence.xml</PlcObject>
+					<PlcObject path="POUs" type="POU">Templates/MachineTypeB/POUs/MAIN.xml</PlcObject>
+				</PlcObjects>
+			</Plc>
+			<Motion>
+				<Task name="Task 1">
+					<Axes>
+						<Axis name="Axis 1">Templates/MachineTypeB/Axis1.xml</Axis>
+						<Axis name="Axis 2">Templates/MachineTypeB/Axis2.xml</Axis>
+						<Axis name="Axis 3">Templates/MachineTypeB/Axis3.xml</Axis>
+						<Axis name="Axis 4">Templates/MachineTypeB/Axis4.xml</Axis>
+					</Axes>
+				</Task>
+			</Motion>
+			<Hardware>
+				<Box name="Term 1" type="EK1100-0000-0001">
+					<Box name="Term 2" type="EL1004-0000-0016"/>
+					<Box name="Term 3" type="EL2004-0000-0000"/>
+					<Box name="Term 4" type="EL2004-0000-0000"/>
+					<Box name="Term 5" type="EL3102-0000-0000"/>
+					<Box name="Term 6" type="EL4132-0000-0000"/>
+					<Box name="Term 7" type="EL1252-0000-0017"/>
+					<Box name="Term 8" type="EL1004-0000-0016"/>
+					<Box name="Term 9" type="EL2809-0000-0016"/>
+					<Box name="Term 10" type="EL3152-0000-0000"/>
+					<Box name="Term 11" type="EL3154-0000-0016"/>
+					<Box name="Term 12" type="EL3154-0000-0016"/>
+					<Box name="Term 13" type="EL9011"/>
+				</Box>
+				<Box name="Drive" type="AX5203-0000-0200"/>
+			</Hardware>
+			<Mappings>Templates/MachineTypeB/Links.xml</Mappings>
+		</Configuration>
+    <Configuration id="ConfigD" name="PLC function generator and Measurement project">
+      <!--<ProjectTemplate>Templates\MachineTypeC.tszip</ProjectTemplate>-->
+      <Script>ConfigurationScriptD</Script>
+      <Options></Options>
+      <Description>PLC project, Measurement project</Description>
+      <Plc>
+        <PlcProjectName>MachineTypeD</PlcProjectName>
+        <PlcObjects>
+          <PlcObject type="Placeholder">Tc2_Standard</PlcObject>
+          <PlcObject type="Placeholder">Tc2_System</PlcObject>
+          <PlcObject type="Placeholder">Tc3_Interfaces</PlcObject>
+          <PlcObject type="Placeholder">Tc3_Module</PlcObject>
+          <PlcObject path="Datatypes" type="DataType">Templates/MachineTypeD/Datatypes/E_FunctionType.xml</PlcObject>
+          <PlcObject path="POUs" type="POU">Templates/MachineTypeD/POUs/FB_FunctionGenerator.xml</PlcObject>
+          <PlcObject path="POUs" type="POU">Templates/MachineTypeD/POUs/MAIN.xml</PlcObject>
+          <PlcObject path="GVLs" type="Gvl">Templates/MachineTypeD/GVLs/GVL_Constants.xml</PlcObject>
+        </PlcObjects>
+      </Plc>
+      <Motion>
+        <Task name="Task 1"></Task>
+      </Motion>
+      <Hardware></Hardware>
+      <Mappings></Mappings>
+    </Configuration>
+	</AvailableConfigurations>
+	<MachineOptions>
+		<Option id="SimulateHardware">
+			<Description>Creates the Configuration with Simulation Mode enabled.</Description>
+		</Option>
+		<Option id="ScanHardware">
+			<Description>Scans the Hardware before linking IOs</Description>
+		</Option>
+	</MachineOptions>
+</Root>

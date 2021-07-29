@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><DUT Name="E_NCI_CTRL_STATE" Id="{cd24522b-fe93-4ce8-b6f5-4199c10fb83c}"><Declaration><![CDATA[TYPE E_NCI_CTRL_STATE :
+(
+	eNCI_Idle,
+	eNCI_PreCycle,
+	eNCI_BuildGroup,
+	eNCI_ResetGroup,
+	eNCI_ResetWait,
+	eNCI_LoadProgram,
+	eNCI_LoadWait,
+	eNCI_StartGroup,
+	eNCI_WaitMFunc,
+	eNCI_Error,
+	eNCI_ClearGroup,
+	eNCI_ResetAxes,
+	eNCI_PostCycle
+);
+END_TYPE
+]]></Declaration><ObjectProperties /></DUT></TcPlcObject>

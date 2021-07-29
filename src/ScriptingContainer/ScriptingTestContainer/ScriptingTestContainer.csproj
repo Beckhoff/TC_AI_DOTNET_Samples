@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<BaseOutputPath>..\Binaries\ScriptingContainerBins\</BaseOutputPath>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Company>Beckhoff Automation GmbH &amp; Co KG</Company>
+		<Copyright>Beckhoff Automation GmbH &amp; Co KG 2022</Copyright>
+		<Description>For TwinCAT XAE Base TypeLibrary Version 3.1</Description>
+		<AssemblyVersion>3.1.0.0</AssemblyVersion>
+		<FileVersion>3.1.0.0</FileVersion>
+		<OutputType>WinExe</OutputType>
+		<UseWPF>true</UseWPF>
+		<StartupObject>ScriptingTest.App</StartupObject>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include=".\Templates\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Templates" />
+		<None Include=".\TComModules\**" CopyToOutputDirectory="PreserveNewest" LinkBase="TComModules" />
+	</ItemGroup>
+	<!--<ItemGroup>
+		<None Remove="MainWindow.xaml" />
+		<None Remove="TComModules\ReadMe.txt" />
+		<None Remove="Templates\PlcArchive1.tpzip" />
+		<None Remove="Templates\PlcAxisTemplate.tpzip" />
+		<None Remove="Templates\PouProgramCFC.xml" />
+		<None Remove="Templates\PouProgramFbd.xml" />
+		<None Remove="Templates\PouProgramIL.xml" />
+		<None Remove="Templates\PouProgramLd.xml" />
+		<None Remove="Templates\PouProgramSfc.xml" />
+		<None Remove="Templates\PouProgramSt.xml" />
+		<None Remove="Templates\Tc2_AiSampleLib.library" />
+	</ItemGroup>-->
+	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ScriptingTestContainerBase\ScriptingTestContainerBase.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="PresentationCore" />
+		<Reference Include="PresentationFramework" />
+		<Reference Include="System.Xaml" />
+		<Reference Include="WindowsBase" />
+	</ItemGroup>
+</Project>

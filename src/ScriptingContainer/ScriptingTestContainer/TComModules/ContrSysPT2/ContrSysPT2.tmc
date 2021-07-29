@@ -1,0 +1,1161 @@
+<?xml version="1.0"?>
+<TcModuleClass xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" GeneratedBy="TwinCAT Target For Simulink" xsi:noNamespaceSchemaLocation="TcModuleClass.xsd">
+  <Vendor>
+    <Name>Custom Modules</Name>
+  </Vendor>
+  <DataTypes>
+    <DataType>
+      <Name GUID="{E8C74883-A6C7-461C-AF16-40F211A1E7DB}">TctExtModeParametersType</Name>
+      <BitSize>192</BitSize>
+      <SubItem>
+        <Name>ConnectionTimeout</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>InitIncomingPktBufferSize</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>InitOutgoingPktBufferSize</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>96</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Activated</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>AllowExecutionCommands</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>136</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>WaitForStartCommand</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>144</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>AllowParameterChange</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>152</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Name>
+      <BitSize>128</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>4</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{8BC463A9-E925-4FEC-834E-78E6427D260D}">TctExtModeServerVersionType</Name>
+      <BitSize>128</BitSize>
+      <SubItem>
+        <Name>TcTargetVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{FAB91EB8-90F2-411F-980B-E32C12715544}">TctExtModeServerStatusType</Name>
+      <BitSize>192</BitSize>
+      <SubItem>
+        <Name>IncomingPktBufferSize</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>IncomingPktBufferUsed</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>32</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>OutgoingPktBufferSize</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>OutgoingPktBufferUsed</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>96</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>ProcessingBufferSize</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Connected</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>160</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Timeout</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>168</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{C6D0FB79-6108-4D0E-B97B-193031B12AD6}">TctModelCheckSumType</Name>
+      <BitSize>128</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>4</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{68565675-1950-4C4C-9C5A-E3A8968A2802}">TctModuleInfoType</Name>
+      <BitSize>1056</BitSize>
+      <SubItem>
+        <Name>ClassId</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000024}">CLSID</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>BuildTimeStamp</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000004D}">DATE_AND_TIME</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>ModelCheckSum</Name>
+        <Type GUID="{C6D0FB79-6108-4D0E-B97B-193031B12AD6}">TctModelCheckSumType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>160</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TwinCatVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>288</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TcTargetVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>416</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>MatlabVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>544</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>SimulinkVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>672</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>CoderVersion</Name>
+        <Type GUID="{AE62C532-7D57-4C8A-B241-8440614F0C4E}">TctVersionArrayType</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>800</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TcTargetLicenseId</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000021}">GUID</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>928</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{6719AAA2-5EAE-471D-ADEF-B0F177D15642}">TctModuleBuildInfoType</Name>
+      <BitSize>8</BitSize>
+      <SubItem>
+        <Name>Debug</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{6751D0EC-2C9A-4D4E-BD02-453C5F77CE0E}">TctContextInfoType</Name>
+      <BitSize>224</BitSize>
+      <SubItem>
+        <Name>TaskOid</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000F}">OTCID</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TaskPriority</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>32</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TaskCycleTimeNs</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TaskPort</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>96</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TaskSortOrder</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Cpu</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>160</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>SimulinkTid</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>192</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{54633640-00DB-41AA-816D-36D72F9BF1AD}">TctExecutionTimes</Name>
+      <BitSize>128</BitSize>
+      <SubItem>
+        <Name>CpuTime</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>TotalTime</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{55E94A74-2C62-499D-93D9-B9F45BC9CE2E}">TctModuleContextExecutionInfo</Name>
+      <BitSize>256</BitSize>
+      <SubItem>
+        <Name>CycleUpdate</Name>
+        <Type GUID="{54633640-00DB-41AA-816D-36D72F9BF1AD}">TctExecutionTimes</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>PostCyclicUpdate</Name>
+        <Type GUID="{54633640-00DB-41AA-816D-36D72F9BF1AD}">TctExecutionTimes</Type>
+        <BitSize>128</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{3C65B661-2393-4160-81A2-64973603777D}">TctModuleCallByType</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+      <EnumInfo>
+        <Text>Task</Text>
+        <Enum>0</Enum>
+        <Comment>Add to the specified cyclic callers.</Comment>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>Module</Text>
+        <Enum>1</Enum>
+        <Comment>Don't add to cyclic callers. The module can be called from other TwinCAT modules (e. g. a PLC).</Comment>
+      </EnumInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{E04CF4BC-B951-4433-A72E-9E3429B8BAA2}">TctStepSizeType</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+      <EnumInfo>
+        <Text>RequireMatchingTaskCycleTime</Text>
+        <Enum>0</Enum>
+        <Comment>Don't accept task cycle times other than the Simulink step sizes.</Comment>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>UseTaskCycleTime</Text>
+        <Enum>1</Enum>
+        <Comment>Adapt the Smulink step sizes to the task cycle times.</Comment>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>UseModelStepSize</Text>
+        <Enum>2</Enum>
+        <Comment>Keep the Smulink step sizes, independent of the callers cycle time.</Comment>
+      </EnumInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{F283B6A3-FCB4-4228-84CD-F59E0DCC841F}">TctModuleExecutionSequenceType</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+      <EnumInfo>
+        <Text>IoAtTaskBegin</Text>
+        <Enum>0</Enum>
+        <Comment>Input mapping -&gt; Output mapping -&gt; State update -&gt; Output update -&gt; External mode processing -&gt; ADS access</Comment>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>StateUpdateAfterOutputMapping</Text>
+        <Enum>1</Enum>
+        <Comment>Input mapping -&gt; Output update -&gt; Output mapping -&gt; State update -&gt; External mode processing -&gt; ADS access</Comment>
+      </EnumInfo>
+      <EnumInfo>
+        <Text>StateUpdateBeforeOutputUpdate</Text>
+        <Enum>2</Enum>
+        <Comment>Input mapping -&gt; State update -&gt; Output update -&gt; Output mapping -&gt; External mode processing -&gt; ADS access</Comment>
+      </EnumInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{CC236455-1CDA-4B6A-88D3-607A48C7CA31}">creal_T</Name>
+      <BitSize>128</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{F34A3399-6AB0-4FE6-BE31-AF21F45E4E93}">creal32_T</Name>
+      <BitSize>64</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000D}">REAL</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>32</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{1175D874-9391-4BC5-8C4A-D2F14B32861F}">cuint8_T</Name>
+      <BitSize>16</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000002}">USINT</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>8</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{CACCD33F-C1F8-4DD6-BD2F-02FA6F0729CB}">cint8_T</Name>
+      <BitSize>16</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000003}">SINT</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000003}">SINT</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>8</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{8DABD73E-9719-4B11-A6E2-14348B79ACD4}">cuint16_T</Name>
+      <BitSize>32</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000005}">UINT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>16</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{5523C5C7-347C-4A54-BBC7-5836C2916AC5}">cint16_T</Name>
+      <BitSize>32</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000006}">INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000006}">INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>16</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{C52699DC-E632-4282-AD33-4CA546EC0076}">cuint32_T</Name>
+      <BitSize>64</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000008}">UDINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>32</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{D1B0B688-E7BC-4A4E-93D8-B2474D61655F}">cint32_T</Name>
+      <BitSize>64</BitSize>
+      <SubItem>
+        <Name>re</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>im</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000009}">DINT</Type>
+        <BitSize>32</BitSize>
+        <BitOffs>32</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{af76e635-dad1-4d49-9703-9ba5b39e9853}">int_T</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{3891ba80-4cf6-4dd3-86e0-b37a71f0d42c}">pointer_1x1_void</Name>
+      <BitSize>0</BitSize>
+      <BaseType />
+    </DataType>
+    <DataType>
+      <Name GUID="{07c7745b-dce9-4e2b-b36e-bd5ad519edd1}">timer_uint32_pair</Name>
+      <BitSize>64</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000007}">DWORD</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>2</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{04f71aed-c276-405f-bc91-ea6dde236bf7}">ZCEventType</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+    </DataType>
+    <DataType>
+      <Name GUID="{00557fa7-872a-404e-9ff6-1b4cd5ef2716}">ZCDirection</Name>
+      <BitSize>32</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-000000000009}">DINT</BaseType>
+    </DataType>
+    <DataType>
+      <Name GUID="{92f47740-1293-4b9a-bbfd-13ad637ee6ce}">ExtU_ContrSysPT2_T</Name>
+      <BitSize>16</BitSize>
+      <SubItem>
+        <Name>Heat_On</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Cooler_On</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>8</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{e0c161bb-c2dc-41aa-bbdf-ec7dce347fdc}">ExtY_ContrSysPT2_T</Name>
+      <BitSize>16</BitSize>
+      <SubItem>
+        <Name>Temp</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000006}">INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{5c9271cf-4dc7-4330-b96c-f46f6389b86d}">B_ContrSysPT2_T</Name>
+      <BitSize>576</BitSize>
+      <SubItem>
+        <Name>theta_2</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>theta_1</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Sum</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Sum3</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>192</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Divide</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>256</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Product1</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>320</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Sum1</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>384</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Pel</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>448</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Conv3</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000006}">INT</Type>
+        <BitSize>16</BitSize>
+        <BitOffs>512</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{5d9656e9-072b-4806-88e8-12c318cdd1f9}">ConstB_ContrSysPT2_T</Name>
+      <BitSize>64</BitSize>
+      <SubItem>
+        <Name>SliderGain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{51304517-f50e-4fd4-b9d8-5f11b446c210}">DW_ContrSysPT2_T</Name>
+      <BitSize>0</BitSize>
+    </DataType>
+    <DataType>
+      <Name GUID="{50d6c407-b869-4d1e-b780-d6f4cccc2261}">ConstP_ContrSysPT2_T</Name>
+      <BitSize>704</BitSize>
+      <SubItem>
+        <Name>Integrator2_IC</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>C_2_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>sensor_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>128</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Integrator1_IC</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>192</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>C_1_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>256</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>heatflowcooler_on_Value</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>320</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>heatflowcooler_off_Value</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>384</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Gain1_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>448</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>const_Value</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>512</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>SliderGain_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>576</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>maxpowerW_Gain</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>640</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{5e52c508-8b33-408d-8cbe-74a62551685d}">X_ContrSysPT2_T</Name>
+      <BitSize>128</BitSize>
+      <SubItem>
+        <Name>Integrator2_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Integrator1_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{d9943f43-595f-4670-8aa8-b004ceb81941}">XDis_ContrSysPT2_T</Name>
+      <BitSize>16</BitSize>
+      <SubItem>
+        <Name>Integrator2_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Integrator1_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-000000000030}">BOOL</Type>
+        <BitSize>8</BitSize>
+        <BitOffs>8</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{e4e9a641-06c3-4e65-808b-ff2c9c11f1d5}">XDot_ContrSysPT2_T</Name>
+      <BitSize>128</BitSize>
+      <SubItem>
+        <Name>Integrator2_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>0</BitOffs>
+      </SubItem>
+      <SubItem>
+        <Name>Integrator1_CSTATE</Name>
+        <Type GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</Type>
+        <BitSize>64</BitSize>
+        <BitOffs>64</BitOffs>
+      </SubItem>
+    </DataType>
+    <DataType>
+      <Name GUID="{36c7f32c-d50c-4a7e-9ebb-713d4c31cb1c}">matrix_1x1_real_T</Name>
+      <BitSize>64</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{52f7bd94-259c-4d28-84bd-70ef1f4d24f1}">matrix_1_real_T</Name>
+      <BitSize>64</BitSize>
+      <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{ec7fbb3f-b664-4e52-8976-56fad708d18c}">ContrSysPT2ExecutionInfoArrType</Name>
+      <BitSize>256</BitSize>
+      <BaseType GUID="{55E94A74-2C62-499D-93D9-B9F45BC9CE2E}">TctModuleContextExecutionInfo</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+    </DataType>
+    <DataType>
+      <Name GUID="{bf671e40-6a60-4566-873c-bb69450a6ab9}">ContextInfoArr_ContrSysPT2</Name>
+      <BitSize>224</BitSize>
+      <BaseType GUID="{6751D0EC-2C9A-4D4E-BD02-453C5F77CE0E}">TctContextInfoType</BaseType>
+      <ArrayInfo>
+        <LBound>0</LBound>
+        <Elements>1</Elements>
+      </ArrayInfo>
+    </DataType>
+  </DataTypes>
+  <Groups>
+    <Group SortOrder="101">
+      <Name>TcTargetForSimulink</Name>
+      <DisplayName>Simulink generated modules</DisplayName>
+      <ImageData>424D3603000000000000360000002800000010000000100000000100180000000000000300000000000000000000000000000000000023542C32784C31784B3077493076482F75462E74442D72422C71402B703E2A6E3C296C3A286B372769352667331D4A1E337B4F3D94833C93803A917D398F7A378D76358A7233886F31856A2F81662D7E612B7B5D29775827735424704F266733357D5340998A3F98873D97843C95813A927D389079368D75348A7032876C3083672D7F622B7C5D297859277454276935378056439E913C8F712E66232E66232E66232E66232E66232E66232E66232E66232E66232E66233D7C50297759286B3838835946A5982E6623419D8D409B893E98863C96823A927D388F78358C7333876F31836A2E7C622E6623468B6F296C3A3A855B4CAA9E2E66234BA99B397E4F57AD9C42A08D409D883C99833A957D389178368D7333886D2E6623478C702A6E3C4289605EB5AA2E662360B7AC2B6421326A29519D7F43A390409E893D9A833B967E389078358C732E6623488F732B703F4A8F6670BFB52E662373C3B82C65225EA997326C36407E4953A996409E893D99833A947E378F782E66234A91782C724153936B81C9C02E662385CCC42D65237CC8BE70C1B5488A6E31682A539B7C409D893D98833A937D2E66234B947B2D73435B987092D2C92E662397D6CE2E66238CD1C980CBC172C2B659A79A3473453977404FA28E3C96812E66234D967F2E7445629B74A2D9D22E6623A8DED72E65229AD9D18DD1C97EC9BF6DBEB25AB2A43D8D702A612A4D92712E66234E98822F7647699E77B1DFD92E6623BCE6E02D6520ABDFD89BD7D08ACFC67BC5BC68BAAE55AD9F49A2923977532E66234B98833077496EA079BDE4DF87AA942E66232E66232E66232E66232E66232E66232E66232E66232E66232E662332794F3C928031784B6FA07AC2E6E1D3EDEAD2EDE9C2E7E2B1E0D9A0D8D08DCFC77BC5BB69BAB056AFA446A497439F91409A8A3D948332784C6D9F79BDE3DEC9E8E4C8E8E4BDE3DEADDDD79DD5CE8BCDC57AC3BA67B9AE54AEA247A59945A093419B8C3E958633794E3E66416F9F7973A27C73A27C6FA07A689D76609A7258956E4F9169468B633D865D388259378157367E54347B5123542D</ImageData>
+    </Group>
+  </Groups>
+  <Modules>
+    <Module GUID="{acd3c8a0-d974-4eb0-91e6-a4a0eb4db128}" Select="false" Group="TcTargetForSimulink">
+      <Name>ContrSysPT2</Name>
+      <CLSID ClassFactory="ContrSysPT2">{acd3c8a0-d974-4eb0-91e6-a4a0eb4db128}</CLSID>
+      <Info>
+        <ImageData>424D3603000000000000360000002800000010000000100000000100180000000000000300000000000000000000000000000000000023542C32784C31784B3077493076482F75462E74442D72422C71402B703E2A6E3C296C3A286B372769352667331D4A1E337B4F3D94833C93803A917D398F7A378D76358A7233886F31856A2F81662D7E612B7B5D29775827735424704F266733357D5340998A3F98873D97843C95813A927D389079368D75348A7032876C3083672D7F622B7C5D297859277454276935378056439E913C8F712E66232E66232E66232E66232E66232E66232E66232E66232E66232E66233D7C50297759286B3838835946A5982E6623419D8D409B893E98863C96823A927D388F78358C7333876F31836A2E7C622E6623468B6F296C3A3A855B4CAA9E2E66234BA99B397E4F57AD9C42A08D409D883C99833A957D389178368D7333886D2E6623478C702A6E3C4289605EB5AA2E662360B7AC2B6421326A29519D7F43A390409E893D9A833B967E389078358C732E6623488F732B703F4A8F6670BFB52E662373C3B82C65225EA997326C36407E4953A996409E893D99833A947E378F782E66234A91782C724153936B81C9C02E662385CCC42D65237CC8BE70C1B5488A6E31682A539B7C409D893D98833A937D2E66234B947B2D73435B987092D2C92E662397D6CE2E66238CD1C980CBC172C2B659A79A3473453977404FA28E3C96812E66234D967F2E7445629B74A2D9D22E6623A8DED72E65229AD9D18DD1C97EC9BF6DBEB25AB2A43D8D702A612A4D92712E66234E98822F7647699E77B1DFD92E6623BCE6E02D6520ABDFD89BD7D08ACFC67BC5BC68BAAE55AD9F49A2923977532E66234B98833077496EA079BDE4DF87AA942E66232E66232E66232E66232E66232E66232E66232E66232E66232E662332794F3C928031784B6FA07AC2E6E1D3EDEAD2EDE9C2E7E2B1E0D9A0D8D08DCFC77BC5BB69BAB056AFA446A497439F91409A8A3D948332784C6D9F79BDE3DEC9E8E4C8E8E4BDE3DEADDDD79DD5CE8BCDC57AC3BA67B9AE54AEA247A59945A093419B8C3E958633794E3E66416F9F7973A27C73A27C6FA07A689D76609A7258956E4F9169468B633D865D388259378157367E54347B5123542D</ImageData>
+        <TabExtension GUID="{BB6DDFDC-900F-473F-83FC-D83513217B55}" />
+      </Info>
+      <Licenses>
+        <License>
+          <LicenseId>{AD7F40C3-F160-4413-83E3-6B7656A795A2}</LicenseId>
+        </License>
+      </Licenses>
+      <InitSequence>PSO</InitSequence>
+      <Contexts>
+        <Context>
+          <Id>0</Id>
+          <Priority>5</Priority>
+          <CycleTime>5000000</CycleTime>
+          <DependOn>ManualConfig</DependOn>
+        </Context>
+      </Contexts>
+      <Interfaces>
+        <Interface>
+          <Type GUID="{03000010-0000-0000-e000-000000000064}">ITcCyclic</Type>
+        </Interface>
+        <Interface>
+          <Type GUID="{03000025-0000-0000-e000-000000000064}">ITcPostCyclic</Type>
+        </Interface>
+        <Interface>
+          <Type GUID="{03000012-0000-0000-e000-000000000064}">ITcADI</Type>
+        </Interface>
+        <Interface>
+          <Type GUID="{03000018-0000-0000-e000-000000000064}">ITcWatchSource</Type>
+        </Interface>
+      </Interfaces>
+      <Parameters>
+        <Parameter>
+          <Name>Input</Name>
+          <BaseType GUID="{92f47740-1293-4b9a-bbfd-13ad637ee6ce}">ExtU_ContrSysPT2_T</BaseType>
+          <PTCID>#x80000000</PTCID>
+        </Parameter>
+        <Parameter CreateSymbol="1">
+          <Name>CallBy</Name>
+          <BaseType GUID="{3C65B661-2393-4160-81A2-64973603777D}">TctModuleCallByType</BaseType>
+          <Default>
+            <EnumText>Task</EnumText>
+          </Default>
+          <PTCID>#xa8000000</PTCID>
+        </Parameter>
+        <Parameter CreateSymbol="1">
+          <Name>ExecutionSequence</Name>
+          <BaseType GUID="{F283B6A3-FCB4-4228-84CD-F59E0DCC841F}">TctModuleExecutionSequenceType</BaseType>
+          <Default>
+            <EnumText>StateUpdateAfterOutputMapping</EnumText>
+          </Default>
+          <PTCID>#xa9000000</PTCID>
+        </Parameter>
+        <Parameter CreateSymbol="1">
+          <Name>StepSize</Name>
+          <BaseType GUID="{E04CF4BC-B951-4433-A72E-9E3429B8BAA2}">TctStepSizeType</BaseType>
+          <Default>
+            <EnumText>UseTaskCycleTime</EnumText>
+          </Default>
+          <PTCID>#xaa000000</PTCID>
+        </Parameter>
+        <Parameter OnlineParameter="1" CreateSymbol="1" ReadOnly="1">
+          <Name>ModuleExecutionInfo</Name>
+          <BaseType GUID="{ec7fbb3f-b664-4e52-8976-56fad708d18c}">ContrSysPT2ExecutionInfoArrType</BaseType>
+          <PTCID>#xab000000</PTCID>
+        </Parameter>
+        <Parameter OnlineParameter="1" ReadOnly="1">
+          <Name>ExtModeServerVersion</Name>
+          <BaseType GUID="{8BC463A9-E925-4FEC-834E-78E6427D260D}">TctExtModeServerVersionType</BaseType>
+          <PTCID>#xbf001000</PTCID>
+        </Parameter>
+        <Parameter OnlineParameter="1" ReadOnly="1">
+          <Name>ExtModeStatus</Name>
+          <BaseType GUID="{FAB91EB8-90F2-411F-980B-E32C12715544}">TctExtModeServerStatusType</BaseType>
+          <PTCID>#xbf003000</PTCID>
+        </Parameter>
+        <Parameter CreateSymbol="1">
+          <Name>ExtModeParameters</Name>
+          <BaseType GUID="{E8C74883-A6C7-461C-AF16-40F211A1E7DB}">TctExtModeParametersType</BaseType>
+          <Default>
+            <SubItem>
+              <Name>.ConnectionTimeout</Name>
+              <Value>3.000000e+00</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.InitIncomingPktBufferSize</Name>
+              <Value>#x2710</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.InitOutgoingPktBufferSize</Name>
+              <Value>#x2710</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.Activated</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.AllowExecutionCommands</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.AllowParameterChange</Name>
+              <Value>#x1</Value>
+            </SubItem>
+          </Default>
+          <PTCID>#xbf002000</PTCID>
+        </Parameter>
+        <Parameter OnlineParameter="1" CreateSymbol="1" ReadOnly="1">
+          <Name>ModuleInfo</Name>
+          <BaseType GUID="{68565675-1950-4C4C-9C5A-E3A8968A2802}">TctModuleInfoType</BaseType>
+          <Default>
+            <SubItem>
+              <Name>.ClassId</Name>
+              <GUID>{acd3c8a0-d974-4eb0-91e6-a4a0eb4db128}</GUID>
+            </SubItem>
+            <SubItem>
+              <Name>.BuildTimeStamp</Name>
+              <Value>#x524985da</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.ModelCheckSum[0]</Name>
+              <Value>#xf1c3e5ed</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.ModelCheckSum[1]</Name>
+              <Value>#x2f786549</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.ModelCheckSum[2]</Name>
+              <Value>#xad57c0d4</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TwinCatVersion[0]</Name>
+              <Value>#x3</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TwinCatVersion[1]</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TwinCatVersion[2]</Name>
+              <Value>#xfab</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TcTargetVersion[0]</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TcTargetVersion[1]</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TcTargetVersion[2]</Name>
+              <Value>#x451</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.MatlabVersion[0]</Name>
+              <Value>#x8</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.MatlabVersion[1]</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.SimulinkVersion[0]</Name>
+              <Value>#x8</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.SimulinkVersion[1]</Name>
+              <Value>#x1</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.CoderVersion[0]</Name>
+              <Value>#x8</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.CoderVersion[1]</Name>
+              <Value>#x4</Value>
+            </SubItem>
+            <SubItem>
+              <Name>.TcTargetLicenseId</Name>
+              <GUID>{73c71ebd-104a-4ee6-955d-ade86a37efc3}</GUID>
+            </SubItem>
+          </Default>
+          <PTCID>#xac000000</PTCID>
+        </Parameter>
+        <Parameter OnlineParameter="1" CreateSymbol="1" ReadOnly="1">
+          <Name>ModuleBuildInfo</Name>
+          <BaseType GUID="{6719AAA2-5EAE-471D-ADEF-B0F177D15642}">TctModuleBuildInfoType</BaseType>
+          <PTCID>#xad000000</PTCID>
+        </Parameter>
+        <Parameter>
+          <Name>ContextInfoArr[0].TaskOid</Name>
+          <BaseType GUID="{18071995-0000-0000-0000-00000000000F}">OTCID</BaseType>
+          <Default>
+            <Value>#x0</Value>
+          </Default>
+          <PTCID>#x3002060</PTCID>
+        </Parameter>
+        <Parameter>
+          <Name>ContextInfoArr[0].TaskPriority</Name>
+          <BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+          <Default>
+            <Value>#x0</Value>
+          </Default>
+          <PTCID>#x3002070</PTCID>
+        </Parameter>
+        <Parameter>
+          <Name>ContextInfoArr[0].TaskCycleTimeNs</Name>
+          <BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+          <Default>
+            <Value>#x0</Value>
+          </Default>
+          <PTCID>#x3002080</PTCID>
+        </Parameter>
+        <Parameter>
+          <Name>ContextInfoArr[0].TaskPort</Name>
+          <BaseType GUID="{18071995-0000-0000-0000-000000000005}">UINT</BaseType>
+          <Default>
+            <Value>#x0</Value>
+          </Default>
+          <PTCID>#x3002090</PTCID>
+        </Parameter>
+        <Parameter>
+          <Name>ContextInfoArr[0].TaskSortOrder</Name>
+          <BaseType GUID="{18071995-0000-0000-0000-000000000008}">UDINT</BaseType>
+          <Default>
+            <Value>#x0</Value>
+          </Default>
+          <PTCID>#x30020b0</PTCID>
+        </Parameter>
+      </Parameters>
+      <DataAreas>
+        <DataArea>
+          <AreaNo AreaType="InputDst" CreateSymbols="1" CreateDataType="ExtU_ContrSysPT2_T">0</AreaNo>
+          <Name>Input</Name>
+          <ContextId>0</ContextId>
+          <Symbol CreateSymbol="0">
+            <Name>Heat_On</Name>
+            <BitSize>8</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+            <PTCID>#x80000000</PTCID>
+            <BitOffs>0</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Cooler_On</Name>
+            <BitSize>8</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-000000000030}">BOOL</BaseType>
+            <PTCID>#x80000001</PTCID>
+            <BitOffs>8</BitOffs>
+          </Symbol>
+        </DataArea>
+        <DataArea>
+          <AreaNo AreaType="OutputSrc" CreateSymbols="1" CreateDataType="ExtY_ContrSysPT2_T">1</AreaNo>
+          <Name>Output</Name>
+          <ContextId>0</ContextId>
+          <Symbol CreateSymbol="0">
+            <Name>Temp</Name>
+            <BitSize>16</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
+            <PTCID>#x81000000</PTCID>
+            <BitOffs>0</BitOffs>
+          </Symbol>
+        </DataArea>
+        <DataArea>
+          <AreaNo AreaType="Internal" CreateSymbols="1" CreateDataType="B_ContrSysPT2_T">21</AreaNo>
+          <Name>BlockIO</Name>
+          <ContextId>0</ContextId>
+          <Symbol CreateSymbol="0">
+            <Name>theta_2</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000000</PTCID>
+            <BitOffs>0</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>theta_1</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000008</PTCID>
+            <BitOffs>64</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Sum</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000010</PTCID>
+            <BitOffs>128</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Sum3</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000018</PTCID>
+            <BitOffs>192</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Divide</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000020</PTCID>
+            <BitOffs>256</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Product1</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000028</PTCID>
+            <BitOffs>320</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Sum1</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000030</PTCID>
+            <BitOffs>384</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Pel</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x95000038</PTCID>
+            <BitOffs>448</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Conv3</Name>
+            <BitSize>16</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-000000000006}">INT</BaseType>
+            <PTCID>#x95000040</PTCID>
+            <BitOffs>512</BitOffs>
+          </Symbol>
+        </DataArea>
+        <DataArea>
+          <AreaNo AreaType="Internal" CreateSymbols="1" CreateDataType="X_ContrSysPT2_T">22</AreaNo>
+          <Name>ContState</Name>
+          <ContextId>0</ContextId>
+          <Symbol CreateSymbol="0">
+            <Name>Integrator2_CSTATE</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x96000000</PTCID>
+            <BitOffs>0</BitOffs>
+          </Symbol>
+          <Symbol CreateSymbol="0">
+            <Name>Integrator1_CSTATE</Name>
+            <BitSize>64</BitSize>
+            <BaseType GUID="{18071995-0000-0000-0000-00000000000E}">LREAL</BaseType>
+            <PTCID>#x96000008</PTCID>
+            <BitOffs>64</BitOffs>
+          </Symbol>
+        </DataArea>
+      </DataAreas>
+      <Deployment>
+        <FileEntry TargetPlatform="TwinCAT RT (x86)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT RT (x86)\%CLASSFACTORYNAME%.sys</SourceFile>
+          <DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.sys</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT RT (x86)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT RT (x86)\%CLASSFACTORYNAME%.pdb</SourceFile>
+          <DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.pdb</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT UM (x86)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT UM (x86)\%CLASSFACTORYNAME%W32.dll</SourceFile>
+          <DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%W32.dll</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT UM (x86)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT UM (x86)\%CLASSFACTORYNAME%W32.pdb</SourceFile>
+          <DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%W32.pdb</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT RT (x64)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT RT (x64)\%CLASSFACTORYNAME%.sys</SourceFile>
+          <DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.sys</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT RT (x64)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT RT (x64)\%CLASSFACTORYNAME%.pdb</SourceFile>
+          <DestinationFile>%TC_DRIVERAUTOINSTALLPATH%%CLASSFACTORYNAME%.pdb</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT UM (x64)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT UM (x64)\%CLASSFACTORYNAME%W32.dll</SourceFile>
+          <DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%W32.dll</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="TwinCAT UM (x64)">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\TwinCAT UM (x64)\%CLASSFACTORYNAME%W32.pdb</SourceFile>
+          <DestinationFile>%TC_SYSSRVEXEPATH%%CLASSFACTORYNAME%W32.pdb</DestinationFile>
+        </FileEntry>
+        <FileEntry TargetPlatform="">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\\ContrSysPT2_PlcOpenPOUs.xml</SourceFile>
+          <DestinationFile />
+        </FileEntry>
+        <FileEntry TargetPlatform="">
+          <SourceFile>%TWINCAT3DIR%CustomConfig\Modules\%CLASSFACTORYNAME%\\ContrSysPT2_ModuleInfo.xml</SourceFile>
+          <DestinationFile />
+        </FileEntry>
+      </Deployment>
+      <Xml>
+        <GeneratedModuleInfoFile>ContrSysPT2_ModuleInfo.xml</GeneratedModuleInfoFile>
+      </Xml>
+    </Module>
+  </Modules>
+</TcModuleClass>

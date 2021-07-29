@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+	    <BaseOutputPath>..\Binaries\CodeGenerationBins\</BaseOutputPath>
+	    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+	    <Company>Beckhoff Automation GmbH &amp; Co KG</Company>
+	    <Copyright>Beckhoff Automation GmbH &amp; Co KG 2022</Copyright>
+		<Description>For TwinCAT XAE Base TypeLibrary Version 3.1</Description>
+	    <AssemblyVersion>3.1.0.0</AssemblyVersion>
+	    <FileVersion>3.1.0.0</FileVersion>
+	    <OutputType>WinExe</OutputType>
+	    <UseWPF>true</UseWPF>
+	    <StartupObject>CodeGenerationDemo.App</StartupObject>
+    </PropertyGroup>
+    <ItemGroup>
+	    <PackageReference Include="Microsoft.VisualStudio.Interop" Version="17.2.32505.113" />
+		<COMReference Include="TCatSysManagerLib">
+			<Guid>{3C49D6C3-93DC-11D0-B162-00A0248C244B}</Guid>
+			<VersionMajor>3</VersionMajor>
+			<VersionMinor>1</VersionMinor>
+			<Lcid>0</Lcid>
+			<WrapperTool>primary</WrapperTool>
+			<Isolated>False</Isolated>
+			<EmbedInteropTypes>False</EmbedInteropTypes>
+		</COMReference>
+	    <ProjectReference Include="..\ScriptingTestContainerBase\ScriptingTestContainerBase.csproj" />
+	    <Reference Include="PresentationCore" />
+	    <Reference Include="PresentationFramework" />
+	    <Reference Include="System.Xaml" />
+	    <Reference Include="WindowsBase" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Update="Orders.xml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+	  <None Include=".\Templates\**" CopyToOutputDirectory="PreserveNewest" LinkBase="Templates" />
+	</ItemGroup>
+</Project>

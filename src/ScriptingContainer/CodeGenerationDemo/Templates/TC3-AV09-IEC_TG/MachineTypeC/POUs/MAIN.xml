@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?><TcPlcObject Version="1.0.0.0"><POU Name="MAIN" Id="{954e6140-1ba6-459e-995a-b156d4531633}"><Declaration><![CDATA[PROGRAM MAIN
+VAR
+	//instances of axes FBs (of type FB_NcAxes or derived from FB_NcAxis, like AX5000, Servo Termins, Stepper, DC, ...)
+	fbAX5000Axis1	: FB_AX5000Axis;
+	fbAX5000Axis2	: FB_AX5000Axis;
+	fbNcAxis		: FB_NcAxis;
+		
+	//interface pointers
+	ipAxisX			: IAxis;
+	ipAxisY			: IAxis;
+	ipAxisZ			: IAxis;
+
+	//NC axes references
+	stAxisX			: AXIS_REF;
+	stAxisY			: AXIS_REF;
+	stAxisZ			: AXIS_REF;
+
+	//device
+	fbTable			: FB_Table;
+	bExecute		: BOOL;
+	
+	Timer			: TON := (PT := T#3s);
+END_VAR
+]]></Declaration><Implementation><ST><![CDATA[//assign axes instances to the interface pointers
+ipAxisX 		:= fbAX5000Axis1;
+ipAxisY 		:= fbAX5000Axis2;
+ipAxisZ			:= fbNcAxis;
+
+//call axes with their axes references
+fbAX5000Axis1(sAxis	:= stAxisX);
+fbAX5000Axis2(sAxis	:= stAxisY);
+fbNcAxis(sAxis	:= stAxisZ);
+
+Timer(IN := TRUE);
+IF Timer.Q THEN
+	Timer(IN := FALSE);
+	bExecute := TRUE;
+END_IF
+
+//call device that uses axes via interface, therefore the axis type does not matter anymore
+fbTable(
+	fbServoAxisX := ipAxisX,
+	fbServoAxisY := ipAxisY,
+	fbServoAxisZ := ipAxisZ,
+	bExecute	 := bExecute
+);
+
+bExecute := FALSE;
+]]></ST></Implementation><ObjectProperties /></POU></TcPlcObject>

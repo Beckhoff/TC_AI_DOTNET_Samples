@@ -1,0 +1,8 @@
+﻿<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.0.20">
+  <GVL Name="GVL_Constants" Id="{6e42f600-0ae2-4a4a-92b0-397b05e52f1a}">
+    <Declaration><![CDATA[VAR_GLOBAL CONSTANT
+	cOversamples : UDINT := 10;	
+END_VAR]]></Declaration>
+    <ObjectProperties />
+  </GVL>
+</TcPlcObject>
