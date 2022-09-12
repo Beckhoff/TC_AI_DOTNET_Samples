@@ -1,6 +1,6 @@
 BSD Zero Clause License
 
-Copyright (c) 2021 Beckhoff Automation GmbH & Co. KG
+Copyright (c) 2022 Beckhoff Automation GmbH & Co. KG
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted.
